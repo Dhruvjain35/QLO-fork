@@ -319,18 +319,26 @@ def test_b3_populations_regenerate_exactly():
 
 
 def test_historical_files_untouched_since_b1_base():
-    protected = ["STAGE2.md", "STAGE3.md", "STAGE4.md", "STAGE5.md", "STAGE6.md", "STAGE7.md", "principal",
-                 "results/stage2", "results/stage3", "results/stage4", "results/stage5", "results/stage6", "results/stage7",
-                 "results/b3_hardening", "src/qlo/stage5", "src/qlo/stage6", "src/qlo/stage7", "src/qlo/hardening"]
+    """Stage 2-7 reports, their results, B3 results and the Stage 5-7 / B3 code are byte-identical to the B1 base.
+
+    The stage reports moved to docs/stages/ (pure renames), so they are compared blob to blob. principal/ is not
+    checked: it is the principal track's living document and changes legitimately."""
+    dirs = ["results/stage2", "results/stage3", "results/stage4", "results/stage5", "results/stage6", "results/stage7",
+            "results/b3_hardening", "src/qlo/stage5", "src/qlo/stage6", "src/qlo/stage7", "src/qlo/hardening"]
     try:
-        r = subprocess.run(["git", "diff", "--quiet", BASE_COMMIT, "--", *protected], cwd=ROOT, capture_output=True)
+        r = subprocess.run(["git", "diff", "--quiet", BASE_COMMIT, "--", *dirs], cwd=ROOT, capture_output=True)
+        base_ok = subprocess.run(["git", "cat-file", "-e", f"{BASE_COMMIT}^{{commit}}"], cwd=ROOT, capture_output=True).returncode == 0
     except OSError:
         pytest.skip("git not available")
-    if r.returncode not in (0, 1):
+    if not base_ok or r.returncode not in (0, 1):
         pytest.skip("base commit not available in this clone")
     assert r.returncode == 0
+    for k in range(2, 8):
+        old = subprocess.run(["git", "rev-parse", f"{BASE_COMMIT}:STAGE{k}.md"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        new = subprocess.run(["git", "hash-object", f"docs/stages/STAGE{k}.md"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        assert old and old == new, f"STAGE{k}.md changed"
 
 
 def test_config_is_frozen_in_b1_config_md():
-    frozen = CF.config_json_from_markdown((ROOT / "B1_CONFIG.md").read_text())
+    frozen = CF.config_json_from_markdown((ROOT / "docs" / "b1" / "B1_CONFIG.md").read_text())
     assert json.loads(frozen) == json.loads(CF.B1Config().to_json())
