@@ -12,7 +12,7 @@ Phases, in order; each STOPs the run on failure:
     sign     conditional sign-law spot check
     a2       comparison with the principal A2 numerics (run last, after every B1 number has been written)
 The configuration is ``qlo.b1.config.B1Config``; the run refuses to start unless it equals the JSON block that is
-frozen in B1_CONFIG.md.
+frozen in docs/b1/B1_CONFIG.md.
 """
 
 from __future__ import annotations
@@ -41,7 +41,7 @@ from qlo.hardening import seed_replicates as SR
 
 ROOT = Path(__file__).resolve().parents[3]
 RESULTS_DIR = ROOT / "results" / "b1_entangling"
-CONFIG_MD = ROOT / "B1_CONFIG.md"
+CONFIG_MD = ROOT / "docs" / "b1" / "B1_CONFIG.md"
 B3_DIR = ROOT / "results" / "b3_hardening"
 DEFAULT_WORK = Path("/Volumes/SSD Disk  1TB/qlo-b1-work")
 B3_RANGE = {"primary": "primary_2_20", "secondary_n_ge_8": "n_ge_8"}
@@ -66,7 +66,7 @@ class Log:
 def check_frozen(cfg: CF.B1Config) -> str:
     frozen = CF.config_json_from_markdown(CONFIG_MD.read_text())
     if json.loads(frozen) != json.loads(cfg.to_json()):
-        raise Stop("STOP: B1Config differs from the JSON frozen in B1_CONFIG.md")
+        raise Stop("STOP: B1Config differs from the JSON frozen in docs/b1/B1_CONFIG.md")
     return cfg.sha256()
 
 

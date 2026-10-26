@@ -5,7 +5,7 @@
 Phases (in order; each STOPs on failure): validate (destructive SWAP + Hadamard circuits, Hadamard variance;
 Case C / D gates) -> rx (four-estimator required shots on the Stage 7 population, Stage 7 regression, replicate seeds,
 slopes) -> fixed (fixed-budget failure modes) -> spot (secondary entangling spot check) -> figures.
-The configuration is qlo.b2.config.B2Config, frozen in B2_CONFIG.md (checked at start).
+The configuration is qlo.b2.config.B2Config, frozen in docs/b2/B2_CONFIG.md (checked at start).
 """
 
 from __future__ import annotations
@@ -201,9 +201,9 @@ def main(argv=None) -> None:
     p.add_argument("--phase", choices=("validate", "rx", "fixed", "spot", "figures", "all"), default="all")
     a = p.parse_args(argv)
     cfg = CF.B2Config()
-    frozen = CF.config_json_from_markdown((ROOT / "B2_CONFIG.md").read_text())
+    frozen = CF.config_json_from_markdown((ROOT / "docs" / "b2" / "B2_CONFIG.md").read_text())
     if json.loads(frozen) != json.loads(cfg.to_json()):
-        raise Stop("STOP: B2Config differs from B2_CONFIG.md")
+        raise Stop("STOP: B2Config differs from docs/b2/B2_CONFIG.md")
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "figures").mkdir(exist_ok=True)
     (OUT / "config.json").write_text(json.dumps({**json.loads(cfg.to_json()), "config_sha256": cfg.sha256(),

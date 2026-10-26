@@ -138,7 +138,7 @@ def test_stage7_le_swap_unchanged():
 
 
 def test_committed_stage7_regression_and_config_frozen():
-    frozen = CF.config_json_from_markdown((ROOT / "B2_CONFIG.md").read_text())
+    frozen = CF.config_json_from_markdown((ROOT / "docs" / "b2" / "B2_CONFIG.md").read_text())
     assert json.loads(frozen) == json.loads(CF.B2Config().to_json())
     p = RES / "stage7_regression.csv"
     if not p.exists():

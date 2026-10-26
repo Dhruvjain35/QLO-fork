@@ -1,4 +1,4 @@
-"""Frozen B1 configuration. ``B1_CONFIG.md`` embeds ``B1Config().to_json()`` verbatim; the driver refuses to run if
+"""Frozen B1 configuration. ``docs/b1/B1_CONFIG.md`` embeds ``B1Config().to_json()`` verbatim; the driver refuses to run if
 the two differ, so the committed config document is the configuration that produced the results."""
 
 from __future__ import annotations
@@ -132,7 +132,7 @@ def audit_theta(family: str, regime: str, n: int, n_samples: int) -> np.ndarray:
 
 
 def config_json_from_markdown(text: str) -> str:
-    """The JSON block between the B1-CONFIG-JSON markers of B1_CONFIG.md."""
+    """The JSON block between the B1-CONFIG-JSON markers of docs/b1/B1_CONFIG.md."""
     start, end = "<!-- B1-CONFIG-JSON-BEGIN -->", "<!-- B1-CONFIG-JSON-END -->"
     body = text.split(start, 1)[1].split(end, 1)[0]
     return body.strip().removeprefix("```json").removesuffix("```").strip()

@@ -1,4 +1,4 @@
-"""Exact finite-shot theory of the Hadamard-test fidelity estimator (derivation: B2_HADAMARD_DERIVATION.md).
+"""Exact finite-shot theory of the Hadamard-test fidelity estimator (derivation: docs/b2/B2_HADAMARD_DERIVATION.md).
 
 Overlap a = <phi|psi> = x + i y. One quadrature batch: M iid outcomes X_i in {+1, -1}, E[X_i] = q (q = x or y),
 S = sum_i X_i = 2K - M with K ~ Bin(M, (1 + q)/2).

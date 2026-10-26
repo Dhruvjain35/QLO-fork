@@ -1,4 +1,4 @@
-"""Frozen B2 configuration (mirrored verbatim as JSON in B2_CONFIG.md; the driver refuses to run if they differ)."""
+"""Frozen B2 configuration (mirrored verbatim as JSON in docs/b2/B2_CONFIG.md; the driver refuses to run if they differ)."""
 
 from __future__ import annotations
 
