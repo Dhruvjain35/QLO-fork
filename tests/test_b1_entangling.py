@@ -29,7 +29,7 @@ from qlo.stage7.estimators import log10_shots_for_snr
 ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "results" / "b1_entangling"
 B3 = ROOT / "results" / "b3_hardening"
-BASE_COMMIT = "0d987f7"   # dhruv/b3-upstream-integration, the B1 base
+BASE_COMMIT = "00c8550"   # upstream merge of the delegated track (PR #3); Stage 2-7 and B3 files byte-identical to the B1 base
 
 
 def _batch(family: str, n: int, depth: int, rows: int, seed: int = 5):
