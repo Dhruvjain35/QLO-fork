@@ -23,13 +23,21 @@ UNDERFLOW_S = 1e-280
 LOG10_KEYS = ("log10_S", "log10_abs_r", "log10_M_LE", "log10_M_SWAP")
 
 
-def per_theta(F_plus, F_minus, rho: float = 1.0) -> dict:
+def per_theta(F_plus, F_minus, rho: float = 1.0, delta=None) -> dict:
+    """``delta`` (optional): F_minus - F_plus computed exactly by the caller. Needed when both fidelities sit on a large
+    common offset (e.g. a depolarizing floor) and their float difference would cancel; must agree with F_- - F_+ to
+    rounding of the offset."""
     fp = np.asarray(F_plus, dtype=np.float64)
     fm = np.asarray(F_minus, dtype=np.float64)
     if fp.shape != fm.shape:
         raise ValueError("F_plus and F_minus must be paired row by row")
     S = fp + fm
-    delta = fm - fp
+    if delta is None:
+        delta = fm - fp
+    else:
+        delta = np.asarray(delta, dtype=np.float64)
+        if delta.shape != fp.shape or not np.all(np.abs(delta - (fm - fp)) <= 1e-12 * np.maximum(S, 1e-300)):
+            raise ValueError("delta must equal F_minus - F_plus up to rounding")
     Q = fp**2 + fm**2
     v_le = fp * (1.0 - fp) + fm * (1.0 - fm)
     qp, qm = (1.0 + fp) / 2.0, (1.0 + fm) / 2.0
