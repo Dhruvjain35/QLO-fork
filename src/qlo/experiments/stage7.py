@@ -59,7 +59,7 @@ class Stage7Config:
     opt_seeds: int = 50
     opt_iters: int = 500
     # predeclared, NOT tuned here: the finite-shot learning rate selected by the Stage 4 protocol on this same
-    # benchmark (A' / B in STAGE4.md), used unchanged for every variant including exact GD
+    # benchmark (A' / B in docs/stages/STAGE4.md), used unchanged for every variant including exact GD
     opt_eta: float = 0.3
     opt_variants: tuple = (("exact", None, 0), ("LE M=64", "loschmidt", 64), ("SWAP M=64", "swap", 64),
                            ("SWAP M=32 (state-copy matched to LE M=64)", "swap", 32),

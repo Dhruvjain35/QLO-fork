@@ -11,7 +11,7 @@ Sub-commands (all outputs under ``results/stage4/``):
     all          crosscheck -> snr -> tune -> evaluate -> figures
 
 Falsification-first: the primary outcome is whether finite-shot SGD (B) beats exact GD (A)
-and whether it is distinguishable from covariance-matched Gaussian noise (C). See STAGE4.md.
+and whether it is distinguishable from covariance-matched Gaussian noise (C). See docs/stages/STAGE4.md.
 """
 
 from __future__ import annotations

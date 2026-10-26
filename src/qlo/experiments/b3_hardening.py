@@ -275,7 +275,7 @@ def interval_check(st7: dict, seed_sum: pd.DataFrame, theta_sum: pd.DataFrame, f
                      "theta_lo": t.pct_lo, "theta_hi": t.pct_hi, "inside_theta_ci": bool(t.pct_lo <= v <= t.pct_hi),
                      "theta_reference_is_stage7_population": True})
     df = pd.DataFrame(rows)
-    # headline ranges (STAGE7.md / handoff): LE 0.600-0.607 over the 5 LE targets, SWAP 1.197-1.203 over 4 SWAP targets
+    # headline ranges (docs/stages/STAGE7.md / handoff): LE 0.600-0.607 over the 5 LE targets, SWAP 1.197-1.203 over 4 SWAP targets
     for sc, tags, label in (("loschmidt", ("snr1", "snr2", "dir0.75", "dir0.9", "nz0.9"), "LE headline range 0.600-0.607"),
                             ("swap", ("snr1", "snr2", "dir0.75", "dir0.9"), "SWAP headline range 1.197-1.203")):
         d = df[(df.fit_range == "primary_2_20") & df.metric.isin([f"slope_{sc}_{t}" for t in tags])]

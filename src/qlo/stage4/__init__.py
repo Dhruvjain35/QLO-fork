@@ -1,5 +1,5 @@
 """Stage 4: falsification-first test of finite-shot stochastic escape on the verified
-Cerezo-2021 global barren plateau. See STAGE4.md.
+Cerezo-2021 global barren plateau. See docs/stages/STAGE4.md.
 
 Modules
 -------

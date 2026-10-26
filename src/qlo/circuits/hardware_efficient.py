@@ -23,7 +23,7 @@ identically-zero gradient for *all* theta — every last-layer RZ (it commutes w
 Z-product) and last-layer RYs on qubits dropped when the observable is pushed back
 through the final CNOT ring. These are structural zeros, not gradient concentration,
 so this ansatz is NOT used as the controlled barren-plateau benchmark; see
-``qlo.benchmarks.cerezo2021`` and STAGE3.md.
+``qlo.benchmarks.cerezo2021`` and docs/stages/STAGE3.md.
 The class holds only immutable configuration — it has no mutable state, and all
 randomness for parameter initialization comes from an explicitly passed RNG.
 """
