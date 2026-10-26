@@ -5,7 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "qlo-research"
 version = "0.1.0"
-description = "Stage 1 experimental foundation for Quantum Langevin Optimization / barren-plateau research."
+description = "Finite-shot gradient resolvability and measurement cost on barren plateaus (QLO project)."
+authors = [{ name = "Satyabrat Sahu" }, { name = "Dhruv Jain" }]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
