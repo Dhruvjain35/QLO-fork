@@ -1,0 +1,69 @@
+family,regime,position,p,n_star,note
+rx_product,product,k=0,0.0001,15.356372121463007,inside range
+rx_product,product,k=0,0.001,12.052116582701004,inside range
+rx_product,product,k=0,0.01,8.688830359540312,inside range
+rx_product,product,k=0,0.1,5.223478899218048,inside range
+hea_ring,d2,EARLY,0.0001,,signal dominates throughout
+hea_ring,d2,EARLY,0.001,,signal dominates throughout
+hea_ring,d2,EARLY,0.01,,signal dominates throughout
+hea_ring,d2,EARLY,0.1,11.041316635343083,inside range
+hea_ring,d2,LATE,0.0001,,signal dominates throughout
+hea_ring,d2,LATE,0.001,,signal dominates throughout
+hea_ring,d2,LATE,0.01,,signal dominates throughout
+hea_ring,d2,LATE,0.1,11.068528321716078,inside range
+hea_ring,d4,EARLY,0.0001,,signal dominates throughout
+hea_ring,d4,EARLY,0.001,,signal dominates throughout
+hea_ring,d4,EARLY,0.01,,signal dominates throughout
+hea_ring,d4,EARLY,0.1,,signal dominates throughout
+hea_ring,d4,MIDDLE,0.0001,,signal dominates throughout
+hea_ring,d4,MIDDLE,0.001,,signal dominates throughout
+hea_ring,d4,MIDDLE,0.01,,signal dominates throughout
+hea_ring,d4,MIDDLE,0.1,,signal dominates throughout
+hea_ring,d4,LATE,0.0001,,signal dominates throughout
+hea_ring,d4,LATE,0.001,,signal dominates throughout
+hea_ring,d4,LATE,0.01,,signal dominates throughout
+hea_ring,d4,LATE,0.1,,signal dominates throughout
+hea_ring,dn,EARLY,0.0001,,signal dominates throughout
+hea_ring,dn,EARLY,0.001,,signal dominates throughout
+hea_ring,dn,EARLY,0.01,,signal dominates throughout
+hea_ring,dn,EARLY,0.1,5.86346743838599,inside range
+hea_ring,dn,MIDDLE,0.0001,,signal dominates throughout
+hea_ring,dn,MIDDLE,0.001,,signal dominates throughout
+hea_ring,dn,MIDDLE,0.01,,signal dominates throughout
+hea_ring,dn,MIDDLE,0.1,5.809205259976396,inside range
+hea_ring,dn,LATE,0.0001,,signal dominates throughout
+hea_ring,dn,LATE,0.001,,signal dominates throughout
+hea_ring,dn,LATE,0.01,,signal dominates throughout
+hea_ring,dn,LATE,0.1,5.857362571743506,inside range
+rxry_czbrick,d2,EARLY,0.0001,,signal dominates throughout
+rxry_czbrick,d2,EARLY,0.001,,signal dominates throughout
+rxry_czbrick,d2,EARLY,0.01,,signal dominates throughout
+rxry_czbrick,d2,EARLY,0.1,10.656763586253463,inside range
+rxry_czbrick,d2,LATE,0.0001,,signal dominates throughout
+rxry_czbrick,d2,LATE,0.001,,signal dominates throughout
+rxry_czbrick,d2,LATE,0.01,,signal dominates throughout
+rxry_czbrick,d2,LATE,0.1,10.076873523500664,inside range
+rxry_czbrick,d4,EARLY,0.0001,,signal dominates throughout
+rxry_czbrick,d4,EARLY,0.001,,signal dominates throughout
+rxry_czbrick,d4,EARLY,0.01,,signal dominates throughout
+rxry_czbrick,d4,EARLY,0.1,9.188976997972885,inside range
+rxry_czbrick,d4,MIDDLE,0.0001,,signal dominates throughout
+rxry_czbrick,d4,MIDDLE,0.001,,signal dominates throughout
+rxry_czbrick,d4,MIDDLE,0.01,,signal dominates throughout
+rxry_czbrick,d4,MIDDLE,0.1,8.75689663573581,inside range
+rxry_czbrick,d4,LATE,0.0001,,signal dominates throughout
+rxry_czbrick,d4,LATE,0.001,,signal dominates throughout
+rxry_czbrick,d4,LATE,0.01,,signal dominates throughout
+rxry_czbrick,d4,LATE,0.1,7.902634229554394,inside range
+rxry_czbrick,dn,EARLY,0.0001,,signal dominates throughout
+rxry_czbrick,dn,EARLY,0.001,,signal dominates throughout
+rxry_czbrick,dn,EARLY,0.01,,signal dominates throughout
+rxry_czbrick,dn,EARLY,0.1,5.5182608515110205,inside range
+rxry_czbrick,dn,MIDDLE,0.0001,,signal dominates throughout
+rxry_czbrick,dn,MIDDLE,0.001,,signal dominates throughout
+rxry_czbrick,dn,MIDDLE,0.01,,signal dominates throughout
+rxry_czbrick,dn,MIDDLE,0.1,5.418647646487792,inside range
+rxry_czbrick,dn,LATE,0.0001,,signal dominates throughout
+rxry_czbrick,dn,LATE,0.001,,signal dominates throughout
+rxry_czbrick,dn,LATE,0.01,,signal dominates throughout
+rxry_czbrick,dn,LATE,0.1,5.17714178488517,inside range

@@ -1,0 +1,60 @@
+{
+  "boot_seed": 2026,
+  "global_p": [
+    0.0,
+    0.0001,
+    0.001,
+    0.01,
+    0.1
+  ],
+  "identity_rel_tol": 1e-10,
+  "local_p_rx": [
+    0.0,
+    0.001,
+    0.01,
+    0.1
+  ],
+  "n_boot_seed": 10000,
+  "regression_tol": 1e-12,
+  "rho": 1.0,
+  "rx_n": [
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16,
+    18,
+    20
+  ],
+  "rx_samples": 25000,
+  "rx_stream": 20,
+  "secondary_n_min": 8,
+  "seeds": [
+    11000,
+    11001,
+    11002,
+    11003,
+    11004,
+    11005,
+    11006,
+    11007,
+    11008,
+    11009
+  ],
+  "validate_local_n": [
+    2,
+    3,
+    4
+  ],
+  "validate_n": [
+    2,
+    3
+  ],
+  "validate_theta": 6,
+  "validate_tol": 1e-12,
+  "window": 3,
+  "config_sha256": "77e9e93a7e21d5ef1b9ad8015caa03b6a77af7b89ed0f69c8c7e8c3cc746ce38"
+}
