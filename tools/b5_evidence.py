@@ -1,7 +1,7 @@
 """B5 prior-work evidence files: parse the ledger and matrix, build results/b5_prior_work/evidence.csv, and check
 quotes and locators against the local (git-ignored) source copies.
 
-    python tools/b5_evidence.py                    # rewrite evidence.csv from B5_EVIDENCE_LEDGER.md
+    python tools/b5_evidence.py                    # rewrite evidence.csv from docs/b5/B5_EVIDENCE_LEDGER.md
     python tools/b5_evidence.py --check            # only verify that evidence.csv matches the ledger
     python tools/b5_evidence.py --verify-sources   # check quotes / equation / figure numbers against local texts
 
@@ -18,8 +18,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-LEDGER = ROOT / "B5_EVIDENCE_LEDGER.md"
-MATRIX = ROOT / "B5_PRIOR_WORK_MATRIX.md"
+B5_DIR = ROOT / "docs" / "b5"
+LEDGER = B5_DIR / "B5_EVIDENCE_LEDGER.md"
+MATRIX = B5_DIR / "B5_PRIOR_WORK_MATRIX.md"
 CSV_PATH = ROOT / "results" / "b5_prior_work" / "evidence.csv"
 MANIFEST = ROOT / "results" / "b5_prior_work" / "source_manifest.json"
 

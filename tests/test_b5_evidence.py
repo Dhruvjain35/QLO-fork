@@ -10,6 +10,12 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
+B5 = ROOT / "docs" / "b5"
+
+
+def doc(name: str) -> Path:
+    """B5 reports live in docs/b5/; result files keep their repo-root path."""
+    return ROOT / name if name.startswith("results/") else B5 / name
 _spec = importlib.util.spec_from_file_location("b5_evidence", ROOT / "tools" / "b5_evidence.py")
 E = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(E)
@@ -164,38 +170,38 @@ def test_quotes_and_locators_match_local_sources(ledger):
 
 def test_followup_documents_present_and_structured():
     for name in FOLLOWUP_DOCS:
-        assert (ROOT / name).exists(), name
-    audit = (ROOT / "B5_FOLLOWUP_AUDIT.md").read_text(encoding="utf-8")
+        assert doc(name).exists(), name
+    audit = (B5 / "B5_FOLLOWUP_AUDIT.md").read_text(encoding="utf-8")
     assert audit.rstrip().splitlines()[-1] == FINAL_LINE
     assert len(re.findall(r"^## \d+\. ", audit, re.M)) == 20
-    teo = (ROOT / "B5_TEO_DEEP_AUDIT.md").read_text(encoding="utf-8")
+    teo = (B5 / "B5_TEO_DEEP_AUDIT.md").read_text(encoding="utf-8")
     titles = ("Setup", "Estimators", "Error metric", "Shot convention", "BP scaling assumptions",
               "Main theorems/formulas", "Critical copy-number result", "Relation to Stage 5", "Relation to Stage 7",
               "What overlaps explicitly", "What is only implied", "What is different", "What is not located")
     for i, t in enumerate(titles, 1):
         assert re.search(r"^## " + str(i) + r"\. " + re.escape(t) + r"\s*$", teo, re.M), t
-    stat = (ROOT / "B5_STATISTIC_COMPARISON.md").read_text(encoding="utf-8")
+    stat = (B5 / "B5_STATISTIC_COMPARISON.md").read_text(encoding="utf-8")
     header = ("Paper", "Result", "Random variable", "Statistic used", "Scaling variable", "Shot convention",
               "Circuit ensemble", "Parameter ensemble", "Measurement scheme", "Comparable to Stage 7?", "Reason")
     assert "| " + " | ".join(header) + " |" in stat
-    shots = (ROOT / "B5_SHOT_CONVENTIONS.md").read_text(encoding="utf-8")
+    shots = (B5 / "B5_SHOT_CONVENTIONS.md").read_text(encoding="utf-8")
     for paper in ("Stage 7", "Thanasilp", "Aghaei Saem", "Arrasmith", "Teo", "Gentinetta"):
         assert paper in shots, paper
-    gap = (ROOT / "B5_VERSION_GAP.md").read_text(encoding="utf-8")
+    gap = (B5 / "B5_VERSION_GAP.md").read_text(encoding="utf-8")
     for needle in ("2025-11-20", "2026-01-30", "2026-06-04", "B-09a", "B-10a"):
         assert needle in gap, needle
-    math = (ROOT / "B5_MATH_COMPARISON.md").read_text(encoding="utf-8")
+    math = (B5 / "B5_MATH_COMPARISON.md").read_text(encoding="utf-8")
     assert re.search(r"^## \d+\. Comparison with Teo 2023", math, re.M)
 
 
 def test_closure_documents_and_search_record():
     for name in CLOSURE_DOCS:
-        assert (ROOT / name).exists(), name
-    audit = (ROOT / "B5_CLOSURE_AUDIT.md").read_text(encoding="utf-8")
+        assert doc(name).exists(), name
+    audit = (B5 / "B5_CLOSURE_AUDIT.md").read_text(encoding="utf-8")
     assert audit.rstrip().splitlines()[-1] == FINAL_LINE
-    check = (ROOT / "B5_PRINCIPAL_LINE_CHECK.md").read_text(encoding="utf-8")
+    check = (B5 / "B5_PRINCIPAL_LINE_CHECK.md").read_text(encoding="utf-8")
     assert {f"L{i}" for i in range(1, 31)} <= set(re.findall(r"^\| (L\d+) \|", check, re.M))
-    math = (ROOT / "B5_MATH_COMPARISON.md").read_text(encoding="utf-8")
+    math = (B5 / "B5_MATH_COMPARISON.md").read_text(encoding="utf-8")
     assert re.search(r"^## 9\. ", math, re.M)
     with (ROOT / "results" / "b5_prior_work" / "closure_search_screen.csv").open(encoding="utf-8") as fh:
         screen = list(csv.DictReader(fh))
@@ -209,7 +215,7 @@ def test_closure_documents_and_search_record():
 
 def test_no_novelty_classification_or_language():
     for name in B5_DOCS + FOLLOWUP_DOCS + CLOSURE_DOCS + ("results/b5_prior_work/evidence.csv",):
-        text = (ROOT / name).read_text(encoding="utf-8")
+        text = doc(name).read_text(encoding="utf-8")
         assert "NOVEL" not in text.replace("NOVELTY", ""), name
         assert not re.search(r"\bnovel\b", text, re.I), name
 

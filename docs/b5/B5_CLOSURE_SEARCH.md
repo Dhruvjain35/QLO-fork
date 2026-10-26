@@ -12,11 +12,11 @@ targeted search, not a systematic review. A hit that is "not located" here is st
 queries".
 
 **Run date:** 2026-10-05.
-**Script:** [`tools/b5_closure_search.py`](tools/b5_closure_search.py).
+**Script:** [`tools/b5_closure_search.py`](../../tools/b5_closure_search.py).
 **Committed outputs:**
-- [`results/b5_prior_work/closure_search_queries.json`](results/b5_prior_work/closure_search_queries.json) — queries and
+- [`results/b5_prior_work/closure_search_queries.json`](../../results/b5_prior_work/closure_search_queries.json) — queries and
   counts.
-- [`results/b5_prior_work/closure_search_screen.csv`](results/b5_prior_work/closure_search_screen.csv) — 1,060 unique
+- [`results/b5_prior_work/closure_search_screen.csv`](../../results/b5_prior_work/closure_search_screen.csv) — 1,060 unique
   records, each with a decision and reason.
 
 Raw API responses and abstracts stay in the git-ignored `research_sources/b5_closure/search/`.
