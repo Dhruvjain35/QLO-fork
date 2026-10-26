@@ -296,7 +296,8 @@ def test_rx_regression_inside_b3_intervals():
     for m, b3m in (("b_LE_ceil", "slope_loschmidt_snr1"), ("b_SWAP_ceil", "slope_swap_snr1"), ("gap_ceil", "gap_swap_minus_le_snr1")):
         row = prim[prim.metric == m].iloc[0]
         ref = pub[(pub.fit_range == "primary_2_20") & (pub.metric == b3m)].iloc[0]
-        assert row.b3_pct_lo == ref.pct_lo and row.b3_pct_hi == ref.pct_hi
+        # both values are read back from CSV; float parsing can differ in the last ulp between pandas versions
+        assert row.b3_pct_lo == pytest.approx(ref.pct_lo, rel=1e-12) and row.b3_pct_hi == pytest.approx(ref.pct_hi, rel=1e-12)
 
 
 def test_committed_rx_medians_reproduce_from_code():
