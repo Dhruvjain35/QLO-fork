@@ -1,156 +1,96 @@
-# qlo-research — Stage 1: experimental foundation
+# QLO — measurement cost and gradient resolvability on barren plateaus
 
-## Research question
+[![tests](https://github.com/Satyabrat2005/QLO---Quantum-Langevin-Optimisation/actions/workflows/tests.yml/badge.svg)](https://github.com/Satyabrat2005/QLO---Quantum-Langevin-Optimisation/actions/workflows/tests.yml)
 
-Can finite-shot measurement noise — normally treated as a limitation of
-variational-quantum-algorithm (VQA) optimization — act as *useful* stochastic
-exploration, e.g. Langevin-style diffusion, in regimes where gradients are
-otherwise vanishingly small ("barren plateaus")?
+Variational quantum algorithms estimate gradients from a finite number of measurement shots. On a barren plateau
+the true gradient is exponentially small, so the question that decides whether training is possible at all is:
+**how many shots does a usable gradient cost, and how does that cost depend on the way the fidelity is measured?**
 
-**Stage 1 (this repository state) does not attempt to answer that.** It only
-builds and verifies the minimum trustworthy foundation on which that question
-can later be studied: a reproducible ansatz, controlled local/global costs,
-verified gradients, deterministic seeding, and a pipeline smoke test.
+The project began as *Quantum Langevin Optimisation*, which asked whether shot noise could act as useful
+Langevin-style exploration on a barren plateau. Stage 4 falsified that hypothesis. Shot noise gave no escape
+advantage over exact gradient descent or matched Gaussian noise. The work then turned to the mechanism, finite-shot
+gradient resolvability.
 
-## What is established vs. hypothesized vs. not claimed
+On 16 October 2026 the project adopted the measurement framing for the paper
+([`principal/QLO_Principal_Track.md`](principal/QLO_Principal_Track.md) §1). The Langevin apparatus moves to a
+separate track. The repository name is unchanged.
 
-**Established (background, not tested here):**
-- Finite-shot quantum measurements produce statistical estimator noise in
-  expectation values and therefore in gradient estimates.
-- Some VQA architecture/cost-function combinations exhibit barren plateaus
-  (gradient variance that decays exponentially with qubit count).
-- Stochastic / Langevin dynamics produce exploratory behaviour in optimization.
+## Main results
 
-**Hypotheses to test (in later stages, not here):**
-- Shot noise may improve exploration in a *verified* barren-plateau regime.
-- The covariance structure of shot noise may generate a useful effective
-  diffusion for the parameters.
+| | Result | Report |
+|---|---|---|
+| Stage 4 | Finite-shot SGD gives **no** barren-plateau escape advantage over exact GD or covariance-matched Gaussian noise (falsified hypothesis) | [STAGE4](docs/stages/STAGE4.md) |
+| Stage 5 | The projector estimator fails by *count starvation*: both shifted counts are usually zero, ĝ ≡ 0, and a resolvable gradient needs ~4^(n−1) shots | [STAGE5](docs/stages/STAGE5.md) |
+| Stage 6 | A global-parity cost fails differently, by *random signs* rather than exact zeros, at a similar shot exponent | [STAGE6](docs/stages/STAGE6.md) |
+| Stage 7 | **Same landscape, same gradient, different readout:** typical gradient shots grow ~4ⁿ with the Loschmidt / projector readout and ~16ⁿ with the SWAP test | [STAGE7](docs/stages/STAGE7.md) |
+| B3 | The Stage 7 slopes survive 20 independent seeds and a θ bootstrap (LE ≈ 0.605, SWAP ≈ 1.20 decades/qubit) | [B3](docs/b3/B3_STATISTICAL_HARDENING.md) |
+| A2 (principal) | Exact identity M_SWAP/M_LE = (2−Q)/(S−Q) for any circuit, giving the slope rule b_SWAP = b_LE + b_S; the exponent doubles when the relative gradient does not concentrate | [principal §3](principal/QLO_Principal_Track.md) |
+| B1 | Independent test of the A2 rule on two entangling ansätze, depths 2 / 4 / n, early / middle / late parameters. The identity holds on all 6.74 M θ; b_r ≈ 0 everywhere; the exponent ratio is 1.97–2.02; the gap rule holds to ~1% of b_S | [B1](docs/b1/B1_ENTANGLING_SWEEPS.md) |
+| B2 | Destructive SWAP reproduces ancilla SWAP exactly. An unbiased Hadamard-test estimator scales like Loschmidt (~4ⁿ) at ~9.5× the executions and fails by random signs | [B2](docs/b2/B2_ADDITIONAL_ESTIMATORS.md) |
+| B5 | Prior-work evidence audit: 8 papers line-checked, 154 ledger entries, 1,060-record targeted search. Evidence only; the novelty decisions are the principal track's (A1) | [B5](docs/b5/B5_CLOSURE_AUDIT.md) |
 
-**Not claimed (and must not be assumed by anything in this repo):**
-- That shot noise is fluctuation–dissipation-theorem (FDT) noise.
-- That any "QLO" method escapes plateaus in polynomial time.
-- That QLO is superior to existing optimizers.
-- Any quantum advantage.
-- That the ansatz here universally exhibits barren plateaus, or that there is a
-  universal qubit-count threshold for them.
+Every stage report separates what is established from what is not. Claims are scoped to the circuits and n ranges
+actually tested.
 
-## Layout
+## Repository layout
 
 ```
+principal/            principal track: framing decision, novelty audit (A1), generalisation (A2),
+                      normalisation (A3), positioning (A4), standalone A2 numerics
+docs/stages/          Stage 1-7 reports (STAGE1_STATUS.md ... STAGE7.md)
+docs/b1, b2, b3, b5/  delegated-track reports and frozen design documents (B1_CONFIG.md, B2_CONFIG.md)
 src/qlo/
-  circuits/hardware_efficient.py   HardwareEfficientAnsatz, param_shape, n_params
-  costs/observables.py             global Z⊗…⊗Z and local (1/n)ΣZ_i observables
-  gradients/exact.py               analytic cost + autograd / parameter-shift / finite-diff gradients
-  gradients/finite_shot.py         finite-shot parameter-shift estimator (Stage 2)
-  analysis/bp_variance.py          Var_theta[dC/dtheta_k] across initializations (the real BP statistic)
-  analysis/shot_theory.py          analytic shot variance for the ±1 global observable (validation only)
-  analysis/statistics.py           replicate summaries, log-log slope fit
-  benchmarks/cerezo2021.py         controlled RX-product BP benchmark (closed forms + PennyLane) (Stage 3)
-  experiments/bp_smoke.py          tiny pipeline smoke experiment -> results/*.csv
-  experiments/shot_noise.py        Stage 2 shot-noise characterization -> results/stage2/
-  experiments/controlled_bp.py     Stage 3 controlled barren-plateau scaling -> results/stage3/
-  stage4/                          Stage 4: binomial projector shots, update rules A-E, harness, seeds, stats, figures
-  experiments/stage4.py            Stage 4 driver (crosscheck | snr | tune | evaluate | analyze | figures | all) -> results/stage4/
-  stage5/                          Stage 5: exact finite-shot estimator distribution, P(ĝ=0), SNR, dead zones, local control
-  experiments/stage5.py            Stage 5 driver -> results/stage5/
-  stage6/                          Stage 6: global parity benchmark, exact difference-of-binomials P_zero/P_correct/P_wrong, required shots, matched-signal
-  experiments/stage6.py            Stage 6 driver -> results/stage6/
-  stage7/                          Stage 7: one fidelity landscape, Loschmidt/projector vs SWAP-test gradients (+ PennyLane SWAP circuit)
-  experiments/stage7.py            Stage 7 driver -> results/stage7/
-  utils/seeding.py                 make_rng / random_params (explicit RNG, no global state)
-tests/                             180 pytest tests
-configs/bp_smoke_tiny.yaml         the smoke configuration, for reference
-results/                           CSV outputs (smoke only)
-STATUS.md                          Stage 1 status report
-STAGE2.md                          Stage 2 report (finite-shot noise characterization)
-STAGE3.md                          Stage 3 report (controlled barren-plateau benchmark)
-STAGE4.md                          Stage 4 report (finite-shot stochastic escape test — negative for shot noise)
-STAGE5.md                          Stage 5 theory note (exact finite-shot gradient dead-zone analysis)
-STAGE6.md                          Stage 6 report (projector vs parity: two finite-shot failure modes)
-STAGE7.md                          Stage 7 report (same landscape, Loschmidt vs SWAP readout: 4^n vs 16^n gradient shots)
+  circuits/ costs/ gradients/ analysis/ benchmarks/   Stage 1-3 foundation (ansatz, costs, verified gradients)
+  stage4/ ... stage7/                                  per-stage estimators and analysis
+  hardening/                                           B3 interval and seed-replicate utilities
+  b1/                                                  B1 entangling-circuit simulator, audit, fits
+  b2/                                                  B2 destructive SWAP and Hadamard-test estimators
+  experiments/                                         one driver per stage / task (python -m qlo.experiments.<name>)
+tools/                B5 evidence tooling and the reproducible literature search
+tests/                pytest suite (all stages and tasks)
+results/              committed summary tables and figures per stage / task (no raw arrays)
 ```
-
-## Circuit
-
-Hardware-efficient ansatz, `depth` layers of
-
-    RY(θ[l,q,0]) RZ(θ[l,q,1]) on every qubit q, then CNOT entangler
-
-- parameter tensor shape: `(depth, n_qubits, 2)`
-- parameter count: `p(n, depth) = 2 · n · depth`
-- entangler: `"ring"` (CNOT(q,q+1) for q<n−1, then CNOT(n−1,0)) or `"chain"`
-  (open nearest-neighbour line)
-
-## Cost functions
-
-| name     | observable                    |
-|----------|-------------------------------|
-| `global` | `Z_0 Z_1 … Z_{n-1}`           |
-| `local`  | `(1/n) Σ_i Z_i`               |
-
-Both are exposed through `qlo.get_observable(name, n_qubits)` and consumed by
-`qlo.make_cost(ansatz, name, diff_method)`.
-
-## Gradients
-
-Analytic `default.qubit` (`shots=None`) only. Three paths, all returning the
-parameter-tensor shape:
-
-- `gradient_autograd` — backprop through the state-vector simulator (reference)
-- `gradient_parameter_shift` — two-term shift rule; the estimator that will be
-  reused unchanged on finite-shot devices later
-- `gradient_finite_difference` — central differences on the scalar cost;
-  independent of PennyLane's gradient machinery
-
-Tests require autograd and parameter-shift to agree to `1e-10` and autograd and
-finite-difference to `1e-6`.
 
 ## Setup
 
-```
-uv venv --python 3.12 .venv
-uv pip install --python .venv/bin/python -e ".[dev]"
-```
+Python ≥ 3.12.
 
-(Or any Python ≥ 3.12 venv + `pip install -e ".[dev]"`.)
-
-## Run
-
-```
-.venv/bin/python -m pytest -v
-.venv/bin/python -m qlo.experiments.bp_smoke                 # global cost, tiny config
-.venv/bin/python -m qlo.experiments.bp_smoke --cost local
-
-.venv/bin/python -m qlo.experiments.shot_noise                # Stage 2, ~25 s
-.venv/bin/python -m qlo.experiments.shot_noise --k 2 3 8 --out-dir results/stage2_nonzero_k
-.venv/bin/python -m qlo.experiments.controlled_bp             # Stage 3, ~60 s
-.venv/bin/python -m qlo.experiments.controlled_bp --n-init 1000000 --no-pennylane --out-dir results/stage3_n1e6
-.venv/bin/python -m qlo.experiments.stage4 all                   # Stage 4, ~15 min on 9 cores
-.venv/bin/python -m qlo.experiments.stage5                       # Stage 5, ~20 min single core (--fast for a smoke run)
-.venv/bin/python -m qlo.experiments.stage6 --workers 5           # Stage 6, ~7 min on 5 cores, ~2.2 GB peak (--fast for a smoke run)
-.venv/bin/python -m qlo.experiments.stage7 --workers 5           # Stage 7, ~15-20 min on 5 cores, <= 2.4 GB peak (--fast for a smoke run)
+```bash
+python -m venv .venv
+.venv/bin/pip install -e ".[dev]"
+.venv/bin/python -m pytest -W error::DeprecationWarning
 ```
 
-The smoke experiment is a pipeline test only. Its numbers are not evidence
-about barren plateaus. Stage 2 (see `STAGE2.md`) characterizes finite-shot
-*estimator noise* only. Stage 3 (see `STAGE3.md`) reproduces a controlled
-literature barren plateau on a separate benchmark; the hardware-efficient ansatz
-has structural zero gradients with the global cost and is not that benchmark.
-Stage 4 (see `STAGE4.md`) tests whether finite-shot stochasticity helps escape that
-verified plateau: it does not (null at matched learning rate; indistinguishable from
-covariance-matched Gaussian noise; large classical diffusion helps only for n ≤ 8).
-Stage 5 (see `STAGE5.md`) explains that result exactly: the finite-shot estimator is
-`(K₋ − K₊)/(2M)` with binomial counts whose success probabilities sum to `A_k`, so the
-shots needed for a non-zero estimate or unit SNR grow like `1/A_k` — typically `4^{n−1}`.
+`research_sources/` (local copies of third-party papers used by the B5 source check) is git-ignored. Without it,
+one B5 test is skipped.
 
-Stage 6 (see `STAGE6.md`) asks whether every finite-shot barren plateau fails that way. A global
-Pauli-parity cost on the same circuit needs the same ≈ `4^n` shots, but its shifted outcome
-probabilities sit near ½ instead of near 0. So `P(ĝ=0)` stays at `≈ 1/√(πM)` for every n, and the
-estimator fails by random signs instead of by exact zeros. The difference persists at matched |g|.
-Novelty is unconfirmed (see the Aghaei Saem et al. 2026 note in `STAGE6.md`).
+## Reproducing results
 
-Stage 7 (see `STAGE7.md`) removes Stage 6's landscape confound. The same fidelity, gradient and θ are read
-out two ways: a Loschmidt/projector measurement or a SWAP test. The failure modes survive (exact zeros vs
-random signs), and the readout alone changes the gradient shot exponent: median ≈ `4^n` (Loschmidt) vs
-≈ `16^n` (SWAP). SWAP-driven GD at n ≥ 10 is indistinguishable from a signal-free random walk, which
-replicates known prior work. Novelty is unconfirmed (Thanasilp et al. 2024; Aghaei Saem et al. 2026).
+Every driver writes to `results/<name>/`. The B1 and B2 drivers refuse to run unless their configuration equals the
+JSON frozen in `docs/b1/B1_CONFIG.md` / `docs/b2/B2_CONFIG.md`.
+
+| Command | Output | Cost |
+|---|---|---|
+| `python -m qlo.experiments.stage4` … `stage7` | `results/stage4` … `stage7` | see each stage report |
+| `python -m qlo.experiments.b3_hardening --workers 8` | `results/b3_hardening` | ~3 h |
+| `python -m qlo.experiments.b1_entangling --workers 6` | `results/b1_entangling` | ~5 CPU-h; caches go to an external disk (`--work-dir`) |
+| `python -m qlo.experiments.b2_estimators` | `results/b2_estimators` | ~10 min |
+| `python tools/b5_evidence.py --check` | verifies `results/b5_prior_work/evidence.csv` against the ledger | seconds |
+
+## Status
+
+See [STATUS.md](STATUS.md) for what is complete and what is still open.
+
+## Contributors
+
+- **Satyabrat Sahu**: principal track (framing, novelty audit A1, A2 generalisation, A3 normalisation, A4
+  positioning).
+- **Dhruv Jain**: Stages 1–7 and the delegated track (B1 entangling sweeps, B2 additional estimators, B3
+  statistical hardening, B5 prior-work extraction).
+
+Parts of the code and reports were produced with an AI coding assistant (Claude). Every numerical claim is backed
+by committed code, frozen configurations and tests. See [CITATION.cff](CITATION.cff) to cite the repository.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
