@@ -19,19 +19,18 @@ Last updated: 26 October 2026.
 | B5 prior-work extraction | Dhruv Jain | [B5 closure audit](docs/b5/B5_CLOSURE_AUDIT.md) | `results/b5_prior_work` |
 | B1 entangling-ansatz sweeps | Dhruv Jain | [B1](docs/b1/B1_ENTANGLING_SWEEPS.md) | `results/b1_entangling` |
 | B2 additional estimators | Dhruv Jain | [B2](docs/b2/B2_ADDITIONAL_ESTIMATORS.md) | `results/b2_estimators` |
+| B4 depolarizing-noise overlay | Dhruv Jain | [B4](docs/b4/B4_NOISE_OVERLAY.md) | `results/b4_noise` |
+| A2 propositions with proofs (draft for principal review) | Dhruv Jain | [theory](docs/theory/A2_PROPOSITIONS.md) | — |
 | A1–A4 and the framing decision | Satyabrat Sahu | [principal](principal/QLO_Principal_Track.md) | `principal/a2_numerics` |
 
 ## Open
 
-From the principal track §6 and the task reports:
-
-1. **A2 as a proposition with proof.** The identity is two lines; the slope rule needs its stated regime (principal §6
-   item 4). B1 supplies the empirical regime check: the gap rule holds to ~1% of b_S, and the residual decomposes
-   into an O(S) term plus a difference-of-medians term (B1 §17).
-2. **A5:** the update to QuIP Network, kept out of this public repo (principal §6 item 5).
-3. **B4: depolarising-noise overlay.** Not started. The A2 regime statement and the B1/B2 reports list noise as
-   uncovered.
-4. **Manuscript** under the decided framing.
+1. **Principal review of the propositions** in `docs/theory/A2_PROPOSITIONS.md`. They answer principal §6 item 4;
+   the principal track decides the final wording.
+2. **A5:** the update to QuIP Network, kept out of this public repo.
+3. **Manuscript** under the decided framing. B4 adds a noise section: the identity and the slope rule survive, and
+   doubling depends on the noise model.
+4. **Optional extensions** (B4 §8): local noise on entangling circuits, other channels, two noisy SWAP copies.
 
 ## Known notes
 

@@ -27,6 +27,8 @@ separate track. The repository name is unchanged.
 | A2 (principal) | Exact identity M_SWAP/M_LE = (2−Q)/(S−Q) for any circuit, giving the slope rule b_SWAP = b_LE + b_S; the exponent doubles when the relative gradient does not concentrate | [principal §3](principal/QLO_Principal_Track.md) |
 | B1 | Independent test of the A2 rule on two entangling ansätze, depths 2 / 4 / n, early / middle / late parameters. The identity holds on all 6.74 M θ; b_r ≈ 0 everywhere; the exponent ratio is 1.97–2.02; the gap rule holds to ~1% of b_S | [B1](docs/b1/B1_ENTANGLING_SWEEPS.md) |
 | B2 | Destructive SWAP reproduces ancilla SWAP exactly. An unbiased Hadamard-test estimator scales like Loschmidt (~4ⁿ) at ~9.5× the executions and fails by random signs | [B2](docs/b2/B2_ADDITIONAL_ESTIMATORS.md) |
+| B4 | Depolarizing noise: the exact identity and the general slope rule survive. Global depolarizing breaks exponent doubling: on the product benchmark Loschmidt rises from 4ⁿ to 8ⁿ, SWAP stays at 16ⁿ, and the ratio falls to 4/3. Local depolarizing preserves doubling | [B4](docs/b4/B4_NOISE_OVERLAY.md) |
+| Theory | The A2 results as propositions with proofs (identity, slope rule under explicit hypotheses, doubling condition, sign law with O(MS) error), plus noise propositions written before B4 | [theory](docs/theory/A2_PROPOSITIONS.md) |
 | B5 | Prior-work evidence audit: 8 papers line-checked, 154 ledger entries, 1,060-record targeted search. Evidence only; the novelty decisions are the principal track's (A1) | [B5](docs/b5/B5_CLOSURE_AUDIT.md) |
 
 Every stage report separates what is established from what is not. Claims are scoped to the circuits and n ranges
@@ -38,13 +40,15 @@ actually tested.
 principal/            principal track: framing decision, novelty audit (A1), generalisation (A2),
                       normalisation (A3), positioning (A4), standalone A2 numerics
 docs/stages/          Stage 1-7 reports (STAGE1_STATUS.md ... STAGE7.md)
-docs/b1, b2, b3, b5/  delegated-track reports and frozen design documents (B1_CONFIG.md, B2_CONFIG.md)
+docs/b1 ... b5/       task reports and frozen design documents (B1_CONFIG.md, B2_CONFIG.md, B4_CONFIG.md)
+docs/theory/          the A2 results as propositions with proofs
 src/qlo/
   circuits/ costs/ gradients/ analysis/ benchmarks/   Stage 1-3 foundation (ansatz, costs, verified gradients)
   stage4/ ... stage7/                                  per-stage estimators and analysis
   hardening/                                           B3 interval and seed-replicate utilities
   b1/                                                  B1 entangling-circuit simulator, audit, fits
   b2/                                                  B2 destructive SWAP and Hadamard-test estimators
+  b4/                                                  B4 depolarizing-noise overlays and density-matrix checks
   experiments/                                         one driver per stage / task (python -m qlo.experiments.<name>)
 tools/                B5 evidence tooling and the reproducible literature search
 tests/                pytest suite (all stages and tasks)
@@ -75,6 +79,7 @@ JSON frozen in `docs/b1/B1_CONFIG.md` / `docs/b2/B2_CONFIG.md`.
 | `python -m qlo.experiments.b3_hardening --workers 8` | `results/b3_hardening` | ~3 h |
 | `python -m qlo.experiments.b1_entangling --workers 6` | `results/b1_entangling` | ~5 CPU-h; caches go to an external disk (`--work-dir`) |
 | `python -m qlo.experiments.b2_estimators` | `results/b2_estimators` | ~10 min |
+| `python -m qlo.experiments.b4_noise` | `results/b4_noise` | ~30 s (reads the B1 per-θ caches) |
 | `python tools/b5_evidence.py --check` | verifies `results/b5_prior_work/evidence.csv` against the ledger | seconds |
 
 ## Status
@@ -86,7 +91,7 @@ See [STATUS.md](STATUS.md) for what is complete and what is still open.
 - **Satyabrat Sahu**: principal track (framing, novelty audit A1, A2 generalisation, A3 normalisation, A4
   positioning).
 - **Dhruv Jain**: Stages 1–7 and the delegated track (B1 entangling sweeps, B2 additional estimators, B3
-  statistical hardening, B5 prior-work extraction).
+  statistical hardening, B5 prior-work extraction), B4 noise overlay and the propositions write-up.
 
 Parts of the code and reports were produced with an AI coding assistant (Claude). Every numerical claim is backed
 by committed code, frozen configurations and tests. See [CITATION.cff](CITATION.cff) to cite the repository.
