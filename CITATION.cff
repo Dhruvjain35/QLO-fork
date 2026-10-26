@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this code or these results, please cite the repository."
+title: "QLO: measurement cost and gradient resolvability on barren plateaus"
+type: software
+authors:
+  - family-names: Sahu
+    given-names: Satyabrat
+  - family-names: Jain
+    given-names: Dhruv
+repository-code: "https://github.com/Satyabrat2005/QLO---Quantum-Langevin-Optimisation"
+license: MIT
+keywords:
+  - variational quantum algorithms
+  - barren plateaus
+  - finite-shot gradients
+  - SWAP test
+  - Loschmidt echo
