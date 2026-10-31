@@ -7,7 +7,7 @@ This page separates four different kinds of evidence. They are easy to blur, and
 | | Kind of evidence | Status |
 |---|---|---|
 | A | Original result generation (classical simulation, Dhruv's macOS machine) | **Done.** Every committed result. |
-| B | Automated cross-platform testing (GitHub Actions) | **Done for the test suite on Linux / Python 3.12.** The Linux 3.13 and Windows 3.13 jobs are added by Phase 8 I2. |
+| B | Automated cross-platform testing (GitHub Actions) | **Done** for the test suite and smoke runs on Linux 3.12, Linux 3.13 and Windows 3.13 (first run on PR #8). |
 | C | Independent full-experiment reproduction on another machine | **Not done.** Principal track P9, Tiers 2 and 3. |
 | D | Quantum hardware | **Not done.** Every result so far is a simulation. |
 
@@ -52,7 +52,14 @@ prove that the drivers start, find their folders, handle text as UTF-8 and finis
 reproduce the scientific numbers. The B2 smoke run keeps the full 100,000-θ Stage 7 population at n = 2–10, so its
 exact Stage 7 regression gate still runs. B4's smoke run checks p = 0 against the B1 smoke medians.
 
-The results of the first run of this matrix are recorded in the Phase 8 I1–I2 pull request.
+First run of this matrix: run 41246198763, PR #8 at `7d7826d`, 31 October 2026. All six jobs succeeded.
+
+| Job | Environment | Result |
+|---|---|---|
+| pytest | ubuntu-latest, Python 3.12.15 | 279 passed, 1 skipped |
+| pytest | ubuntu-latest, Python 3.13.17 | 279 passed, 1 skipped |
+| pytest | windows-latest, Python 3.13.16 | 279 passed, 1 skipped (no `PYTHONUTF8`) |
+| smoke | ubuntu-latest / 3.12, ubuntu-latest / 3.13, windows-latest / 3.13 | all four `--fast` runs finished; no committed file changed |
 
 ## C. Independent full-experiment reproduction
 
