@@ -2,12 +2,16 @@
 
     python -m qlo.experiments.b1_entangling --workers 6                         # all phases -> results/b1_entangling/
     python -m qlo.experiments.b1_entangling --phase analyse --workers 6         # one phase (caches are reused)
-    python -m qlo.experiments.b1_entangling --smoke --out-dir D --work-dir W    # tiny pipeline test, no config check
+    python -m qlo.experiments.b1_entangling --fast                              # tiny pipeline test (= --smoke), no config check
+
+Per-theta caches go to --work-dir, else $QLO_WORK_DIR/b1_entangling, else .qlo_cache/b1_entangling (qlo.paths).
+--fast writes its output and caches under .qlo_cache/b1_entangling_fast/ (or $QLO_WORK_DIR/...) unless --out-dir /
+--work-dir are given, so it never touches results/b1_entangling/.
 
 Phases, in order; each STOPs the run on failure:
     audit    structural-zero audit of every predeclared position (+ a positive control), gradient cross-checks
     rx       Family 0 regression arm (exact Stage 7 RX product) against the B3 hardened intervals
-    sweep    entangling families x depth regimes x n x master seeds -> per-theta F_+- caches (external SSD)
+    sweep    entangling families x depth regimes x n x master seeds -> per-theta F_+- caches (work dir)
     analyse  per-theta quantities, identity check, per-seed fits, residuals, intervals, classes, tables, figures
     sign     conditional sign-law spot check
     a2       comparison with the principal A2 numerics (run last, after every B1 number has been written)
@@ -38,12 +42,13 @@ from qlo.b1 import rx_product as RX
 from qlo.b1 import sign_law as SL
 from qlo.hardening import intervals as IV
 from qlo.hardening import seed_replicates as SR
+from qlo import paths as P
 
 ROOT = Path(__file__).resolve().parents[3]
 RESULTS_DIR = ROOT / "results" / "b1_entangling"
 CONFIG_MD = ROOT / "docs" / "b1" / "B1_CONFIG.md"
 B3_DIR = ROOT / "results" / "b3_hardening"
-DEFAULT_WORK = Path("/Volumes/SSD Disk  1TB/qlo-b1-work")
+EXPERIMENT = "b1_entangling"
 B3_RANGE = {"primary": "primary_2_20", "secondary_n_ge_8": "n_ge_8"}
 B3_METRIC = {"b_LE_ceil": "slope_loschmidt_snr1", "b_SWAP_ceil": "slope_swap_snr1", "gap_ceil": "gap_swap_minus_le_snr1"}
 PHASES = ("audit", "rx", "sweep", "analyse", "sign", "a2")
@@ -59,12 +64,12 @@ class Log:
 
     def __call__(self, msg: str) -> None:
         print(msg, flush=True)
-        with open(self.path, "a") as f:
+        with open(self.path, "a", encoding="utf-8") as f:
             f.write(msg + "\n")
 
 
 def check_frozen(cfg: CF.B1Config) -> str:
-    frozen = CF.config_json_from_markdown(CONFIG_MD.read_text())
+    frozen = CF.config_json_from_markdown(CONFIG_MD.read_text(encoding="utf-8"))
     if json.loads(frozen) != json.loads(cfg.to_json()):
         raise Stop("STOP: B1Config differs from the JSON frozen in docs/b1/B1_CONFIG.md")
     return cfg.sha256()
@@ -148,12 +153,12 @@ def phase_audit(cfg, out: Path, work: Path, workers: int, log: Log) -> dict:
     log(f"  predeclared positions: {pre.classification.value_counts().to_dict()}")
     chosen, fb = resolve_positions(audit, cfg, log)
     fb.to_csv(out / "position_fallbacks.csv", index=False)
-    (work / "positions.json").write_text(json.dumps({f"{k[0]}|{k[1]}|{k[2]}": {l: list(p) for l, p in v.items()} for k, v in chosen.items()}, indent=1))
+    (work / "positions.json").write_text(json.dumps({f"{k[0]}|{k[1]}|{k[2]}": {l: list(p) for l, p in v.items()} for k, v in chosen.items()}, indent=1), encoding="utf-8")
     return chosen
 
 
 def load_positions(work: Path) -> dict:
-    raw = json.loads((work / "positions.json").read_text())
+    raw = json.loads((work / "positions.json").read_text(encoding="utf-8"))
     return {(k.split("|")[0], k.split("|")[1], int(k.split("|")[2])): {l: tuple(p) for l, p in v.items()} for k, v in raw.items()}
 
 
@@ -183,7 +188,7 @@ def rx_ceil_fits(med: pd.DataFrame, cfg) -> pd.DataFrame:
 def phase_rx(cfg, out: Path, work: Path, workers: int, log: Log, smoke: bool) -> None:
     t0 = time.time()
     # --- B3 populations regenerated: reproduce B3's published per-seed slopes, then derive b_S / b_r intervals -------
-    b3_cfg = json.loads((B3_DIR / "config.json").read_text())
+    b3_cfg = json.loads((B3_DIR / "config.json").read_text(encoding="utf-8"))
     b3_n = tuple(int(n) for n in b3_cfg["primary_n"])                  # B3's own grid and sample size, whatever cfg.rx_n is
     b3_ranges = {B3_RANGE[k]: v for k, v in cfg.fit_ranges(b3_n).items()}
     regen_med = RX.b3_regenerated_medians(cfg.b3_seeds, b3_n, int(b3_cfg["seed_samples"]))
@@ -282,10 +287,10 @@ def task_sweep(work: str, family: str, regime: str, n: int, seed: int, positions
     path = cache_path(Path(work), family, regime, n, seed)
     labels = sorted(positions)
     if path.exists():
-        z = np.load(path)
-        if int(z["n_samples"]) == cfg.samples_per_cell and all(f"{l}_F_plus" in z for l in labels):
-            return {"family": family, "regime": regime, "n": n, "seed": seed, "cached": True, "seconds": float(z["seconds"]),
-                    "max_bracket_vs_forward": float(z["max_bracket_vs_forward"])}
+        with np.load(path) as z:                     # closed before any rewrite (Windows cannot replace an open file)
+            if int(z["n_samples"]) == cfg.samples_per_cell and all(f"{l}_F_plus" in z for l in labels):
+                return {"family": family, "regime": regime, "n": n, "seed": seed, "cached": True, "seconds": float(z["seconds"]),
+                        "max_bracket_vs_forward": float(z["max_bracket_vs_forward"])}
     t = time.time()
     depth = CF.depth_of(regime, n)
     theta = CF.sample_theta(family, regime, n, seed, cfg.samples_per_cell)
@@ -315,7 +320,7 @@ def task_sweep(work: str, family: str, regime: str, n: int, seed: int, positions
     tmp = path.with_suffix(".tmp.npz")
     np.savez(tmp, n_samples=N, F=F0, seconds=seconds, max_bracket_vs_forward=cons,
              positions=json.dumps({l: list(p) for l, p in positions.items()}), **arr)
-    tmp.rename(path)
+    tmp.replace(path)                                # overwrites a stale cache on every OS
     return {"family": family, "regime": regime, "n": n, "seed": seed, "cached": False, "seconds": seconds, "max_bracket_vs_forward": cons}
 
 
@@ -342,9 +347,9 @@ def phase_sweep(cfg, out: Path, work: Path, workers: int, log: Log) -> None:
 # phase 4: analysis
 # =================================================================================================================
 def load_cell(work: Path, family: str, regime: str, n: int, seed: int) -> dict:
-    z = np.load(cache_path(work, family, regime, n, seed))
-    pos = {l: tuple(p) for l, p in json.loads(str(z["positions"])).items()}
-    return {"positions": pos, **{k: z[k] for k in z.files if k.endswith(("_F_plus", "_F_minus"))}}
+    with np.load(cache_path(work, family, regime, n, seed)) as z:
+        pos = {l: tuple(p) for l, p in json.loads(str(z["positions"])).items()}
+        return {"positions": pos, **{k: z[k] for k in z.files if k.endswith(("_F_plus", "_F_minus"))}}
 
 
 def entangling_tables(cfg, work: Path) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -589,15 +594,15 @@ def phase_sign(cfg, out: Path, work: Path, log: Log) -> None:
 # =================================================================================================================
 def main(argv=None) -> None:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--out-dir", type=Path, default=RESULTS_DIR)
-    p.add_argument("--work-dir", type=Path, default=DEFAULT_WORK)
+    p.add_argument("--out-dir", type=Path, default=None, help="default: results/b1_entangling (--fast: a .qlo_cache folder)")
+    p.add_argument("--work-dir", type=Path, default=None, help="per-theta caches (default: see qlo.paths)")
     p.add_argument("--workers", type=int, default=6)
     p.add_argument("--phase", choices=PHASES + ("all",), default="all")
-    p.add_argument("--smoke", action="store_true")
+    p.add_argument("--smoke", "--fast", dest="smoke", action="store_true")
     a = p.parse_args(argv)
     cfg = smoke_config() if a.smoke else CF.B1Config()
     SR.check_seeds(cfg.seeds, forbidden=(SR.STAGE7_SEED,) + SR.B3_SEEDS)
-    out, work = a.out_dir, a.work_dir
+    out, work = P.run_dirs(EXPERIMENT, a.smoke, a.out_dir, a.work_dir, RESULTS_DIR)
     out.mkdir(parents=True, exist_ok=True)
     (out / "figures").mkdir(exist_ok=True)
     work.mkdir(parents=True, exist_ok=True)
@@ -609,7 +614,7 @@ def main(argv=None) -> None:
                                                  "frozen_config_document": "B1_CONFIG.md", "git_head_at_run": git_head(),
                                                  "family_labels": C.FAMILY_LABEL, "rotation_axes": {k: list(v) for k, v in C.AXES.items()},
                                                  "position_rule": "qubit 0, rotation theta[l, 0, 0]; EARLY l = 0, MIDDLE l = floor(d/2), LATE l = d - 1"},
-                                                indent=2))
+                                                indent=2), encoding="utf-8")
     if "audit" in phases:
         phase_audit(cfg, out, work, a.workers, log)
     if "rx" in phases:

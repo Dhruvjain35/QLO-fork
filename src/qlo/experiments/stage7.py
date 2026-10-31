@@ -276,12 +276,12 @@ def main(argv=None) -> None:
                            replication_samples=2000, pl_reps=60, opt_seeds=8, opt_iters=120)
     out = a.out_dir; out.mkdir(parents=True, exist_ok=True)
     fig = out / "figures"; fig.mkdir(exist_ok=True)
-    (out / "config.json").write_text(json.dumps(asdict(cfg), indent=2, default=str))
+    (out / "config.json").write_text(json.dumps(asdict(cfg), indent=2, default=str), encoding="utf-8")
     pd.set_option("display.width", 250); pd.set_option("display.max_columns", 60); pd.set_option("display.float_format", "{:.4g}".format)
 
     tv = theory_validation(cfg)
     tv["common_landscape"] = [AN.common_landscape_check(n, 20_000, cfg.seed) for n in cfg.n_values]
-    (out / "theory_validation.json").write_text(json.dumps(tv, indent=2, default=float))
+    (out / "theory_validation.json").write_text(json.dumps(tv, indent=2, default=float), encoding="utf-8")
     print("== theory validation ==")
     print(json.dumps({k: tv[k] for k in ("identities_max_err", "difference_distribution_max_err_vs_bruteforce", "integer_M_monotonicity",
                                          "swap_normal_cc_inversion_handover")}, indent=1, default=float))
@@ -299,7 +299,7 @@ def main(argv=None) -> None:
     summary.to_csv(out / "scaling_summary.csv", index=False)
     samples.to_csv(out / "paired_required_shots_subsample.csv.gz", index=False)
     fits = fit_table(summary)
-    (out / "scaling_fits.json").write_text(json.dumps({"fits": fits, "note": "median log10 M = a + b n; slopes not forced"}, indent=2, default=float))
+    (out / "scaling_fits.json").write_text(json.dumps({"fits": fits, "note": "median log10 M = a + b n; slopes not forced"}, indent=2, default=float), encoding="utf-8")
     cols = ["n", "scheme", "log10_abs_g_median"] + [f"{t}_log10M_median" for t, _, _ in AN.TARGETS]
     print("== required shots (median log10 M) ==\n", summary[cols].to_string(index=False))
     print("== methods ==\n", summary[["n", "scheme"] + [c for c in summary.columns if "_frac_" in c and not c.endswith("closed_form")]].to_string(index=False))

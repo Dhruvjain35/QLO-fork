@@ -92,7 +92,7 @@ def test_predictions_rx_global_asymptotes():
 
 
 def test_config_frozen():
-    frozen = CF.config_json_from_markdown((ROOT / "docs" / "b4" / "B4_CONFIG.md").read_text())
+    frozen = CF.config_json_from_markdown((ROOT / "docs" / "b4" / "B4_CONFIG.md").read_text(encoding="utf-8"))
     assert json.loads(frozen) == json.loads(CF.B4Config().to_json())
 
 

@@ -252,7 +252,7 @@ def test_predicted_ratio_formula():
 # 15. B3 interval utilities ------------------------------------------------------------------------------------------------
 def test_b3_interval_utilities_used_with_b3_settings():
     cfg = CF.B1Config()
-    b3 = json.loads((B3 / "config.json").read_text())
+    b3 = json.loads((B3 / "config.json").read_text(encoding="utf-8"))
     assert (cfg.n_boot_seed, cfg.boot_seed) == (b3["n_boot_seed"], b3["boot_seed"])
     rng = np.random.default_rng(8)
     rows = [{"family": "f", "regime": "d2", "position": "EARLY", "fit_range": "primary", "seed": s, "n_min": 4, "n_max": 16,

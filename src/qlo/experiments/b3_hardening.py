@@ -1,13 +1,14 @@
 """B3 statistical hardening of Stage 7 (delegated track, Satyabrat work allocation).
 
     python -m qlo.experiments.b3_hardening --workers 8                 # compute (cached) + analyse -> results/b3_hardening/
-    python -m qlo.experiments.b3_hardening --fast --work-dir /tmp/b3   # reduced smoke run
+    python -m qlo.experiments.b3_hardening --fast                      # reduced smoke run (.qlo_cache/b3_hardening_fast/)
 
 Two uncertainty sources are kept SEPARATE throughout:
   SEED      (primary)   20 independent master seeds 10000..10019, each a fresh theta population and pipeline;
   THETA     (secondary) paired theta bootstrap inside the regenerated Stage 7 reference population (seed 0);
   HIERARCHICAL (optional, separately labelled) seeds resampled, then theta within each selected seed.
-Stage 7 code, results and report are not modified. Per-theta caches go to --work-dir (default: external SSD).
+Stage 7 code, results and report are not modified. Per-theta caches go to --work-dir, else $QLO_WORK_DIR/b3_hardening, else
+.qlo_cache/b3_hardening (qlo.paths). --fast never writes to results/b3_hardening/ unless --out-dir says so.
 """
 
 from __future__ import annotations
@@ -28,6 +29,7 @@ from qlo.hardening import figures as FIG
 from qlo.hardening import intervals as IV
 from qlo.hardening import numerics as NUM
 from qlo.hardening import seed_replicates as SR
+from qlo import paths as P
 from qlo.stage6.analysis import wilson_ci
 from qlo.stage6.directional import direction_probabilities
 from qlo.stage7 import analysis as AN
@@ -37,7 +39,7 @@ from qlo.experiments.stage7 import Stage7Config
 ROOT = Path(__file__).resolve().parents[3]
 RESULTS_DIR = ROOT / "results" / "b3_hardening"
 STAGE7_DIR = ROOT / "results" / "stage7"
-DEFAULT_WORK = Path("/Volumes/SSD Disk  1TB/qlo-b3-work")
+EXPERIMENT = "b3_hardening"
 SIGN_LAW_MEDIAN = (1.0 + 1.0 / np.sqrt(2.0)) / 2.0  # fixed Stage 7 prediction; never refitted
 
 
@@ -90,8 +92,8 @@ def _cache(work: Path, kind: str, seed: int, n=None) -> Path:
 def task_required(work: str, seed: int, n: int, n_samples: int) -> dict:
     path = _cache(Path(work), "required", seed, n)
     if path.exists():
-        z = np.load(path)
-        res = {"n": n, "seed": seed, "n_samples": int(z["vals"].shape[1]), "vals": z["vals"], "meth": z["meth"], "logA": z["logA"], "s": z["s"]}
+        with np.load(path) as z:                     # closed before any rewrite (Windows cannot replace an open file)
+            res = {"n": n, "seed": seed, "n_samples": int(z["vals"].shape[1]), "vals": z["vals"], "meth": z["meth"], "logA": z["logA"], "s": z["s"]}
         if res["n_samples"] == n_samples:
             return {"rows": SR.medians_and_methods(res), "check": NUM.validate_required_point(res)}
     t = time.time()
@@ -112,10 +114,13 @@ def task_fixed(work: str, seed: int, n: int, shots: tuple, n_samples: int, keep:
 
 def _task_fixed(work: str, seed: int, n: int, shots: tuple, n_samples: int, keep: bool) -> list[dict]:
     path = _cache(Path(work), "fixed", seed, n)
-    if path.exists() and np.load(path)["s"].size == n_samples:
-        z = np.load(path)
-        r = {"loschmidt": z["loschmidt"], "swap": z["swap"], "loschmidt_float_tie": z["loschmidt_float_tie"], "swap_float_tie": z["swap_float_tie"],
-             "loschmidt_cond_accurate": z["loschmidt_cond_accurate"], "s": z["s"], "logA": z["logA"]}
+    cached = None
+    if path.exists():
+        with np.load(path) as z:
+            if z["s"].size == n_samples:
+                cached = {k: z[k] for k in ("loschmidt", "swap", "loschmidt_float_tie", "swap_float_tie", "loschmidt_cond_accurate", "s", "logA")}
+    if cached is not None:
+        r = cached
     else:
         r = SR.fixed_shot_per_theta(n, shots, n_samples, seed)
         if keep:   # per-theta arrays are kept only for the reference population (theta bootstrap)
@@ -241,7 +246,7 @@ def boot_table(slopes: dict, kind: str, point: dict | None = None) -> tuple[pd.D
 
 
 def stage7_point_estimates() -> dict:
-    fits = json.loads((STAGE7_DIR / "scaling_fits.json").read_text())["fits"]
+    fits = json.loads((STAGE7_DIR / "scaling_fits.json").read_text(encoding="utf-8"))["fits"]
     out = {}
     for k, f in fits.items():
         sc, tag = k.split("_", 1)
@@ -481,8 +486,8 @@ def interval_diagnostics(cfg: B3Config) -> dict:
 # =================================================================================================================
 def main(argv=None) -> None:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--out-dir", type=Path, default=RESULTS_DIR)
-    p.add_argument("--work-dir", type=Path, default=DEFAULT_WORK)
+    p.add_argument("--out-dir", type=Path, default=None, help="default: results/b3_hardening (--fast: a .qlo_cache folder)")
+    p.add_argument("--work-dir", type=Path, default=None, help="per-theta caches (default: see qlo.paths)")
     p.add_argument("--workers", type=int, default=8)
     p.add_argument("--fast", action="store_true")
     p.add_argument("--skip-hierarchical", action="store_true")
@@ -493,13 +498,13 @@ def main(argv=None) -> None:
                       fixed_seed_samples=300, fixed_reference_samples=600, fixed_n_boot=60, mc_reps=2000, vector_theta=40,
                       vector_replicates=4, opt_starts_per_seed=6, opt_iters=60)
     SR.check_seeds(cfg.seeds)
-    out, work = a.out_dir, a.work_dir
+    out, work = P.run_dirs(EXPERIMENT, a.fast, a.out_dir, a.work_dir, RESULTS_DIR)
     out.mkdir(parents=True, exist_ok=True)
     (out / "figures").mkdir(exist_ok=True)
     work.mkdir(parents=True, exist_ok=True)
     (out / "config.json").write_text(json.dumps({**asdict(cfg), "work_dir": str(work), "stage7_seed_excluded": SR.STAGE7_SEED,
                                                  "theta_streams": {"required_shots": SR.REQ_STREAM, "fixed_shots": SR.FIXED_STREAM},
-                                                 "sign_law_fixed_prediction": SIGN_LAW_MEDIAN, "baseline_commit": "ba51866"}, indent=2, default=str))
+                                                 "sign_law_fixed_prediction": SIGN_LAW_MEDIAN, "baseline_commit": "ba51866"}, indent=2, default=str), encoding="utf-8")
     all_n = tuple(cfg.primary_n) + tuple(cfg.extension_n)
     t0 = time.time()
 
@@ -552,7 +557,7 @@ def main(argv=None) -> None:
         ranges["extended_2_" + str(max(accepted_ext))] = lambda n, _acc=accepted_ext: 2 <= n <= 20 or n in _acc
     (out / "numerical_extension.json").write_text(json.dumps({"swap_normal_handover": handover, "extension_accepted": {str(k): v for k, v in ext_ok.items()},
                                                              "primary_fit_range": "2..20 (unchanged, Stage 7 range)",
-                                                             "per_point_failures": checks[~checks.accepted].to_dict("records")}, indent=2, default=float))
+                                                             "per_point_failures": checks[~checks.accepted].to_dict("records")}, indent=2, default=float), encoding="utf-8")
 
     # ---- 4. seed-level fits and summaries ---------------------------------------------------------------------------
     fits = fit_rows(med, ranges)
@@ -647,10 +652,10 @@ def main(argv=None) -> None:
     rw.to_csv(out / "random_walk_summary.csv", index=False)
     random_walk_stratified(runs, cfg).to_csv(out / "random_walk_stratified_posthoc.csv", index=False)
     nonmonotone_rows(checks, work).to_csv(out / "numerical_nonmonotone_rows.csv", index=False)
-    (out / "interval_diagnostics.json").write_text(json.dumps(interval_diagnostics(cfg), indent=2))
+    (out / "interval_diagnostics.json").write_text(json.dumps(interval_diagnostics(cfg), indent=2), encoding="utf-8")
 
     (out / "run_meta.json").write_text(json.dumps({"stage7_reproduction": reproduction, "extension_accepted": {str(k): v for k, v in ext_ok.items()},
-                                                   "fit_ranges": list(ranges), "wall_seconds": time.time() - t0}, indent=2, default=float))
+                                                   "fit_ranges": list(ranges), "wall_seconds": time.time() - t0}, indent=2, default=float), encoding="utf-8")
 
     # ---- 9. figures ----------------------------------------------------------------------------------------------------
     fig = out / "figures"

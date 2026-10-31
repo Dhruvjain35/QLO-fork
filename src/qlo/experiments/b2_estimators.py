@@ -1,11 +1,14 @@
 """B2: four fidelity-gradient estimators on the frozen Stage 7 RX-product landscape.
 
     python -m qlo.experiments.b2_estimators                 # all phases -> results/b2_estimators/
+    python -m qlo.experiments.b2_estimators --fast          # reduced smoke run -> .qlo_cache/b2_estimators_fast/out/
 
 Phases (in order; each STOPs on failure): validate (destructive SWAP + Hadamard circuits, Hadamard variance;
 Case C / D gates) -> rx (four-estimator required shots on the Stage 7 population, Stage 7 regression, replicate seeds,
 slopes) -> fixed (fixed-budget failure modes) -> spot (secondary entangling spot check) -> figures.
 The configuration is qlo.b2.config.B2Config, frozen in docs/b2/B2_CONFIG.md (checked at start).
+--fast uses a reduced, unfrozen configuration (n = 2..10, the full Stage 7 population, so the Stage 7 regression gate
+still applies) and writes under .qlo_cache/b2_estimators_fast/ (or $QLO_WORK_DIR/...) unless --out-dir is given.
 """
 
 from __future__ import annotations
@@ -13,11 +16,13 @@ from __future__ import annotations
 import argparse
 import json
 import time
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
+from qlo import paths as P
 from qlo.b2 import analysis as AZ
 from qlo.b2 import config as CF
 from qlo.b2 import figures as FG
@@ -26,7 +31,9 @@ from qlo.b2 import resources as RES
 from qlo.stage6.analysis import linear_fit
 
 ROOT = Path(__file__).resolve().parents[3]
-OUT = ROOT / "results" / "b2_estimators"
+RESULTS_DIR = ROOT / "results" / "b2_estimators"
+OUT = RESULTS_DIR                                         # rebound by main() (--out-dir / --fast)
+EXPERIMENT = "b2_estimators"
 STAGE7 = ROOT / "results" / "stage7"
 LOG2, LOG4 = float(np.log10(2.0)), float(np.log10(4.0))
 
@@ -37,7 +44,7 @@ class Stop(SystemExit):
 
 def log(msg: str) -> None:
     print(msg, flush=True)
-    with open(OUT / "numerics_log.md", "a") as f:
+    with open(OUT / "numerics_log.md", "a", encoding="utf-8") as f:
         f.write(msg + "\n")
 
 
@@ -196,20 +203,36 @@ def phase_spot(cfg) -> None:
         ", ".join(f"{r['estimator']} {r['slope']:.4f}" for r in fits) + f" ({time.time() - t:.0f}s)")
 
 
+def fast_config() -> CF.B2Config:
+    """Smoke configuration: same streams, seeds and gates, far fewer cells. Stage 7 seed 0 keeps its 100,000 theta so the
+    exact Stage 7 regression still runs (n = 2..10 costs a few seconds)."""
+    return replace(CF.B2Config(), rx_n=(2, 4, 6, 8, 10), replicate_seeds=(12_000, 12_001), replicate_samples=1_000, n_boot_seed=500,
+                   budgets_total_executions=(32, 512, 8192), fixed_n=(6, 10), fixed_samples=60, fixed_samples_hadamard=8,
+                   hadamard_mc_reps=500, validation_mc_reps=2_000, spot_n=(4, 6), spot_samples=40)
+
+
 def main(argv=None) -> None:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--phase", choices=("validate", "rx", "fixed", "spot", "figures", "all"), default="all")
+    p.add_argument("--out-dir", type=Path, default=None, help="default: results/b2_estimators (--fast: a .qlo_cache folder)")
+    p.add_argument("--fast", action="store_true", help="reduced smoke run; not the frozen configuration")
     a = p.parse_args(argv)
+    global OUT
+    OUT = P.run_dirs(EXPERIMENT, a.fast, a.out_dir, None, RESULTS_DIR)[0]
     cfg = CF.B2Config()
-    frozen = CF.config_json_from_markdown((ROOT / "docs" / "b2" / "B2_CONFIG.md").read_text())
-    if json.loads(frozen) != json.loads(cfg.to_json()):
-        raise Stop("STOP: B2Config differs from docs/b2/B2_CONFIG.md")
+    if a.fast:
+        cfg = fast_config()
+    else:
+        frozen = CF.config_json_from_markdown((ROOT / "docs" / "b2" / "B2_CONFIG.md").read_text(encoding="utf-8"))
+        if json.loads(frozen) != json.loads(cfg.to_json()):
+            raise Stop("STOP: B2Config differs from docs/b2/B2_CONFIG.md")
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "figures").mkdir(exist_ok=True)
-    (OUT / "config.json").write_text(json.dumps({**json.loads(cfg.to_json()), "config_sha256": cfg.sha256(),
-                                                 "executions_per_M": CF.EXECUTIONS_PER_M}, indent=2))
+    sha = "fast (not frozen)" if a.fast else cfg.sha256()
+    (OUT / "config.json").write_text(json.dumps({**json.loads(cfg.to_json()), "config_sha256": sha,
+                                                 "executions_per_M": CF.EXECUTIONS_PER_M}, indent=2), encoding="utf-8")
     RES.resource_table().to_csv(OUT / "resource_accounting.csv", index=False)
-    log(f"\n## run {time.strftime('%Y-%m-%d %H:%M:%S %Z')} phase={a.phase} config sha256={cfg.sha256()}")
+    log(f"\n## run {time.strftime('%Y-%m-%d %H:%M:%S %Z')} phase={a.phase} config sha256={sha}")
     phases = ("validate", "rx", "fixed", "spot", "figures") if a.phase == "all" else (a.phase,)
     if "validate" in phases:
         phase_validate(cfg)

@@ -1,11 +1,15 @@
 """B4: depolarizing-noise overlay on the Stage 7 RX product and every B1 entangling cell.
 
     python -m qlo.experiments.b4_noise                    # all phases -> results/b4_noise/
-    python -m qlo.experiments.b4_noise --b1-work DIR      # B1 per-theta caches (default: external SSD)
+    python -m qlo.experiments.b4_noise --b1-work DIR      # B1 per-theta caches (default: see below)
+    python -m qlo.experiments.b4_noise --fast             # smoke run on the B1 --fast caches (runs B1 --fast if needed)
 
 Phases: validate (density-matrix checks) -> rx (global + local noise on the RX product) -> ent (global noise on the
 B1 cells, from the B1 per-theta F_pm caches) -> analyse (p = 0 regression vs B1, identity, fits, predictions,
 transition profile) -> figures. The configuration is frozen in docs/b4/B4_CONFIG.md (checked at start).
+The B1 caches are read from --b1-work, else $QLO_WORK_DIR/b1_entangling, else .qlo_cache/b1_entangling (qlo.paths).
+--fast uses a reduced, unfrozen configuration matched to the B1 smoke configuration and writes under
+.qlo_cache/b4_noise_fast/ (or $QLO_WORK_DIR/...) unless --out-dir is given, so it never touches results/b4_noise/.
 """
 
 from __future__ import annotations
@@ -13,11 +17,13 @@ from __future__ import annotations
 import argparse
 import json
 import time
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
+from qlo import paths as P
 from qlo.b1 import config as B1CF
 from qlo.b1 import fits as FT
 from qlo.b1 import quantities as Q
@@ -27,9 +33,11 @@ from qlo.hardening import intervals as IV
 from qlo.stage6.analysis import linear_fit
 
 ROOT = Path(__file__).resolve().parents[3]
-OUT = ROOT / "results" / "b4_noise"
-B1_RESULTS = ROOT / "results" / "b1_entangling"
-DEFAULT_B1_WORK = Path("/Volumes/SSD Disk  1TB/qlo-b1-work")
+RESULTS_DIR = ROOT / "results" / "b4_noise"
+B1_RESULTS_DIR = ROOT / "results" / "b1_entangling"
+OUT, B1_RESULTS = RESULTS_DIR, B1_RESULTS_DIR             # rebound by main() (--out-dir / --fast)
+EXPERIMENT = "b4_noise"
+B1 = B1CF.B1Config()                                  # the B1 configuration whose caches are read (smoke config under --fast)
 LOG2 = float(np.log10(2.0))
 KEYS = ["model", "p", "family", "regime", "position"]
 
@@ -40,7 +48,7 @@ class Stop(SystemExit):
 
 def log(msg: str) -> None:
     print(msg, flush=True)
-    with open(OUT / "numerics_log.md", "a") as f:
+    with open(OUT / "numerics_log.md", "a", encoding="utf-8") as f:
         f.write(msg + "\n")
 
 
@@ -108,7 +116,7 @@ def phase_rx(cfg) -> tuple[list, list]:
 def phase_ent(cfg, b1_work: Path) -> tuple[list, list]:
     from qlo.experiments.b1_entangling import load_cell
 
-    b1 = B1CF.B1Config()
+    b1 = B1
     med, ident = [], []
     for fam in b1.families:
         for reg in b1.regimes:
@@ -130,7 +138,7 @@ def phase_ent(cfg, b1_work: Path) -> tuple[list, list]:
 
 # =================================================================================================================
 def _ranges(cfg, family, regime):
-    grid = cfg.rx_n if family == "rx_product" else B1CF.B1Config().n_grid(regime)
+    grid = cfg.rx_n if family == "rx_product" else B1.n_grid(regime)
     return {"primary": tuple(grid), "secondary_n_ge_8": tuple(n for n in grid if n >= cfg.secondary_n_min)}
 
 
@@ -248,21 +256,42 @@ def phase_analyse(cfg, med_rows, ident_rows) -> None:
 
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--b1-work", type=Path, default=DEFAULT_B1_WORK)
+    ap.add_argument("--b1-work", type=Path, default=None, help="B1 per-theta caches (default: see qlo.paths)")
+    ap.add_argument("--out-dir", type=Path, default=None, help="default: results/b4_noise (--fast: a .qlo_cache folder)")
     ap.add_argument("--skip-validate", action="store_true")
+    ap.add_argument("--fast", action="store_true", help="reduced smoke run; not the frozen configuration")
     a = ap.parse_args(argv)
+    global OUT, B1_RESULTS, B1
     cfg = CF.B4Config()
-    if json.loads(CF.config_json_from_markdown((ROOT / "docs" / "b4" / "B4_CONFIG.md").read_text())) != json.loads(cfg.to_json()):
-        raise Stop("STOP: B4Config differs from docs/b4/B4_CONFIG.md")
+    if a.fast:
+        from qlo.experiments import b1_entangling as B1D
+
+        B1 = B1D.smoke_config()
+        b1_out, b1_work = P.run_dirs(B1D.EXPERIMENT, True, None, a.b1_work, B1_RESULTS_DIR)
+        if a.b1_work is None and not (b1_out / "sample_summary.csv").exists():
+            print(f"fast: no B1 smoke caches in {b1_work}; running b1_entangling --fast first", flush=True)
+            B1D.main(["--fast", "--workers", "2"])
+        B1_RESULTS = b1_out
+        cfg = replace(cfg, seeds=B1.seeds, rx_n=B1.rx_n, rx_samples=B1.rx_samples, n_boot_seed=500, validate_theta=1,
+                      secondary_n_min=6)
+        OUT = P.run_dirs(EXPERIMENT, True, a.out_dir, None, RESULTS_DIR)[0]
+    else:
+        frozen = CF.config_json_from_markdown((ROOT / "docs" / "b4" / "B4_CONFIG.md").read_text(encoding="utf-8"))
+        if json.loads(frozen) != json.loads(cfg.to_json()):
+            raise Stop("STOP: B4Config differs from docs/b4/B4_CONFIG.md")
+        B1, B1_RESULTS = B1CF.B1Config(), B1_RESULTS_DIR
+        OUT = P.run_dirs(EXPERIMENT, False, a.out_dir, None, RESULTS_DIR)[0]
+        b1_work = P.work_dir("b1_entangling", a.b1_work)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "figures").mkdir(exist_ok=True)
-    (OUT / "config.json").write_text(json.dumps({**json.loads(cfg.to_json()), "config_sha256": cfg.sha256()}, indent=2))
-    log(f"\n## run {time.strftime('%Y-%m-%d %H:%M:%S %Z')} config sha256={cfg.sha256()}")
+    (OUT / "config.json").write_text(json.dumps({**json.loads(cfg.to_json()), "config_sha256": "fast (not frozen)" if a.fast else cfg.sha256()},
+                                                indent=2), encoding="utf-8")
+    log(f"\n## run {time.strftime('%Y-%m-%d %H:%M:%S %Z')} config sha256={'fast (not frozen)' if a.fast else cfg.sha256()}")
     t = time.time()
     if not a.skip_validate:
         phase_validate(cfg)
     m1, i1 = phase_rx(cfg)
-    m2, i2 = phase_ent(cfg, a.b1_work)
+    m2, i2 = phase_ent(cfg, b1_work)
     phase_analyse(cfg, m1 + m2, i1 + i2)
     log(f"done ({time.time() - t:.0f}s)")
 

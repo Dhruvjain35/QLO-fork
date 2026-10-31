@@ -362,11 +362,11 @@ def main(argv=None) -> None:
                         retro_seeds=4, retro_iters=60) if a.fast else Stage6Config())
     out = a.out_dir; out.mkdir(parents=True, exist_ok=True)
     fig = out / "figures"; fig.mkdir(exist_ok=True)
-    (out / "config.json").write_text(json.dumps(asdict(cfg), indent=2))
+    (out / "config.json").write_text(json.dumps(asdict(cfg), indent=2), encoding="utf-8")
     pd.set_option("display.width", 260); pd.set_option("display.max_columns", 80); pd.set_option("display.float_format", "{:.4g}".format)
 
     tv = theory_validation(cfg)
-    (out / "parity_theory_validation.json").write_text(json.dumps(tv, indent=2, default=float))
+    (out / "parity_theory_validation.json").write_text(json.dumps(tv, indent=2, default=float), encoding="utf-8")
     print("== parity theory validation ==")
     print(json.dumps({k: v for k, v in tv.items() if not isinstance(v, list)}, indent=1, default=float))
     print(pd.DataFrame(tv["gradient_variance_check"]).to_string(index=False))
@@ -398,7 +398,7 @@ def main(argv=None) -> None:
             d = s.dropna(subset=[col]) if col in s else s.iloc[0:0]
             if len(d) >= 3:
                 fits[f"{bench}_{tag}"] = scaling_fit(d.n, d[col], f"{bench}_{tag}")
-    (out / "scaling_fits.json").write_text(json.dumps({"fits": fits, "note": "median log10 M = a + b n; reference slopes log10 4 = 0.602, log10 2 = 0.301"}, indent=2, default=float))
+    (out / "scaling_fits.json").write_text(json.dumps({"fits": fits, "note": "median log10 M = a + b n; reference slopes log10 4 = 0.602, log10 2 = 0.301"}, indent=2, default=float), encoding="utf-8")
     print("== scaling fits ==")
     for k, f in fits.items():
         print(f"  {k:20s} slope={f['slope']:.4f} R2={f['r2']:.5f} closer_to={f['closer_to']} (n_points={f['n_points']})")
