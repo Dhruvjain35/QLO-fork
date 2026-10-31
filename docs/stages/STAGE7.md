@@ -116,7 +116,11 @@ almost always a single count. It came from the F₋ circuit with probability F�
 
 The theory table confirms this: 0.750–0.796 at s = ½ for A from 1e-2 to 1e-6, reaching 0.7505 once P_zero ≥ 0.99.
 Over θ ~ U[−π, π] the median of |sin θ| is 1/√2, so the predicted median is (1 + 1/√2)/2 = 0.8536. **Observed at n = 20:
-0.8533–0.8537 for every M.**
+0.8527–0.8530 for every M.**
+
+> *Correction (Phase 8 I1, from B3 D2).* The value first reported here, 0.8533–0.8537, came from a formula that
+> subtracts from about 1 and loses digits deep in the dead zone. 0.8527–0.8530 is the same median computed without
+> that cancellation ([B3 §16 D2](../b3/B3_STATISTICAL_HARDENING.md)). The experiment was not rerun or changed.
 
 **SWAP: the sign is a coin flip.** Median P(correct | ĝ ≠ 0) = 0.500 for n ≥ 10 at every tested M.
 
@@ -277,6 +281,10 @@ This is a diagnostic, not an optimizer study.
   - SWAP GD **moves but is a random walk**. Wrong-direction steps run 48–50%, and the mean cosine is 0.01. The paired F_final
     comparison with exact GD is a coin flip (0.50 / 0.50), and its F_best gain matches the signal-free random-walk control
     (10^1.66 vs 10^1.27 at M = 64; 10^0.51 vs 10^0.47 at n = 12, M = 1024).
+  - *Scope (Phase 8 I1, from B3 D1 and B5 PI-3).* The random-walk behaviour holds for the typical start, meaning initial
+    fidelity below the median. Starts in the high-fidelity tail keep a small but resolved directional signal. Stage 7's
+    50 starts could not resolve this; B3's 1,000 paired starts do ([B3 §13, §16 D1](../b3/B3_STATISTICAL_HARDENING.md);
+    [B5 PI-3](../b5/B5_POTENTIAL_ISSUES.md)).
 - **F_best is misleading.** It is a running maximum, which any random walk inflates. SWAP "beats" exact GD on F_best in
   80–92% of paired seeds at n ≥ 10, and so does the random-walk control. **F_final is the fair endpoint.** On it, neither
   scheme gains anything over exact GD. At n = 10, P(F_final ≥ 0.5) is 0.08 for exact GD, 0.06–0.08 for LE and 0.04–0.14
@@ -296,8 +304,9 @@ At the level of the fidelity estimate itself, M = 1024, median over 20 000 θ:
 2. The SWAP estimate approaches a parameter-independent distribution centred on zero fidelity: ancilla outcomes ≈ 50/50,
    and the exact TV distance to the F = 0 null distribution → 0 (normal-limit TV agrees to 3 digits). ✔ replicated.
 
-Trajectory level (§17): SWAP-estimated GD at n ≥ 10 is statistically indistinguishable from a signal-free random walk under
-polynomial shots. This matches the random-walk statement of Aghaei Saem et al. (made there for a global-Pauli example).
+Trajectory level (§17): for the typical start (initial fidelity below the median), SWAP-estimated GD at n ≥ 10 is
+statistically indistinguishable from a signal-free random walk under polynomial shots. Starts in the high-fidelity tail
+keep a small but resolved directional signal (B3 D1, B5 PI-3; scope added in Phase 8 I1). This matches the random-walk statement of Aghaei Saem et al. (made there for a global-Pauli example).
 ✔ replicated in this fidelity setting.
 
 ## 19. Prior work and what Stage 7 adds
@@ -330,7 +339,9 @@ are given, because none were verified.
 - **D.** Measurement-dependent shot exponent on an identical landscape: slope 0.60 (LE) vs 1.20 (SWAP) decades per
   qubit, for SNR and sign targets alike (§12). Explained by the SNR ratio ≈ A/2 and the Hellinger scaling A vs A² (§10, §15).
 - **E.** Vector level: LE gives "no vector, or an aligned one"; SWAP gives "a vector of norm 10^4.5·‖g‖ with cos ≈ 0" (§14).
-- **F.** Trajectories: LE frozen, SWAP a random walk (control-matched), at n ≥ 10. Both track exact GD at n = 6 (§17).
+- **F.** Trajectories: LE frozen, SWAP a random walk (control-matched) for the typical start (initial fidelity below the
+  median), at n ≥ 10; high-fidelity-tail starts keep a small but resolved signal (B3 D1, Phase 8 I1). Both track exact
+  GD at n = 6 (§17).
 
 ## 21. Outcome classification (Task 23)
 **CASE C, which contains CASE A.**
