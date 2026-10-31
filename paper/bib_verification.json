@@ -1,0 +1,1133 @@
+{
+ "retrieved_utc": "2026-10-31",
+ "crossref": {
+  "10.1038/s41377-025-01755-8": {
+   "doi": "10.1038/s41377-025-01755-8",
+   "type": "journal-article",
+   "title": "Experimental benchmarking of quantum state overlap estimation strategies with photonic systems",
+   "container_title": "Light: Science &amp; Applications",
+   "volume": "14",
+   "article_number": "83",
+   "page": null,
+   "issued": [
+    2025,
+    2,
+    12
+   ],
+   "authors": [
+    {
+     "given": "Hao",
+     "family": "Zhan",
+     "name": null
+    },
+    {
+     "given": "Ben",
+     "family": "Wang",
+     "name": null
+    },
+    {
+     "given": "Minghao",
+     "family": "Mi",
+     "name": null
+    },
+    {
+     "given": "Jie",
+     "family": "Xie",
+     "name": null
+    },
+    {
+     "given": "Liang",
+     "family": "Xu",
+     "name": null
+    },
+    {
+     "given": "Aonan",
+     "family": "Zhang",
+     "name": null
+    },
+    {
+     "given": "Lijian",
+     "family": "Zhang",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "Springer Science and Business Media LLC",
+   "url": "https://api.crossref.org/works/10.1038/s41377-025-01755-8"
+  },
+  "10.1038/s41467-018-07090-4": {
+   "doi": "10.1038/s41467-018-07090-4",
+   "type": "journal-article",
+   "title": "Barren plateaus in quantum neural network training landscapes",
+   "container_title": "Nature Communications",
+   "volume": "9",
+   "article_number": "4812",
+   "page": null,
+   "issued": [
+    2018,
+    11,
+    16
+   ],
+   "authors": [
+    {
+     "given": "Jarrod R.",
+     "family": "McClean",
+     "name": null
+    },
+    {
+     "given": "Sergio",
+     "family": "Boixo",
+     "name": null
+    },
+    {
+     "given": "Vadim N.",
+     "family": "Smelyanskiy",
+     "name": null
+    },
+    {
+     "given": "Ryan",
+     "family": "Babbush",
+     "name": null
+    },
+    {
+     "given": "Hartmut",
+     "family": "Neven",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "Springer Science and Business Media LLC",
+   "url": "https://api.crossref.org/works/10.1038/s41467-018-07090-4"
+  },
+  "10.1038/s41467-021-21728-w": {
+   "doi": "10.1038/s41467-021-21728-w",
+   "type": "journal-article",
+   "title": "Cost function dependent barren plateaus in shallow parametrized quantum circuits",
+   "container_title": "Nature Communications",
+   "volume": "12",
+   "article_number": "1791",
+   "page": null,
+   "issued": [
+    2021,
+    3,
+    19
+   ],
+   "authors": [
+    {
+     "given": "M.",
+     "family": "Cerezo",
+     "name": null
+    },
+    {
+     "given": "Akira",
+     "family": "Sone",
+     "name": null
+    },
+    {
+     "given": "Tyler",
+     "family": "Volkoff",
+     "name": null
+    },
+    {
+     "given": "Lukasz",
+     "family": "Cincio",
+     "name": null
+    },
+    {
+     "given": "Patrick J.",
+     "family": "Coles",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "Springer Science and Business Media LLC",
+   "url": "https://api.crossref.org/works/10.1038/s41467-021-21728-w"
+  },
+  "10.1038/s41467-021-27045-6": {
+   "doi": "10.1038/s41467-021-27045-6",
+   "type": "journal-article",
+   "title": "Noise-induced barren plateaus in variational quantum algorithms",
+   "container_title": "Nature Communications",
+   "volume": "12",
+   "article_number": "6961",
+   "page": null,
+   "issued": [
+    2021,
+    11,
+    29
+   ],
+   "authors": [
+    {
+     "given": "Samson",
+     "family": "Wang",
+     "name": null
+    },
+    {
+     "given": "Enrico",
+     "family": "Fontana",
+     "name": null
+    },
+    {
+     "given": "M.",
+     "family": "Cerezo",
+     "name": null
+    },
+    {
+     "given": "Kunal",
+     "family": "Sharma",
+     "name": null
+    },
+    {
+     "given": "Akira",
+     "family": "Sone",
+     "name": null
+    },
+    {
+     "given": "Lukasz",
+     "family": "Cincio",
+     "name": null
+    },
+    {
+     "given": "Patrick J.",
+     "family": "Coles",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "Springer Science and Business Media LLC",
+   "url": "https://api.crossref.org/works/10.1038/s41467-021-27045-6"
+  },
+  "10.1038/s41467-024-49287-w": {
+   "doi": "10.1038/s41467-024-49287-w",
+   "type": "journal-article",
+   "title": "Exponential concentration in quantum kernel methods",
+   "container_title": "Nature Communications",
+   "volume": "15",
+   "article_number": "5200",
+   "page": null,
+   "issued": [
+    2024,
+    6,
+    18
+   ],
+   "authors": [
+    {
+     "given": "Supanut",
+     "family": "Thanasilp",
+     "name": null
+    },
+    {
+     "given": "Samson",
+     "family": "Wang",
+     "name": null
+    },
+    {
+     "given": "M.",
+     "family": "Cerezo",
+     "name": null
+    },
+    {
+     "given": "Zoë",
+     "family": "Holmes",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "Springer Science and Business Media LLC",
+   "url": "https://api.crossref.org/works/10.1038/s41467-024-49287-w"
+  },
+  "10.1038/s41598-026-40123-3": {
+   "doi": "10.1038/s41598-026-40123-3",
+   "type": "journal-article",
+   "title": "Impact of measurement noise on escaping saddles in variational quantum algorithms",
+   "container_title": "Scientific Reports",
+   "volume": "16",
+   "article_number": "9390",
+   "page": null,
+   "issued": [
+    2026,
+    2,
+    17
+   ],
+   "authors": [
+    {
+     "given": "Eriko",
+     "family": "Kaminishi",
+     "name": null
+    },
+    {
+     "given": "Takashi",
+     "family": "Mori",
+     "name": null
+    },
+    {
+     "given": "Michihiko",
+     "family": "Sugawara",
+     "name": null
+    },
+    {
+     "given": "Naoki",
+     "family": "Yamamoto",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "Springer Science and Business Media LLC",
+   "url": "https://api.crossref.org/works/10.1038/s41598-026-40123-3"
+  },
+  "10.1038/s42254-025-00813-9": {
+   "doi": "10.1038/s42254-025-00813-9",
+   "type": "journal-article",
+   "title": "Barren plateaus in variational quantum computing",
+   "container_title": "Nature Reviews Physics",
+   "volume": "7",
+   "article_number": null,
+   "page": "174-189",
+   "issued": [
+    2025,
+    3,
+    26
+   ],
+   "authors": [
+    {
+     "given": "Martín",
+     "family": "Larocca",
+     "name": null
+    },
+    {
+     "given": "Supanut",
+     "family": "Thanasilp",
+     "name": null
+    },
+    {
+     "given": "Samson",
+     "family": "Wang",
+     "name": null
+    },
+    {
+     "given": "Kunal",
+     "family": "Sharma",
+     "name": null
+    },
+    {
+     "given": "Jacob",
+     "family": "Biamonte",
+     "name": null
+    },
+    {
+     "given": "Patrick J.",
+     "family": "Coles",
+     "name": null
+    },
+    {
+     "given": "Lukasz",
+     "family": "Cincio",
+     "name": null
+    },
+    {
+     "given": "Jarrod R.",
+     "family": "McClean",
+     "name": null
+    },
+    {
+     "given": "Zoë",
+     "family": "Holmes",
+     "name": null
+    },
+    {
+     "given": "M.",
+     "family": "Cerezo",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "Springer Science and Business Media LLC",
+   "url": "https://api.crossref.org/works/10.1038/s42254-025-00813-9"
+  },
+  "10.1088/2058-9565/ac7d06": {
+   "doi": "10.1088/2058-9565/ac7d06",
+   "type": "journal-article",
+   "title": "Equivalence of quantum barren plateaus to cost concentration and narrow gorges",
+   "container_title": "Quantum Science and Technology",
+   "volume": "7",
+   "article_number": null,
+   "page": "045015",
+   "issued": [
+    2022,
+    8,
+    9
+   ],
+   "authors": [
+    {
+     "given": "Andrew",
+     "family": "Arrasmith",
+     "name": null
+    },
+    {
+     "given": "Zoë",
+     "family": "Holmes",
+     "name": null
+    },
+    {
+     "given": "M",
+     "family": "Cerezo",
+     "name": null
+    },
+    {
+     "given": "Patrick J",
+     "family": "Coles",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "IOP Publishing",
+   "url": "https://api.crossref.org/works/10.1088/2058-9565/ac7d06"
+  },
+  "10.1088/2058-9565/ae2202": {
+   "doi": "10.1088/2058-9565/ae2202",
+   "type": "journal-article",
+   "title": "Pitfalls when tackling the exponential concentration of parameterized quantum models",
+   "container_title": "Quantum Science and Technology",
+   "volume": "11",
+   "article_number": null,
+   "page": "015049",
+   "issued": [
+    2026,
+    1,
+    30
+   ],
+   "authors": [
+    {
+     "given": "Reyhaneh",
+     "family": "Aghaei Saem",
+     "name": null
+    },
+    {
+     "given": "Behrang",
+     "family": "Tafreshi",
+     "name": null
+    },
+    {
+     "given": "Zoë",
+     "family": "Holmes",
+     "name": null
+    },
+    {
+     "given": "Supanut",
+     "family": "Thanasilp",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "IOP Publishing",
+   "url": "https://api.crossref.org/works/10.1088/2058-9565/ae2202"
+  },
+  "10.1090/conm/305/05215": {
+   "doi": "10.1090/conm/305/05215",
+   "type": "other",
+   "title": "Quantum amplitude amplification and estimation",
+   "container_title": "Contemporary Mathematics",
+   "volume": null,
+   "article_number": null,
+   "page": "53-74",
+   "issued": [
+    2002
+   ],
+   "authors": [
+    {
+     "given": "Gilles",
+     "family": "Brassard",
+     "name": null
+    },
+    {
+     "given": "Peter",
+     "family": "Høyer",
+     "name": null
+    },
+    {
+     "given": "Michele",
+     "family": "Mosca",
+     "name": null
+    },
+    {
+     "given": "Alain",
+     "family": "Tapp",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "American Mathematical Society",
+   "url": "https://api.crossref.org/works/10.1090/conm/305/05215"
+  },
+  "10.1103/PhysRevA.103.012405": {
+   "doi": "10.1103/physreva.103.012405",
+   "type": "journal-article",
+   "title": "Estimating the gradient and higher-order derivatives on quantum hardware",
+   "container_title": "Physical Review A",
+   "volume": "103",
+   "article_number": "012405",
+   "page": null,
+   "issued": [
+    2021,
+    1,
+    11
+   ],
+   "authors": [
+    {
+     "given": "Andrea",
+     "family": "Mari",
+     "name": null
+    },
+    {
+     "given": "Thomas R.",
+     "family": "Bromley",
+     "name": null
+    },
+    {
+     "given": "Nathan",
+     "family": "Killoran",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "American Physical Society (APS)",
+   "url": "https://api.crossref.org/works/10.1103/PhysRevA.103.012405"
+  },
+  "10.1103/PhysRevA.107.042421": {
+   "doi": "10.1103/physreva.107.042421",
+   "type": "journal-article",
+   "title": "Optimized numerical gradient and Hessian estimation for variational quantum algorithms",
+   "container_title": "Physical Review A",
+   "volume": "107",
+   "article_number": "042421",
+   "page": null,
+   "issued": [
+    2023,
+    4,
+    17
+   ],
+   "authors": [
+    {
+     "given": "Y. S.",
+     "family": "Teo",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "American Physical Society (APS)",
+   "url": "https://api.crossref.org/works/10.1103/PhysRevA.107.042421"
+  },
+  "10.1103/PhysRevA.109.012620": {
+   "doi": "10.1103/physreva.109.012620",
+   "type": "journal-article",
+   "title": "Robustness of optimized numerical estimation schemes for noisy variational quantum algorithms",
+   "container_title": "Physical Review A",
+   "volume": "109",
+   "article_number": "012620",
+   "page": null,
+   "issued": [
+    2024,
+    1,
+    26
+   ],
+   "authors": [
+    {
+     "given": "Y. S.",
+     "family": "Teo",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "American Physical Society (APS)",
+   "url": "https://api.crossref.org/works/10.1103/PhysRevA.109.012620"
+  },
+  "10.1103/PhysRevA.111.052441": {
+   "doi": "10.1103/physreva.111.052441",
+   "type": "journal-article",
+   "title": "Stochastic noise can be helpful for variational quantum algorithms",
+   "container_title": "Physical Review A",
+   "volume": "111",
+   "article_number": "052441",
+   "page": null,
+   "issued": [
+    2025,
+    5,
+    22
+   ],
+   "authors": [
+    {
+     "given": "Junyu",
+     "family": "Liu",
+     "name": null
+    },
+    {
+     "given": "Frederik",
+     "family": "Wilde",
+     "name": null
+    },
+    {
+     "given": "Antonio Anna",
+     "family": "Mele",
+     "name": null
+    },
+    {
+     "given": "Xin",
+     "family": "Jin",
+     "name": null
+    },
+    {
+     "given": "Liang",
+     "family": "Jiang",
+     "name": null
+    },
+    {
+     "given": "Jens",
+     "family": "Eisert",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "American Physical Society (APS)",
+   "url": "https://api.crossref.org/works/10.1103/PhysRevA.111.052441"
+  },
+  "10.1103/PhysRevLett.124.060503": {
+   "doi": "10.1103/physrevlett.124.060503",
+   "type": "journal-article",
+   "title": "Beyond the Swap Test: Optimal Estimation of Quantum State Overlap",
+   "container_title": "Physical Review Letters",
+   "volume": "124",
+   "article_number": "060503",
+   "page": null,
+   "issued": [
+    2020,
+    2,
+    14
+   ],
+   "authors": [
+    {
+     "given": "M.",
+     "family": "Fanizza",
+     "name": null
+    },
+    {
+     "given": "M.",
+     "family": "Rosati",
+     "name": null
+    },
+    {
+     "given": "M.",
+     "family": "Skotiniotis",
+     "name": null
+    },
+    {
+     "given": "J.",
+     "family": "Calsamiglia",
+     "name": null
+    },
+    {
+     "given": "V.",
+     "family": "Giovannetti",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "American Physical Society (APS)",
+   "url": "https://api.crossref.org/works/10.1103/PhysRevLett.124.060503"
+  },
+  "10.1137/1.9781611975482.87": {
+   "doi": "10.1137/1.9781611975482.87",
+   "type": "book-chapter",
+   "title": "Optimizing quantum optimization algorithms via faster quantum gradient computation",
+   "container_title": "Proceedings of the Thirtieth Annual ACM-SIAM Symposium on Discrete Algorithms",
+   "volume": null,
+   "article_number": null,
+   "page": "1425-1444",
+   "issued": [
+    2019,
+    1
+   ],
+   "authors": [
+    {
+     "given": "András",
+     "family": "Gilyén",
+     "name": null
+    },
+    {
+     "given": "Srinivasan",
+     "family": "Arunachalam",
+     "name": null
+    },
+    {
+     "given": "Nathan",
+     "family": "Wiebe",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "Society for Industrial and Applied Mathematics",
+   "url": "https://api.crossref.org/works/10.1137/1.9781611975482.87"
+  },
+  "10.22331/q-2021-10-05-558": {
+   "doi": "10.22331/q-2021-10-05-558",
+   "type": "journal-article",
+   "title": "Effect of barren plateaus on gradient-free optimization",
+   "container_title": "Quantum",
+   "volume": "5",
+   "article_number": "558",
+   "page": "558",
+   "issued": [
+    2021,
+    10,
+    5
+   ],
+   "authors": [
+    {
+     "given": "Andrew",
+     "family": "Arrasmith",
+     "name": null
+    },
+    {
+     "given": "M.",
+     "family": "Cerezo",
+     "name": null
+    },
+    {
+     "given": "Piotr",
+     "family": "Czarnik",
+     "name": null
+    },
+    {
+     "given": "Lukasz",
+     "family": "Cincio",
+     "name": null
+    },
+    {
+     "given": "Patrick J.",
+     "family": "Coles",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "Verein zur Forderung des Open Access Publizierens in den Quantenwissenschaften",
+   "url": "https://api.crossref.org/works/10.22331/q-2021-10-05-558"
+  },
+  "10.22331/q-2024-01-11-1225": {
+   "doi": "10.22331/q-2024-01-11-1225",
+   "type": "journal-article",
+   "title": "The complexity of quantum support vector machines",
+   "container_title": "Quantum",
+   "volume": "8",
+   "article_number": "1225",
+   "page": "1225",
+   "issued": [
+    2024,
+    1,
+    11
+   ],
+   "authors": [
+    {
+     "given": "Gian",
+     "family": "Gentinetta",
+     "name": null
+    },
+    {
+     "given": "Arne",
+     "family": "Thomsen",
+     "name": null
+    },
+    {
+     "given": "David",
+     "family": "Sutter",
+     "name": null
+    },
+    {
+     "given": "Stefan",
+     "family": "Woerner",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "Verein zur Forderung des Open Access Publizierens in den Quantenwissenschaften",
+   "url": "https://api.crossref.org/works/10.22331/q-2024-01-11-1225"
+  }
+ },
+ "arxiv": {
+  "2208.11060": {
+   "id": "2208.11060",
+   "latest_version": "2208.11060v2",
+   "title": "Exponential concentration in quantum kernel methods",
+   "authors": [
+    "Supanut Thanasilp",
+    "Samson Wang",
+    "M. Cerezo",
+    "Zoë Holmes"
+   ],
+   "published": "2022-08-23",
+   "updated": "2024-04-14",
+   "primary_category": "quant-ph",
+   "journal_ref": null,
+   "doi": null,
+   "url": "https://arxiv.org/abs/2208.11060"
+  },
+  "2507.22054": {
+   "id": "2507.22054",
+   "latest_version": "2507.22054v2",
+   "title": "Pitfalls when tackling the exponential concentration of parameterized quantum models",
+   "authors": [
+    "Reyhaneh Aghaei Saem",
+    "Behrang Tafreshi",
+    "Zoë Holmes",
+    "Supanut Thanasilp"
+   ],
+   "published": "2025-07-29",
+   "updated": "2026-06-04",
+   "primary_category": "quant-ph",
+   "journal_ref": "Quantum Science and Technology, Volume 11, 015049 (2026)",
+   "doi": "10.1088/2058-9565/ae2202",
+   "url": "https://arxiv.org/abs/2507.22054"
+  },
+  "2605.01319": {
+   "id": "2605.01319",
+   "latest_version": "2605.01319v2",
+   "title": "Decomposing Gradient Suppression in Barren Plateaus: Activity, Sign Organization, and Coupling",
+   "authors": [
+    "Pilsung Kang"
+   ],
+   "published": "2026-05-02",
+   "updated": "2026-08-26",
+   "primary_category": "quant-ph",
+   "journal_ref": null,
+   "doi": null,
+   "url": "https://arxiv.org/abs/2605.01319"
+  },
+  "2008.06517": {
+   "id": "2008.06517",
+   "latest_version": "2008.06517v2",
+   "title": "Estimating the gradient and higher-order derivatives on quantum hardware",
+   "authors": [
+    "Andrea Mari",
+    "Thomas R. Bromley",
+    "Nathan Killoran"
+   ],
+   "published": "2020-08-14",
+   "updated": "2021-02-26",
+   "primary_category": "quant-ph",
+   "journal_ref": "Phys. Rev. A 103, 012405 (2021)",
+   "doi": "10.1103/PhysRevA.103.012405",
+   "url": "https://arxiv.org/abs/2008.06517"
+  },
+  "2011.12245": {
+   "id": "2011.12245",
+   "latest_version": "2011.12245v2",
+   "title": "Effect of barren plateaus on gradient-free optimization",
+   "authors": [
+    "Andrew Arrasmith",
+    "M. Cerezo",
+    "Piotr Czarnik",
+    "Lukasz Cincio",
+    "Patrick J. Coles"
+   ],
+   "published": "2020-11-24",
+   "updated": "2021-09-30",
+   "primary_category": "quant-ph",
+   "journal_ref": "Quantum 5, 558 (2021)",
+   "doi": "10.22331/q-2021-10-05-558",
+   "url": "https://arxiv.org/abs/2011.12245"
+  },
+  "1711.00465": {
+   "id": "1711.00465",
+   "latest_version": "1711.00465v3",
+   "title": "Optimizing quantum optimization algorithms via faster quantum gradient computation",
+   "authors": [
+    "András Gilyén",
+    "Srinivasan Arunachalam",
+    "Nathan Wiebe"
+   ],
+   "published": "2017-11-01",
+   "updated": "2018-04-17",
+   "primary_category": "quant-ph",
+   "journal_ref": "In Proceedings of the 30th ACM-SIAM Symposium on Discrete Algorithms (SODA 2019), pp. 1425-1444",
+   "doi": "10.1137/1.9781611975482.87",
+   "url": "https://arxiv.org/abs/1711.00465"
+  },
+  "2406.06810": {
+   "id": "2406.06810",
+   "latest_version": "2406.06810v4",
+   "title": "Experimental benchmarking of quantum state overlap estimation strategies with photonic systems",
+   "authors": [
+    "Hao Zhan",
+    "Ben Wang",
+    "Minghao Mi",
+    "Jie Xie",
+    "Liang Xu",
+    "Aonan Zhang",
+    "Lijian Zhang"
+   ],
+   "published": "2024-06-10",
+   "updated": "2025-02-12",
+   "primary_category": "quant-ph",
+   "journal_ref": "Light Sci. Appl. 14, 83 (2025)",
+   "doi": "10.1038/s41377-025-01755-8",
+   "url": "https://arxiv.org/abs/2406.06810"
+  },
+  "2203.00031": {
+   "id": "2203.00031",
+   "latest_version": "2203.00031v2",
+   "title": "The complexity of quantum support vector machines",
+   "authors": [
+    "Gian Gentinetta",
+    "Arne Thomsen",
+    "David Sutter",
+    "Stefan Woerner"
+   ],
+   "published": "2022-02-28",
+   "updated": "2024-01-07",
+   "primary_category": "quant-ph",
+   "journal_ref": "Quantum 8, 1225 (2024)",
+   "doi": "10.22331/q-2024-01-11-1225",
+   "url": "https://arxiv.org/abs/2203.00031"
+  },
+  "2312.15791": {
+   "id": "2312.15791",
+   "latest_version": "2312.15791v1",
+   "title": "SantaQlaus: A resource-efficient method to leverage quantum shot-noise for optimization of variational quantum algorithms",
+   "authors": [
+    "Kosuke Ito",
+    "Keisuke Fujii"
+   ],
+   "published": "2023-12-25",
+   "updated": "2023-12-25",
+   "primary_category": "quant-ph",
+   "journal_ref": null,
+   "doi": null,
+   "url": "https://arxiv.org/abs/2312.15791"
+  },
+  "2510.22418": {
+   "id": "2510.22418",
+   "latest_version": "2510.22418v1",
+   "title": "The Cost of Certainty: Shot Budgets in Quantum Program Testing",
+   "authors": [
+    "Andriy Miranskyy"
+   ],
+   "published": "2025-10-25",
+   "updated": "2025-10-25",
+   "primary_category": "quant-ph",
+   "journal_ref": null,
+   "doi": null,
+   "url": "https://arxiv.org/abs/2510.22418"
+  },
+  "2405.00781": {
+   "id": "2405.00781",
+   "latest_version": "2405.00781v2",
+   "title": "Barren Plateaus in Variational Quantum Computing",
+   "authors": [
+    "Martin Larocca",
+    "Supanut Thanasilp",
+    "Samson Wang",
+    "Kunal Sharma",
+    "Jacob Biamonte",
+    "Patrick J. Coles",
+    "Lukasz Cincio",
+    "Jarrod R. McClean",
+    "Zoë Holmes",
+    "M. Cerezo"
+   ],
+   "published": "2024-05-01",
+   "updated": "2025-05-08",
+   "primary_category": "quant-ph",
+   "journal_ref": "Nature Reviews Physics 7, 174-189 (2025)",
+   "doi": "10.1038/s42254-025-00813-9",
+   "url": "https://arxiv.org/abs/2405.00781"
+  },
+  "2609.14424": {
+   "id": "2609.14424",
+   "latest_version": "2609.14424v1",
+   "title": "Certification cost of quantum models: measurement correlation, not parameter count",
+   "authors": [
+    "Pavel Sulimov",
+    "Claude Lehmann"
+   ],
+   "published": "2026-09-13",
+   "updated": "2026-09-13",
+   "primary_category": "quant-ph",
+   "journal_ref": null,
+   "doi": null,
+   "url": "https://arxiv.org/abs/2609.14424"
+  },
+  "2007.14384": {
+   "id": "2007.14384",
+   "latest_version": "2007.14384v6",
+   "title": "Noise-Induced Barren Plateaus in Variational Quantum Algorithms",
+   "authors": [
+    "Samson Wang",
+    "Enrico Fontana",
+    "M. Cerezo",
+    "Kunal Sharma",
+    "Akira Sone",
+    "Lukasz Cincio",
+    "Patrick J. Coles"
+   ],
+   "published": "2020-07-28",
+   "updated": "2024-03-02",
+   "primary_category": "quant-ph",
+   "journal_ref": "Nature Communications 12, 6961 (2021)",
+   "doi": "10.1038/s41467-021-27045-6",
+   "url": "https://arxiv.org/abs/2007.14384"
+  },
+  "quant-ph/0005055": {
+   "id": "quant-ph/0005055",
+   "latest_version": "quant-ph/0005055v1",
+   "title": "Quantum Amplitude Amplification and Estimation",
+   "authors": [
+    "Gilles Brassard",
+    "Peter Hoyer",
+    "Michele Mosca",
+    "Alain Tapp"
+   ],
+   "published": "2000-05-15",
+   "updated": "2000-05-15",
+   "primary_category": "quant-ph",
+   "journal_ref": "Quantum Computation and Quantum Information, Samuel J. Lomonaco, Jr. (editor), AMS Contemporary Mathematics, 305:53-74, 2002",
+   "doi": "10.1090/conm/305/05215",
+   "url": "https://arxiv.org/abs/quant-ph/0005055"
+  },
+  "1803.11173": {
+   "id": "1803.11173",
+   "latest_version": "1803.11173v1",
+   "title": "Barren plateaus in quantum neural network training landscapes",
+   "authors": [
+    "Jarrod R. McClean",
+    "Sergio Boixo",
+    "Vadim N. Smelyanskiy",
+    "Ryan Babbush",
+    "Hartmut Neven"
+   ],
+   "published": "2018-03-29",
+   "updated": "2018-03-29",
+   "primary_category": "quant-ph",
+   "journal_ref": "Nature Communications, Volume 9, Article Number: 4812 (2018)",
+   "doi": "10.1038/s41467-018-07090-4",
+   "url": "https://arxiv.org/abs/1803.11173"
+  },
+  "1906.10639": {
+   "id": "1906.10639",
+   "latest_version": "1906.10639v3",
+   "title": "Beyond the swap test: optimal estimation of quantum state overlap",
+   "authors": [
+    "Marco Fanizza",
+    "Matteo Rosati",
+    "Michalis Skotiniotis",
+    "John Calsamiglia",
+    "Vittorio Giovannetti"
+   ],
+   "published": "2019-06-25",
+   "updated": "2020-09-07",
+   "primary_category": "quant-ph",
+   "journal_ref": "Phys. Rev. Lett. 124, 060503 (2020)",
+   "doi": "10.1103/PhysRevLett.124.060503",
+   "url": "https://arxiv.org/abs/1906.10639"
+  },
+  "2206.12643": {
+   "id": "2206.12643",
+   "latest_version": "2206.12643v3",
+   "title": "Optimized numerical gradient and Hessian estimation for variational quantum algorithms",
+   "authors": [
+    "Y. S. Teo"
+   ],
+   "published": "2022-06-25",
+   "updated": "2022-11-20",
+   "primary_category": "quant-ph",
+   "journal_ref": "Phys. Rev. A 107, 042421 (2023)",
+   "doi": "10.1103/PhysRevA.107.042421",
+   "url": "https://arxiv.org/abs/2206.12643"
+  },
+  "2001.00550": {
+   "id": "2001.00550",
+   "latest_version": "2001.00550v3",
+   "title": "Cost Function Dependent Barren Plateaus in Shallow Parametrized Quantum Circuits",
+   "authors": [
+    "M. Cerezo",
+    "Akira Sone",
+    "Tyler Volkoff",
+    "Lukasz Cincio",
+    "Patrick J. Coles"
+   ],
+   "published": "2020-01-02",
+   "updated": "2021-03-20",
+   "primary_category": "quant-ph",
+   "journal_ref": "Nature Communications 12, 1791 (2021)",
+   "doi": "10.1038/s41467-021-21728-w",
+   "url": "https://arxiv.org/abs/2001.00550"
+  },
+  "2104.05868": {
+   "id": "2104.05868",
+   "latest_version": "2104.05868v2",
+   "title": "Equivalence of quantum barren plateaus to cost concentration and narrow gorges",
+   "authors": [
+    "Andrew Arrasmith",
+    "Zoë Holmes",
+    "M. Cerezo",
+    "Patrick J. Coles"
+   ],
+   "published": "2021-04-12",
+   "updated": "2022-08-24",
+   "primary_category": "quant-ph",
+   "journal_ref": "Quantum Sci. Technol. 7 045015 (2022)",
+   "doi": "10.1088/2058-9565/ac7d06",
+   "url": "https://arxiv.org/abs/2104.05868"
+  },
+  "2210.06723": {
+   "id": "2210.06723",
+   "latest_version": "2210.06723v3",
+   "title": "Stochastic noise can be helpful for variational quantum algorithms",
+   "authors": [
+    "Junyu Liu",
+    "Frederik Wilde",
+    "Antonio Anna Mele",
+    "Xin Jin",
+    "Liang Jiang",
+    "Jens Eisert"
+   ],
+   "published": "2022-10-13",
+   "updated": "2025-04-18",
+   "primary_category": "quant-ph",
+   "journal_ref": "Phys. Rev. A 111, 052441 (2025)",
+   "doi": "10.1103/PhysRevA.111.052441",
+   "url": "https://arxiv.org/abs/2210.06723"
+  },
+  "2406.09780": {
+   "id": "2406.09780",
+   "latest_version": "2406.09780v1",
+   "title": "Impact of Measurement Noise on Escaping Saddles in Variational Quantum Algorithms",
+   "authors": [
+    "Eriko Kaminishi",
+    "Takashi Mori",
+    "Michihiko Sugawara",
+    "Naoki Yamamoto"
+   ],
+   "published": "2024-06-14",
+   "updated": "2024-06-14",
+   "primary_category": "quant-ph",
+   "journal_ref": null,
+   "doi": null,
+   "url": "https://arxiv.org/abs/2406.09780"
+  },
+  "2607.11095": {
+   "id": "2607.11095",
+   "latest_version": "2607.11095v1",
+   "title": "When cheap gradients fail: the measurement cost of attacking quantum classifiers",
+   "authors": [
+    "Bacui Li",
+    "Chandra Thapa",
+    "Tansu Alpcan",
+    "Udaya Parampalli"
+   ],
+   "published": "2026-07-13",
+   "updated": "2026-07-13",
+   "primary_category": "quant-ph",
+   "journal_ref": null,
+   "doi": null,
+   "url": "https://arxiv.org/abs/2607.11095"
+  }
+ }
+}
