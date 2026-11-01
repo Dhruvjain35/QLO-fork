@@ -1,0 +1,238 @@
+{
+  "purpose": "The citation list for paper/references.bib. Each entry names its identifiers and why it is cited; every bibliographic field is taken from the B5 source manifest (B5-reviewed papers) or from paper/bib_verification.json (Crossref / arXiv records), never typed here. Planned citations come from B5 (reviewed papers and HIGH-priority follow-ups), principal track A4 and P2, the Phase 8 allocation P3, and the Stage 3/4 reports.",
+  "entries": [
+    {
+      "key": "thanasilp2024",
+      "b5_paper_id": "thanasilp2024",
+      "role": "B5 reviewed (paper A); principal A4",
+      "cited_by": [
+        "principal A4",
+        "Stage 7 s3/s19"
+      ]
+    },
+    {
+      "key": "aghaeisaem2026",
+      "b5_paper_id": "aghaeisaem2026",
+      "role": "B5 reviewed (paper B); principal A4",
+      "cited_by": [
+        "principal A4",
+        "Stage 7 s3/s19"
+      ]
+    },
+    {
+      "key": "arrasmith2021",
+      "b5_paper_id": "arrasmith2021",
+      "role": "B5 reviewed (paper C); B5 HIGH H1",
+      "cited_by": [
+        "B5 PI-3 context"
+      ]
+    },
+    {
+      "key": "teo2023",
+      "b5_paper_id": "teo2023",
+      "role": "B5 reviewed (paper D); B5 HIGH H2",
+      "cited_by": [
+        "B5 closure audit"
+      ]
+    },
+    {
+      "key": "gentinetta2024",
+      "b5_paper_id": "gentinetta2024",
+      "role": "B5 reviewed (paper E); B5 HIGH H3",
+      "cited_by": [
+        "B5 closure audit"
+      ]
+    },
+    {
+      "key": "mari2021",
+      "b5_paper_id": "mari2021",
+      "role": "B5 reviewed (paper F); B5 HIGH H4; principal P2 (Eq. 45 for Proposition 1)",
+      "cited_by": [
+        "allocation P2"
+      ]
+    },
+    {
+      "key": "miranskyy2025",
+      "b5_paper_id": "miranskyy2025",
+      "role": "B5 reviewed (paper G); B5 HIGH H5; principal 'other papers'",
+      "cited_by": [
+        "principal s2"
+      ]
+    },
+    {
+      "key": "zhan2025",
+      "b5_paper_id": "zhan2025",
+      "role": "B5 reviewed (paper H); B5 HIGH H6; principal P2 (per-shot variances, printed first)",
+      "cited_by": [
+        "allocation P2"
+      ]
+    },
+    {
+      "key": "sulimov2026",
+      "arxiv": "2609.14424",
+      "role": "B5 HIGH H7 (screened only; full read recommended before citing for the exponent rule)",
+      "cited_by": [
+        "B5 closure audit"
+      ]
+    },
+    {
+      "key": "teo2024",
+      "doi": "10.1103/PhysRevA.109.012620",
+      "role": "B5 follow-up list M7 (HIGH section; not reviewed)",
+      "cited_by": [
+        "B5 follow-up sources"
+      ],
+      "b5_followup_row": "M7",
+      "b5_as_printed": "Y. S. Teo, *Robustness of optimized numerical estimation schemes for noisy variational quantum algorithms*, Phys. Rev. A 109, 012620 (2024)."
+    },
+    {
+      "key": "mcclean2018",
+      "doi": "10.1038/s41467-018-07090-4",
+      "arxiv": "1803.11173",
+      "role": "barren-plateau background (B5 G4)",
+      "cited_by": [
+        "Stage 3 background"
+      ],
+      "b5_followup_row": "G4",
+      "b5_as_printed": "J. R. McClean, S. Boixo, V. N. Smelyanskiy, R. Babbush, H. Neven, *Barren plateaus in quantum neural network training landscapes*, Nature Communications 9, 1 (2018)."
+    },
+    {
+      "key": "cerezo2021",
+      "doi": "10.1038/s41467-021-21728-w",
+      "arxiv": "2001.00550",
+      "role": "Stage 3 benchmark source; principal A4 (B5 G1)",
+      "cited_by": [
+        "Stage 3",
+        "principal A4"
+      ],
+      "b5_followup_row": "G1",
+      "b5_as_printed": "M. Cerezo, A. Sone, T. Volkoff, L. Cincio, P. J. Coles, *Cost function dependent barren plateaus in shallow parametrized quantum circuits*, Nature Communications 12, 1 (2021)."
+    },
+    {
+      "key": "arrasmith2022",
+      "doi": "10.1088/2058-9565/ac7d06",
+      "arxiv": "2104.05868",
+      "role": "principal A4 (B5 G2)",
+      "cited_by": [
+        "principal A4",
+        "principal 'other papers'"
+      ],
+      "b5_followup_row": "G2",
+      "b5_as_printed": "A. Arrasmith, Z. Holmes, M. Cerezo, P. J. Coles, *Equivalence of quantum barren plateaus to cost concentration and narrow gorges*, Quantum Science and Technology 7, 045015 (2022)."
+    },
+    {
+      "key": "wang2021",
+      "doi": "10.1038/s41467-021-27045-6",
+      "arxiv": "2007.14384",
+      "role": "principal A4; noise background for B4 (B5 G5)",
+      "cited_by": [
+        "principal A4"
+      ],
+      "b5_followup_row": "G5",
+      "b5_as_printed": "S. Wang et al., *Noise-induced barren plateaus in variational quantum algorithms*, Nat. Commun. 12, 1 (2021)."
+    },
+    {
+      "key": "larocca2025",
+      "doi": "10.1038/s42254-025-00813-9",
+      "arxiv": "2405.00781",
+      "role": "principal A4 (B5 G3)",
+      "cited_by": [
+        "principal A4"
+      ],
+      "b5_followup_row": "G3",
+      "b5_as_printed": "M. Larocca, S. Thanasilp, S. Wang, K. Sharma, J. Biamonte, P. J. Coles, L. Cincio, J. R. McClean, Z. Holmes, M. Cerezo, *A review of barren plateaus in variational quantum computing*, Nature Reviews Physics 3, 625–644 (2025) [volume/pages as printed in B]."
+    },
+    {
+      "key": "kaminishi2026",
+      "doi": "10.1038/s41598-026-40123-3",
+      "arxiv": "2406.09780",
+      "role": "principal A4 / P2 (published form); Stage 4 prior work",
+      "cited_by": [
+        "principal A4",
+        "allocation P2",
+        "Stage 4 s14"
+      ],
+      "version_note": "B5 checked arXiv:2406.09780v1 at abstract level and matched the published Sci. Rep. record by title and DOI (B5_PRINCIPAL_LINE_CHECK.md L23); the published text was not read in B5. Cited in published form per allocation P2."
+    },
+    {
+      "key": "liu2025",
+      "doi": "10.1103/PhysRevA.111.052441",
+      "arxiv": "2210.06723",
+      "role": "Stage 4 prior work",
+      "cited_by": [
+        "Stage 4 s14"
+      ]
+    },
+    {
+      "key": "ito2023",
+      "arxiv": "2312.15791",
+      "role": "Stage 4 prior work",
+      "cited_by": [
+        "Stage 4 s14"
+      ]
+    },
+    {
+      "key": "gilyen2019",
+      "doi": "10.1137/1.9781611975482.87",
+      "arxiv": "1711.00465",
+      "role": "allocation P3 (access hierarchy reading)",
+      "cited_by": [
+        "allocation P3"
+      ]
+    },
+    {
+      "key": "brassard2002",
+      "doi": "10.1090/conm/305/05215",
+      "arxiv": "quant-ph/0005055",
+      "role": "allocation P3",
+      "cited_by": [
+        "allocation P3"
+      ],
+      "supplement": {
+        "booktitle": "Quantum Computation and Quantum Information",
+        "editor": "Samuel J. Lomonaco, Jr.",
+        "volume": "305",
+        "source": "arXiv journal_ref of quant-ph/0005055; every supplement value must occur verbatim in it (checked by tools/build_bib.py)"
+      }
+    },
+    {
+      "key": "fanizza2020",
+      "doi": "10.1103/PhysRevLett.124.060503",
+      "arxiv": "1906.10639",
+      "role": "allocation P3",
+      "cited_by": [
+        "allocation P3"
+      ]
+    },
+    {
+      "key": "kang2026",
+      "arxiv": "2605.01319",
+      "role": "principal 'other papers' (one-line distinction)",
+      "cited_by": [
+        "principal s2"
+      ]
+    },
+    {
+      "key": "li2026",
+      "arxiv": "2607.11095",
+      "role": "principal 'other papers' (one-line distinction)",
+      "cited_by": [
+        "principal s2"
+      ]
+    },
+    {
+      "key": "fang2025",
+      "doi": "10.4230/LIPIcs.ESA.2025.4",
+      "arxiv": "2506.23650",
+      "role": "allocation P3 (access-hierarchy reading)",
+      "cited_by": [
+        "allocation P3"
+      ],
+      "resolved_note": "Allocation P3 cites this as 'Wang and Fang (ESA 2025)', a shorthand with the names reversed. The authors are Wang Fang and Qisheng Wang (DataCite record of the DOI). Previously listed as unresolved (wangfang2025); resolved 2026-11-01.",
+      "supplement": {
+        "series": "Leibniz International Proceedings in Informatics (LIPIcs)",
+        "source": "official series name as supplied with the resolved citation (2026-11-01); it must contain the DataCite record's own value 'LIPIcs'"
+      }
+    }
+  ]
+}
