@@ -94,6 +94,20 @@ def test_no_physical_hardware_and_platform_wording():
     assert "Real quantum hardware:** not used" in m and "Independent full reproduction** (principal P9, Tiers 2 and 3): not yet done" in m
 
 
+def test_hardware_model_only_where_its_source_names_it():
+    model = re.compile(r"\bM[1-9]\b|Apple|Intel|Ryzen|Xeon")
+    for r in _rows("reproduction_table"):
+        if model.search(r["platform_actually_run"]):
+            entry = [p for p in r["provenance"].split(" | ") if p.startswith("platform_actually_run <- ")][0]
+            quote = QUOTE.findall(entry)
+            assert quote and model.search(quote[0][1]), (r["experiment"], entry)       # the quoted source itself names the model
+    assert [r["experiment"] for r in _rows("reproduction_table") if model.search(r["platform_actually_run"])] == ["B1"]
+    for f in (APP / "APPENDIX_TABLES.md", ROOT / "paper" / "methods" / "METHODS_SOURCE.md"):
+        for line in f.read_text(encoding="utf-8").splitlines():
+            if model.search(line) and not line.startswith("|"):
+                assert "B1" in line, (f.name, line)                                    # prose mentions are attributed to the B1 log
+
+
 def test_estimator_rows_match_b2():
     ra = pd.read_csv(ROOT / "results" / "b2_estimators" / "resource_accounting.csv").set_index("estimator")
     sl = pd.read_csv(ROOT / "results" / "b2_estimators" / "slope_summary.csv")

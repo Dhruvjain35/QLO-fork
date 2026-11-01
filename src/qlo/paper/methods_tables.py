@@ -371,7 +371,9 @@ def regime_rows() -> list[dict]:
 # =================================================================================================================
 def reproduction_rows() -> list[dict]:
     R = []
-    mac = q(REPRO, "Dhruv's macOS machine (Apple M4)", "Dhruv's macOS machine (Apple M4); classical simulation")
+    # Hardware model only where a committed source for that run names it (B1 log); every other run is documented as macOS only
+    mac = q(REPRO, "Dhruv's macOS machine", "Dhruv's macOS machine; classical simulation")
+    mac_m4 = q(B1L, "the M4's 4 performance\ncores busy", "Dhruv's macOS machine (Apple M4, named in the B1 log); classical simulation")
 
     def r(exp, cmd, platform, py, workers, wall, cpu, mem, cache, outdir, headline, log):
         R.append(row(experiment=exp, command=cmd, platform_actually_run=platform, python_version=py, workers=workers, wall_time=wall,
@@ -389,7 +391,7 @@ def reproduction_rows() -> list[dict]:
       q(S7, "~15–20 min on 5 cores, ≤ 2.4 GB peak", "≤ 2.4 GB (as stated)"), na("no cache"), "results/stage7/",
       (f"median-shot slopes LE {j('results/stage7/scaling_fits.json', 'fits', 'loschmidt_snr1', 'slope')[0]:.4f}, "
        f"SWAP {j('results/stage7/scaling_fits.json', 'fits', 'swap_snr1', 'slope')[0]:.4f} (SNR ≥ 1)", "results/stage7/scaling_fits.json: fits.{loschmidt,swap}_snr1.slope"), S7)
-    r("B1", "python -m qlo.experiments.b1_entangling --workers 6", mac, nr(B1L),
+    r("B1", "python -m qlo.experiments.b1_entangling --workers 6", mac_m4, nr(B1L),
       q(B1L, "The first sweep attempt (6 workers", NR + " for the completed sweep (first attempt 6 workers, restart 4)"),
       q(B1L, "compute 5.03 CPU-h; wall 418s", "final sweep invocation 418 s (87 of 400 tasks cached from interrupted runs); audit 704 s"),
       q(B1L, "compute 5.03 CPU-h; wall 418s", "5.03 CPU-h (sweep)"), q(B1C, "≤0.65 GB resident each", "≤ 0.65 GB per worker (preflight estimate, B1_CONFIG)"),
@@ -461,7 +463,7 @@ machine-readable versions, and [`PROVENANCE.md`](PROVENANCE.md) gives the source
 NOT RECORDED were not logged; they are never estimated.
 
 **Where the numbers come from.** Original scientific numerics: classical simulations actually executed on Dhruv's
-macOS machine (Apple M4). Cross-platform CI: code, tests and `--fast` smoke runs on GitHub-hosted Linux and Windows
+macOS machine (the hardware model is recorded only in the B1 log, as an Apple M4). Cross-platform CI: code, tests and `--fast` smoke runs on GitHub-hosted Linux and Windows
 runners. Independent full reproduction (principal P9, Tiers 2 and 3): not yet done. Real quantum hardware: not used;
 PennyLane `default.qubit` / `default.mixed` are classical simulators.
 """
