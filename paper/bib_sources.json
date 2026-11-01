@@ -221,12 +221,18 @@
       ]
     },
     {
-      "key": "wangfang2025",
-      "unresolved": "Allocation P3 names 'Wang and Fang (ESA 2025)' without title or identifier; no matching record was found in Crossref. Needs the principal to supply the reference.",
-      "role": "allocation P3",
+      "key": "fang2025",
+      "doi": "10.4230/LIPIcs.ESA.2025.4",
+      "arxiv": "2506.23650",
+      "role": "allocation P3 (access-hierarchy reading)",
       "cited_by": [
         "allocation P3"
-      ]
+      ],
+      "resolved_note": "Allocation P3 cites this as 'Wang and Fang (ESA 2025)', a shorthand with the names reversed. The authors are Wang Fang and Qisheng Wang (DataCite record of the DOI). Previously listed as unresolved (wangfang2025); resolved 2026-11-01.",
+      "supplement": {
+        "series": "Leibniz International Proceedings in Informatics (LIPIcs)",
+        "source": "official series name as supplied with the resolved citation (2026-11-01); it must contain the DataCite record's own value 'LIPIcs'"
+      }
     }
   ]
 }

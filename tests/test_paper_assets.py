@@ -133,6 +133,12 @@ def test_pdfs_are_deterministic_and_timestamp_free(built, tmp_path):
     assert b"/CreationDate" not in (out / f"{EXPECTED[0]}.pdf").read_bytes()
 
 
+def test_pdfs_contain_no_raster_images(built):
+    out, _ = built
+    for name in EXPECTED:                    # object dictionaries are uncompressed in Matplotlib PDFs
+        assert b"/Subtype /Image" not in (out / f"{name}.pdf").read_bytes(), name
+
+
 def test_committed_figure_folder_is_complete():
     figs = ROOT / "paper" / "figures"
     man = json.loads((figs / "manifest.json").read_text(encoding="utf-8"))
@@ -171,5 +177,8 @@ def test_bib_uses_b5_reviewed_versions_and_flags_unresolved():
     assert entries["teo2023"]["fields"]["b5reviewed"] == "arXiv:2206.12643v3"
     assert entries["kaminishi2026"]["fields"]["doi"] == "10.1038/s41598-026-40123-3"
     audit = (ROOT / "paper" / "BIBLIOGRAPHY_AUDIT.md").read_text(encoding="utf-8")
-    assert "wangfang2025" in audit and "wangfang2025" not in entries
-    assert re.search(r"\| entries in `references.bib` \| 23 \|", audit)
+    esa = entries["fang2025"]["fields"]                                      # 'Wang and Fang (ESA 2025)' in allocation P3, resolved
+    assert esa["author"] == "Fang, Wang and Wang, Qisheng" and esa["doi"] == "10.4230/LIPIcs.ESA.2025.4" and esa["eprint"] == "2506.23650"
+    assert esa["volume"] == "351" and esa["pages"] == "4:1--4:12" and entries["fang2025"]["type"] == "inproceedings"
+    assert "## Unresolved metadata\n\nNone." in audit and "## Resolved citations" in audit and "wangfang2025" not in entries
+    assert re.search(r"\| entries in `references.bib` \| 24 \|", audit)

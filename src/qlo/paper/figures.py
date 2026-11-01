@@ -155,6 +155,7 @@ def fig2():
     a.set_xlabel(r"predicted $(1+|r|)/2$")
     a.set_ylabel(r"$P(\mathrm{correct\ sign} \mid \hat g_{\rm LE} \neq 0)$")
     cb = fig.colorbar(sc, ax=a, fraction=0.05, pad=0.02)
+    cb.solids.set_rasterized(False)          # Matplotlib rasterizes colorbars with >= 50 levels (Colorbar.n_rasterize); keep it vector
     cb.set_label(r"$\log_{10}(M S)$", fontsize=7)
     cb.ax.tick_params(labelsize=6)
     ST.panel_label(a, "a")

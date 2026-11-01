@@ -1,7 +1,7 @@
 {
   "entrypoint": "python -m qlo.paper.figures",
-  "git_commit": "120dccfbd304caf32c280010769dbcc1b752a40b",
-  "generated_utc": "2026-10-31T23:10:10Z",
+  "git_commit": "4899e77be146af8e888dae278031bf0cc7ee8b8f+dirty",
+  "generated_utc": "2026-11-01T05:51:12Z",
   "figures": [
     {
       "name": "fig1_same_landscape",
@@ -42,7 +42,7 @@
       "files": [
         {
           "filename": "fig2_conditional_sign_law.pdf",
-          "sha256": "2e5500f237301c3f423e387ba7df2581eb5c94636a461f8e5846bb39b92c8d7a"
+          "sha256": "0bfe633327906fab713518b1d70b6a1f0c6997c43925b02cda18b7b83aad3f90"
         },
         {
           "filename": "png/fig2_conditional_sign_law.png",

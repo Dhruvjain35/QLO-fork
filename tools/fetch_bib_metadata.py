@@ -1,4 +1,4 @@
-"""Refresh paper/bib_verification.json: Crossref and arXiv records for every identifier in paper/bib_sources.json.
+"""Refresh paper/bib_verification.json: Crossref, DataCite and arXiv records for every identifier in paper/bib_sources.json.
 
     python tools/fetch_bib_metadata.py          # network; writes paper/bib_verification.json
 
@@ -39,6 +39,21 @@ def crossref(doi: str) -> dict:
             "publisher": m.get("publisher"), "url": "https://api.crossref.org/works/" + doi}
 
 
+DATACITE_PREFIXES = ("10.4230/",)          # LIPIcs (Dagstuhl) registers its DOIs with DataCite, not Crossref
+
+
+def datacite(doi: str) -> dict:
+    a = json.loads(_get("https://api.datacite.org/dois/" + urllib.parse.quote(doi)).decode("utf-8"))["data"]["attributes"]
+    c = a.get("container") or {}
+    return {"doi": a.get("doi"), "type": (a.get("types") or {}).get("bibtex"), "title": a["titles"][0]["title"],
+            "authors": [{"given": x.get("givenName"), "family": x.get("familyName"), "name": x.get("name")} for x in a.get("creators", [])],
+            "year": a.get("publicationYear"), "publisher": a.get("publisher"),
+            "series_information": next((d["description"] for d in a.get("descriptions", []) if d.get("descriptionType") == "SeriesInformation"), None),
+            "container": {k: c.get(k) for k in ("title", "volume", "firstPage", "lastPage", "identifier")},
+            "related": [r["relatedIdentifier"] for r in a.get("relatedIdentifiers", []) if r.get("relationType") == "IsVersionOf"],
+            "url": "https://api.datacite.org/dois/" + doi}
+
+
 def arxiv(ids: list[str]) -> dict:
     xml = _get("https://export.arxiv.org/api/query?max_results=100&id_list=" + ",".join(ids)).decode("utf-8")
     out = {}
@@ -67,15 +82,18 @@ def main() -> None:
             dois.append(doi)
         if ax:
             ids.append(ax)
-    rec = {"retrieved_utc": time.strftime("%Y-%m-%d", time.gmtime()), "crossref": {}, "arxiv": arxiv(sorted(set(ids)))}
+    rec = {"retrieved_utc": time.strftime("%Y-%m-%d", time.gmtime()), "crossref": {}, "datacite": {}, "arxiv": arxiv(sorted(set(ids)))}
     for d in sorted(set(dois)):
-        rec["crossref"][d] = crossref(d)
+        if d.startswith(DATACITE_PREFIXES):
+            rec["datacite"][d] = datacite(d)
+        else:
+            rec["crossref"][d] = crossref(d)
         time.sleep(0.2)
     missing = sorted(set(ids) - set(rec["arxiv"]))
     if missing:
         raise SystemExit(f"arXiv records not returned for {missing}")
     OUT.write_text(json.dumps(rec, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"{len(rec['crossref'])} Crossref and {len(rec['arxiv'])} arXiv records -> {OUT.relative_to(ROOT)}")
+    print(f"{len(rec['crossref'])} Crossref, {len(rec['datacite'])} DataCite and {len(rec['arxiv'])} arXiv records -> {OUT.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

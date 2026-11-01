@@ -7,8 +7,8 @@ Field sources, in order of precedence:
     arXiv id), so the entry describes the version B5 recorded. Author name splitting (given / family) comes from the
     Crossref record of the same DOI when the author lists agree.
   * Other papers: paper/bib_verification.json (Crossref for DOIs, arXiv API for arXiv-only papers).
-  * A paper/bib_sources.json "supplement" only fills fields missing from Crossref, and each value must occur verbatim
-    in the arXiv journal_ref it cites.
+  * A paper/bib_sources.json "supplement" only fills or expands fields: each value must occur verbatim in the arXiv
+    journal_ref, or contain the metadata record's own value (an abbreviation expanded to its full name).
 Every disagreement between B5 and Crossref, and every reviewed-version / cited-version difference, is written to the
 audit instead of being overwritten.
 """
@@ -80,6 +80,8 @@ def build() -> tuple[list[dict], list[dict]]:
             doi_is_arxiv = False
         ax = e.get("arxiv") or (p or {}).get("arxiv_id")
         cr = ver["crossref"].get(doi) if doi and not doi_is_arxiv else None
+        dc = ver.get("datacite", {}).get(doi) if doi and not doi_is_arxiv else None
+        kind_override = None
         ar = ver["arxiv"].get(ax) if ax else None
         f: dict = {}
         origin = ""
@@ -123,6 +125,20 @@ def build() -> tuple[list[dict], list[dict]]:
                 f["series"], f["pages"], f["publisher"] = _clean(cr["container_title"]), _pages(cr["page"], None), cr["publisher"]
             if ar and _norm(ar["title"]) != _norm(cr["title"]):
                 issues.append({"key": key, "kind": "title differs", "detail": f"arXiv title '{ar['title']}' vs published '{_clean(cr['title'])}' (published kept)"})
+        elif dc:                                                                 # DataCite (LIPIcs); fields from the record only
+            origin = "DataCite"
+            f["title"] = dc["title"]
+            f["author"] = [f"{a['family']}, {a['given']}" for a in dc["authors"]]
+            f["year"] = str(dc["year"])
+            si = dc.get("series_information") or ""
+            m = re.search(r"Vol\. \d+, (.*?), pages", si)
+            if m:
+                f["booktitle"] = m.group(1)
+            f["series"], f["volume"] = si.split(",")[0], dc["container"]["volume"]
+            f["pages"], f["publisher"] = f"{dc['container']['firstPage']}--{dc['container']['lastPage']}", dc["publisher"]
+            kind_override = "inproceedings"
+            if ar and _norm(ar["title"]) != _norm(dc["title"]):
+                issues.append({"key": key, "kind": "title differs", "detail": f"arXiv title '{ar['title']}' vs published '{dc['title']}' (published kept)"})
         elif ar:
             origin = "arXiv API"
             f["title"], f["author"], f["year"] = ar["title"], [_person(n) for n in ar["authors"]], ar["published"][:4]
@@ -130,6 +146,8 @@ def build() -> tuple[list[dict], list[dict]]:
         else:
             issues.append({"key": key, "kind": "unresolved", "detail": "no metadata record"})
             continue
+        if e.get("resolved_note"):
+            issues.append({"key": key, "kind": "resolved", "detail": e["resolved_note"]})
         if e.get("version_note"):
             issues.append({"key": key, "kind": "version", "detail": e["version_note"]})
         if e.get("b5_as_printed"):
@@ -147,7 +165,8 @@ def build() -> tuple[list[dict], list[dict]]:
             for k, v in sup.items():
                 if k == "source":
                     continue
-                assert v in jr, f"{key}: supplement {k}={v!r} not in journal_ref {jr!r}"
+                rec = f.get(k)
+                assert v in jr or (rec and str(rec) in v), f"{key}: supplement {k}={v!r} is neither in the journal_ref nor an expansion of {rec!r}"
                 f[k] = [_person(v)] if k == "editor" else v
         if doi and not doi_is_arxiv:
             f["doi"] = doi
@@ -155,8 +174,8 @@ def build() -> tuple[list[dict], list[dict]]:
             f["eprint"], f["archiveprefix"] = ax, "arXiv"
             if ar and ar.get("primary_category"):
                 f["primaryclass"] = ar["primary_category"]
-        kind = "article" if "journal" in f else "inproceedings" if "booktitle" in f and "series" not in f and "editor" not in f \
-            else "incollection" if "booktitle" in f else "misc"
+        kind = kind_override or ("article" if "journal" in f else "inproceedings" if "booktitle" in f and "series" not in f and "editor" not in f \
+            else "incollection" if "booktitle" in f else "misc")
         if kind == "misc":
             f["howpublished"] = "arXiv preprint"
         entries.append({"key": key, "type": kind, "fields": f, "origin": origin, "role": e["role"], "cited_by": e["cited_by"]})
@@ -193,7 +212,7 @@ def audit_md(entries: list[dict], issues: list[dict]) -> str:
     ver = json.loads(VERIFY.read_text(encoding="utf-8"))
     L = ["# Bibliography audit", "",
          f"Generated by `tools/build_bib.py`; validated by `tools/check_bib.py`. Metadata snapshot retrieved {ver['retrieved_utc']}"
-         " (Crossref and arXiv API, metadata only). This is a citation-metadata audit, not a novelty audit.", "",
+         " (Crossref, DataCite and arXiv API, metadata only). This is a citation-metadata audit, not a novelty audit.", "",
          "| | count |", "|---|---|",
          f"| entries in `references.bib` | {len(entries)} |",
          f"| with a DOI (published version) | {len(pub)} |",
@@ -204,7 +223,7 @@ def audit_md(entries: list[dict], issues: list[dict]) -> str:
     for e in entries:
         f = e["fields"]
         L.append(f"| `{e['key']}` | {e['type']} | {f.get('doi', '—')} | {f.get('eprint', '—')} | {e['origin']} | {f.get('b5reviewed', '—')} | {e['role']} |")
-    for title, kinds in (("Unresolved metadata", ("unresolved",)), ("Version notes (reviewed vs cited version)", ("version",)),
+    for title, kinds in (("Unresolved metadata", ("unresolved",)), ("Resolved citations", ("resolved",)), ("Version notes (reviewed vs cited version)", ("version",)),
                          ("arXiv-only entries", ("arXiv only",)), ("Title differences (arXiv vs published)", ("title differs",)),
                          ("B5 vs Crossref discrepancies (B5 kept)", ("B5 vs Crossref",)),
                          ("B5 follow-up citations as printed vs verified record", ("B5 follow-up as printed",))):

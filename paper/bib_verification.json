@@ -1,5 +1,5 @@
 {
- "retrieved_utc": "2026-10-31",
+ "retrieved_utc": "2026-11-01",
  "crossref": {
   "10.1038/s41377-025-01755-8": {
    "doi": "10.1038/s41377-025-01755-8",
@@ -751,6 +751,39 @@
    "url": "https://api.crossref.org/works/10.22331/q-2024-01-11-1225"
   }
  },
+ "datacite": {
+  "10.4230/LIPIcs.ESA.2025.4": {
+   "doi": "10.4230/lipics.esa.2025.4",
+   "type": "inproceedings",
+   "title": "Optimal Quantum Algorithm for Estimating Fidelity to a Pure State",
+   "authors": [
+    {
+     "given": "Wang",
+     "family": "Fang",
+     "name": "Fang, Wang"
+    },
+    {
+     "given": "Qisheng",
+     "family": "Wang",
+     "name": "Wang, Qisheng"
+    }
+   ],
+   "year": 2025,
+   "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+   "series_information": "LIPIcs, Vol. 351, 33rd Annual European Symposium on Algorithms (ESA 2025), pages 4:1-4:12",
+   "container": {
+    "title": "LIPIcs, Volume 351, ESA 2025",
+    "volume": "351",
+    "firstPage": "4:1",
+    "lastPage": "4:12",
+    "identifier": "10.4230/LIPIcs.ESA.2025"
+   },
+   "related": [
+    "arXiv:2506.23650"
+   ],
+   "url": "https://api.datacite.org/dois/10.4230/LIPIcs.ESA.2025.4"
+  }
+ },
  "arxiv": {
   "2208.11060": {
    "id": "2208.11060",
@@ -1111,6 +1144,21 @@
    "journal_ref": null,
    "doi": null,
    "url": "https://arxiv.org/abs/2406.09780"
+  },
+  "2506.23650": {
+   "id": "2506.23650",
+   "latest_version": "2506.23650v2",
+   "title": "Query-Optimal and Sample-Optimal Quantum Algorithms for Estimating Fidelity to a Pure State",
+   "authors": [
+    "Wang Fang",
+    "Qisheng Wang"
+   ],
+   "published": "2025-06-30",
+   "updated": "2026-07-02",
+   "primary_category": "quant-ph",
+   "journal_ref": null,
+   "doi": null,
+   "url": "https://arxiv.org/abs/2506.23650"
   },
   "2607.11095": {
    "id": "2607.11095",
