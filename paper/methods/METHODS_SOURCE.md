@@ -18,8 +18,9 @@ Source: [`docs/phase8/REPRODUCTION_STATUS.md`](../../docs/phase8/REPRODUCTION_ST
 
 ## 1. Computational environment
 
-- **Machine.** All committed results were produced on one macOS machine, Apple M4 (Darwin 25.4.0, arm64, per
-  `docs/stages/STAGE1_STATUS.md`).
+- **Machine.** All committed results were produced on Dhruv's macOS machine. Stage 1 records macOS (Darwin 25.4.0,
+  arm64) in `docs/stages/STAGE1_STATUS.md`. The hardware model is named only in the B1 numerics log, which refers to
+  the machine's M4 performance cores (B1 log, `results/b1_entangling/numerics_log.md`). No other run records the model.
 - **Software.** Python, NumPy, SciPy, pandas, Matplotlib and PennyLane. Section 16 gives versions.
 - **Parallelism.** The B1 and B3 sweeps and the Stage 6/7 required-shot solves ran in parallel worker processes.
   Results do not depend on the number of workers, because every task is seeded by its own identifiers (Section 2).

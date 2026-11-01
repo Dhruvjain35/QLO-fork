@@ -254,7 +254,7 @@ Source of every cell in the appendix tables (generated with them). Format: `fiel
 ## Table A4. Reproduction and compute cost (`reproduction_table.csv`)
 
 - **Stage 3**
-  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine"
   - python_version <- no value in docs/stages/STAGE3.md
   - workers <- no value in docs/stages/STAGE3.md
   - wall_time <- no value in docs/stages/STAGE3.md
@@ -264,7 +264,7 @@ Source of every cell in the appendix tables (generated with them). Format: `fiel
   - expected_headline_check <- not applicable: see stage report
   - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
 - **Stage 4**
-  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine"
   - python_version <- no value in docs/stages/STAGE4.md
   - workers <- no value in docs/stages/STAGE4.md
   - wall_time <- no value in docs/stages/STAGE4.md
@@ -274,7 +274,7 @@ Source of every cell in the appendix tables (generated with them). Format: `fiel
   - expected_headline_check <- not applicable: see stage report
   - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
 - **Stage 5**
-  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine"
   - python_version <- no value in docs/stages/STAGE5.md
   - workers <- no value in docs/stages/STAGE5.md
   - wall_time <- no value in docs/stages/STAGE5.md
@@ -284,7 +284,7 @@ Source of every cell in the appendix tables (generated with them). Format: `fiel
   - expected_headline_check <- not applicable: see stage report
   - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
 - **Stage 6**
-  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine"
   - python_version <- no value in docs/stages/STAGE6.md
   - workers <- docs/stages/STAGE6.md: "`python -m qlo.experiments.stage6 --workers 5`"
   - wall_time <- docs/stages/STAGE6.md: "(365 s wall, 2.2 GB peak"
@@ -294,7 +294,7 @@ Source of every cell in the appendix tables (generated with them). Format: `fiel
   - expected_headline_check <- not applicable: see the Stage 6 report
   - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
 - **Stage 7**
-  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine"
   - python_version <- no value in docs/stages/STAGE7.md
   - workers <- docs/stages/STAGE7.md: "`python -m qlo.experiments.stage7 --workers 5`"
   - wall_time <- docs/stages/STAGE7.md: "~15–20 min on 5 cores, ≤ 2.4 GB peak"
@@ -304,7 +304,8 @@ Source of every cell in the appendix tables (generated with them). Format: `fiel
   - expected_headline_check <- results/stage7/scaling_fits.json: fits.{loschmidt,swap}_snr1.slope
   - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
 - **B1**
-  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - platform_actually_run <- results/b1_entangling/numerics_log.md: "the M4's 4 performance
+cores busy"
   - python_version <- no value in results/b1_entangling/numerics_log.md
   - workers <- results/b1_entangling/numerics_log.md: "The first sweep attempt (6 workers"
   - wall_time <- results/b1_entangling/numerics_log.md: "compute 5.03 CPU-h; wall 418s"
@@ -313,7 +314,7 @@ Source of every cell in the appendix tables (generated with them). Format: `fiel
   - expected_headline_check <- results/b1_entangling/numerics_log.md: "analyse: identity check over 6740000 theta rows: max abs err 2.96e+02, max rel err 1.75e-11, excluded 0"
   - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
 - **B2**
-  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine"
   - python_version <- no value in results/b2_estimators/numerics_log.md
   - workers <- not applicable: single process
   - wall_time <- results/b2_estimators/numerics_log.md: "hadamard_u 0.6066 (34s)"
@@ -323,7 +324,7 @@ Source of every cell in the appendix tables (generated with them). Format: `fiel
   - expected_headline_check <- results/b2_estimators/numerics_log.md: "loschmidt 0.6059, swap_ancilla 1.2025, swap_destructive 1.2025, hadamard_u 0.6066"
   - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
 - **B3**
-  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine"
   - python_version <- no value in docs/b3/B3_STATISTICAL_HARDENING.md
   - workers <- docs/b3/B3_STATISTICAL_HARDENING.md: "The full computation took 3.2 h wall on 8 workers"
   - wall_time <- docs/b3/B3_STATISTICAL_HARDENING.md: "The full computation took 3.2 h wall on 8 workers"
@@ -332,7 +333,7 @@ Source of every cell in the appendix tables (generated with them). Format: `fiel
   - expected_headline_check <- results/b3_hardening/run_meta.json: stage7_reproduction
   - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
 - **B4**
-  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine"
   - python_version <- no value in results/b4_noise/numerics_log.md
   - workers <- not applicable: single process
   - wall_time <- results/b4_noise/numerics_log.md: "done (28s)"
