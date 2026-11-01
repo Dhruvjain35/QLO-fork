@@ -1,0 +1,425 @@
+# Provenance
+
+Source of every cell in the appendix tables (generated with them). Format: `field <- file: key, computation or "quote"`.
+
+## Table A1. Experiment configurations (`configuration_table.csv`)
+
+- **Stage 3**
+  - purpose <- docs/stages/STAGE3.md: "Controlled barren-plateau benchmark"
+  - circuit_family <- docs/stages/STAGE3.md: "`V(θ) = ⊗_j RX(θ_j)`"
+  - target <- docs/stages/STAGE3.md: "target `|0>^n`"
+  - n_range <- results/stage3/config.json: n_values
+  - depth <- not applicable: product circuit (one RX layer)
+  - parameter_position <- not applicable: product circuit
+  - theta_distribution <- docs/stages/STAGE3.md: "`θ_j ~ iid U[-π, π]`"
+  - number_of_theta <- results/stage3/config.json: n_init
+  - number_of_seeds <- results/stage3/config.json: master_seed
+  - shot_budgets <- docs/stages/STAGE3.md: "The Monte Carlo sweep uses the closed-form gradients"
+  - gradient_component <- results/stage3/config.json: parameter_index
+  - optimizer_iterations <- not applicable: no optimizer
+  - fit_range <- results/stage3/global_fit.json: n_points, model
+  - CI_method <- results/stage3/global_fit.json: variance_rel_se_exact_by_n
+- **Stage 4**
+  - purpose <- docs/stages/STAGE4.md: "Does finite-shot stochasticity help escape a verified barren plateau?"
+  - circuit_family <- docs/stages/STAGE4.md: "on the Stage 3 global benchmark"
+  - target <- docs/stages/STAGE4.md: "`F = |<0^n|ψ>|² = ∏ cos²(θ_j/2)`"
+  - n_range <- results/stage4/config.json: eval_n
+  - depth <- not applicable: product circuit
+  - parameter_position <- not applicable: product circuit
+  - theta_distribution <- docs/stages/STAGE4.md: "`θ_j ~ U[−π,π]`"
+  - number_of_theta <- results/stage4/config.json: evaluation_start_seeds, tuning_start_seeds
+  - number_of_seeds <- docs/stages/STAGE4.md: "A: 1 trajectory / seed; B, C, D, E and the controls: 5 replicates / seed (500 runs per cell)."
+  - shot_budgets <- results/stage4/config.json: sgd_shots
+  - gradient_component <- docs/stages/STAGE4.md: "with an independent M-shot batch for every
+(k, ±), iteration and replicate"
+  - optimizer_iterations <- results/stage4/config.json: n_iters
+  - fit_range <- not applicable: optimization study, no scaling fit
+  - CI_method <- docs/stages/STAGE4.md: "paired by start seed, 10 000-sample bootstrap"
+- **Stage 5**
+  - purpose <- docs/stages/STAGE5.md: "Finite-shot gradient dead zones on the controlled projector benchmark"
+  - circuit_family <- docs/stages/STAGE5.md: "`|ψ(θ)> = ⊗_j RX(θ_j)|0^n>`"
+  - target <- docs/stages/STAGE5.md: "`|ψ(θ)> = ⊗_j RX(θ_j)|0^n>`"
+  - n_range <- results/stage5/config.json: n_values
+  - depth <- not applicable: product circuit
+  - parameter_position <- not applicable: product circuit
+  - theta_distribution <- docs/stages/STAGE5.md: "`θ_j ~ iid U[−π, π]`"
+  - number_of_theta <- results/stage5/config.json: n_samples
+  - number_of_seeds <- results/stage5/config.json: sample_seed
+  - shot_budgets <- results/stage5/config.json: deadzone_shots
+  - gradient_component <- docs/stages/STAGE5.md: "For component k"
+  - optimizer_iterations <- not applicable: no optimizer
+  - fit_range <- results/stage5/scaling_fits.json
+  - CI_method <- docs/stages/STAGE5.md: "exact `P₀` inside the Wilson 95 % CI"
+- **Stage 6**
+  - purpose <- docs/stages/STAGE6.md: "Do all finite-shot barren plateaus fail the same way?"
+  - circuit_family <- docs/stages/STAGE6.md: "Two analytically controlled global barren plateaus on the same circuit"
+  - target <- not applicable: parity cost has no target state; projector cost targets |0^n⟩ (Stage 5)
+  - n_range <- results/stage6/config.json: n_values
+  - depth <- not applicable: product circuit
+  - parameter_position <- not applicable: product circuit
+  - theta_distribution <- docs/stages/STAGE5.md: "`θ_j ~ iid U[−π, π]`"
+  - number_of_theta <- results/stage6/config.json: n_samples
+  - number_of_seeds <- results/stage6/config.json: sample_seed
+  - shot_budgets <- results/stage6/config.json: failure_shots
+  - gradient_component <- docs/stages/STAGE5.md: "For component k"
+  - optimizer_iterations <- results/stage6/config.json: retro_iters
+  - fit_range <- results/stage6/scaling_fits.json
+  - CI_method <- docs/stages/STAGE6.md: "Raw Wilson-CI coverage"
+- **Stage 7**
+  - purpose <- docs/stages/STAGE7.md: "Stage 7 is a replication /"
+  - circuit_family <- docs/stages/STAGE7.md: "`|ψ(θ)⟩ = ⊗_j RX(θ_j)|0ⁿ⟩`"
+  - target <- docs/stages/STAGE7.md: "target `|0ⁿ⟩`"
+  - n_range <- results/stage7/config.json: n_values
+  - depth <- not applicable: product circuit
+  - parameter_position <- not applicable: product circuit
+  - theta_distribution <- docs/stages/STAGE7.md: "θ_j ~ iid U[−π, π]"
+  - number_of_theta <- results/stage7/config.json: n_samples
+  - number_of_seeds <- results/stage7/config.json: seed
+  - shot_budgets <- results/stage7/config.json: paired_shots, vector_shots
+  - gradient_component <- docs/stages/STAGE7.md: "k = 0, the same θ for both schemes"
+  - optimizer_iterations <- results/stage7/config.json: opt_iters, opt_seeds
+  - fit_range <- results/stage7/scaling_fits.json: n_points, slope_n_ge_8
+  - CI_method <- docs/stages/STAGE7.md: "the Wilson CIs overlap"
+- **B1**
+  - purpose <- src/qlo/experiments/b1_entangling.py: "an independent empirical test of the principal-track A2 scaling rule"
+  - circuit_family <- docs/b1/B1_ENTANGLING_SWEEPS.md: "| families
+  - `rx_product` (Family 0, regression), `hea_ring` (Family 1, repo HEA), `rxry_czbrick` (Family 2, fallback) |"
+  - target <- docs/b1/B1_ENTANGLING_SWEEPS.md: "Target |0^n⟩, θ iid U[−π, π]."
+  - n_range <- docs/b1/B1_ENTANGLING_SWEEPS.md: "| n grids
+  - d2 and d4: 4–16 (even); depth = n: 4–14 (even); RX: 2–20 (even) |"
+  - depth <- docs/b1/B1_ENTANGLING_SWEEPS.md: "| depth regimes
+  - 2, 4, depth = n |"
+  - parameter_position <- docs/b1/B1_ENTANGLING_SWEEPS.md: "EARLY l = 0, MIDDLE l = floor(d/2), LATE l = d−1"
+  - theta_distribution <- docs/b1/B1_ENTANGLING_SWEEPS.md: "Target |0^n⟩, θ iid U[−π, π]."
+  - number_of_theta <- results/b1_entangling/config.json: samples_per_cell, rx_samples
+  - number_of_seeds <- results/b1_entangling/config.json: seeds
+  - shot_budgets <- docs/b1/B1_ENTANGLING_SWEEPS.md: "continuous exact M at SNR 1"
+  - gradient_component <- docs/b1/B1_ENTANGLING_SWEEPS.md: "qubit 0, θ[l,0,0]"
+  - optimizer_iterations <- not applicable: no optimizer
+  - fit_range <- docs/b1/B1_ENTANGLING_SWEEPS.md: "| fit ranges
+  - primary = full grid; secondary = n ≥ 8 |"
+  - CI_method <- docs/b1/B1_ENTANGLING_SWEEPS.md: "primary = bootstrap 95% CI of the seed mean"
+- **B2**
+  - purpose <- src/qlo/experiments/b2_estimators.py: "four fidelity-gradient estimators on the frozen Stage 7 RX-product landscape"
+  - circuit_family <- src/qlo/experiments/b2_estimators.py: "spot (secondary entangling spot check)"
+  - target <- docs/stages/STAGE7.md: "target `|0ⁿ⟩`"
+  - n_range <- results/b2_estimators/config.json: rx_n, spot_n
+  - depth <- not applicable: product circuit (spot check: HEA depth n)
+  - parameter_position <- not applicable: product circuit
+  - theta_distribution <- docs/stages/STAGE7.md: "θ_j ~ iid U[−π, π]"
+  - number_of_theta <- results/b2_estimators/config.json: stage7_samples, replicate_samples
+  - number_of_seeds <- results/b2_estimators/config.json: stage7_seed, replicate_seeds
+  - shot_budgets <- results/b2_estimators/config.json: budgets_total_executions; src/qlo/b2/required_shots.py docstring
+  - gradient_component <- docs/stages/STAGE7.md: "k = 0, the same θ for both schemes"
+  - optimizer_iterations <- not applicable: no optimizer
+  - fit_range <- results/b2_estimators/config.json: fit_ranges
+  - CI_method <- results/b2_estimators/config.json: replicate_seeds, n_boot_seed
+- **B3**
+  - purpose <- src/qlo/experiments/b3_hardening.py: "B3 statistical hardening of Stage 7"
+  - circuit_family <- docs/b3/B3_STATISTICAL_HARDENING.md: "Anything beyond the RX-product circuit"
+  - target <- docs/b3/B3_STATISTICAL_HARDENING.md: "the |0ⁿ⟩ target"
+  - n_range <- results/b3_hardening/config.json: primary_n, extension_n
+  - depth <- not applicable: product circuit
+  - parameter_position <- not applicable: product circuit
+  - theta_distribution <- docs/b3/B3_STATISTICAL_HARDENING.md: "U[−π, π] initialization"
+  - number_of_theta <- results/b3_hardening/config.json: seed_samples, reference_samples
+  - number_of_seeds <- results/b3_hardening/config.json: seeds, reference_seed
+  - shot_budgets <- results/b3_hardening/config.json: fixed_shots; results/b3_hardening/run_meta.json: stage7_reproduction.exact
+  - gradient_component <- docs/b3/B3_STATISTICAL_HARDENING.md: "component k = 0"
+  - optimizer_iterations <- results/b3_hardening/config.json: opt_iters, opt_starts_per_seed
+  - fit_range <- results/b3_hardening/run_meta.json: fit_ranges
+  - CI_method <- docs/b3/B3_STATISTICAL_HARDENING.md: "The predeclared primary criterion is the SEED 95% percentile interval"
+- **B4**
+  - purpose <- docs/b4/B4_NOISE_OVERLAY.md: "B4: depolarizing-noise overlay"
+  - circuit_family <- docs/b4/B4_NOISE_OVERLAY.md: "RX product (L = 1); all 16 B1 cells (L = 2, 4 or n)"
+  - target <- docs/b1/B1_ENTANGLING_SWEEPS.md: "Target |0^n⟩, θ iid U[−π, π]."
+  - n_range <- results/b4_noise/config.json: rx_n
+  - depth <- docs/b4/B4_NOISE_OVERLAY.md: "L = 2, 4 or n"
+  - parameter_position <- docs/b4/B4_NOISE_OVERLAY.md: "same θ, seeds, circuits and positions"
+  - theta_distribution <- docs/b4/B4_NOISE_OVERLAY.md: "same θ, seeds, circuits and positions"
+  - number_of_theta <- results/b4_noise/config.json: rx_samples
+  - number_of_seeds <- results/b4_noise/config.json: seeds
+  - shot_budgets <- docs/b1/B1_ENTANGLING_SWEEPS.md: "continuous exact M at SNR 1"
+  - gradient_component <- docs/b4/B4_NOISE_OVERLAY.md: "same θ, seeds, circuits and positions"
+  - optimizer_iterations <- not applicable: no optimizer
+  - fit_range <- results/b4_noise/config.json: secondary_n_min, window
+  - CI_method <- results/b4_noise/config.json: n_boot_seed, boot_seed
+
+## Table A2. Validation checks (`validation_table.csv`)
+
+- **analytic gradient vs autograd**
+  - observed_error <- docs/stages/STAGE3.md: "| PennyLane backprop gradient vs closed form
+  - 1.1e-19 (global), 5.6e-17 (local) |"
+  - tolerance <- not applicable: not stated
+- **parameter-shift vs autograd**
+  - observed_error <- docs/stages/STAGE1_STATUS.md: "| autograd vs parameter-shift
+  - 4.4e-16      |"
+  - tolerance <- not applicable: not stated
+- **finite-difference cross-check**
+  - observed_error <- docs/stages/STAGE1_STATUS.md: "| autograd vs central finite-diff (h=1e-5)
+  - 6.8e-11      |"
+  - tolerance <- not applicable: not stated
+- **Stage 3 closed form vs PennyLane**
+  - observed_error <- docs/stages/STAGE3.md: "| PennyLane parameter-shift gradient vs closed form
+  - 1.2e-18 (global), 7.3e-17 (local) |"
+  - tolerance <- not applicable: not stated
+- **Stage 3 closed form vs finite difference**
+  - observed_error <- docs/stages/STAGE3.md: "| closed-form gradient vs central finite difference
+  - < 1e-8 |"
+  - tolerance <- not applicable: not stated
+- **projector variance Monte Carlo (Stage 5)**
+  - observed_error <- docs/stages/STAGE5.md: "empirical/analytic variance 0.92–1.06"
+  - tolerance <- not applicable: sampling
+- **Stage 5 exact distribution**
+  - observed_error <- docs/stages/STAGE5.md: "`P₀` vs brute force: 2.6e-15 (M<80), 1e-11 relative (M = 2×10⁶)"
+  - tolerance <- not applicable: not stated
+- **Stage 6 exact / normal approximations**
+  - observed_error <- docs/stages/STAGE6.md: "matches brute force to 4.5e-14 at small M"
+  - tolerance <- not applicable: not stated
+- **Stage 7 common-gradient identity**
+  - observed_error <- docs/stages/STAGE7.md: "Common-gradient identity ≤ 1.7e-16 for n = 2…20"
+  - tolerance <- not applicable: not stated
+- **Stage 7 PennyLane SWAP validation**
+  - observed_error <- docs/stages/STAGE7.md: "| P_zero in Wilson CI
+  - 27/27
+  - 25/27 |"
+  - tolerance <- not applicable: sampling (Wilson 95% CI)
+- **B1 fused kernel vs reference**
+  - observed_error <- results/b1_entangling/fused_kernel_validation.csv: max(max_rel_err_Fpm_over_S)
+  - tolerance <- not applicable: not stated
+- **B1 gradient checks**
+  - observed_error <- results/b1_entangling/numerics_log.md: "max agreement error (|diff|/S) over all rows: 3.17e-13"
+  - tolerance <- results/b1_entangling/config.json: audit_agreement_tol
+- **B1 exact shot-ratio identity**
+  - observed_error <- results/b1_entangling/ratio_identity_validation.csv: max(max_rel_err), sum(n_checked), sum(n_excluded)
+  - tolerance <- results/b1_entangling/config.json: identity_rel_tol
+  - status <- results/b1_entangling/ratio_identity_validation.csv: passes
+- **B2 destructive vs ancilla SWAP**
+  - observed_error <- results/b2_estimators/destructive_swap_validation.csv: max(abs_err_ancilla_vs_destructive)
+  - tolerance <- results/b2_estimators/config.json: swap_equality_tol
+- **B2 Hadamard circuit validation**
+  - observed_error <- results/b2_estimators/hadamard_circuit_validation.csv: max(max_abs_err)
+  - tolerance <- results/b2_estimators/config.json: circuit_tol
+- **B2 U-statistic exact enumeration**
+  - observed_error <- results/b2_estimators/hadamard_variance_validation.csv: max(|exact_bias|, |exact_var_err|)
+  - tolerance <- results/b2_estimators/config.json: variance_tol
+- **B2 Stage 7 regression**
+  - observed_error <- results/b2_estimators/stage7_regression.csv: max(abs_diff)
+  - tolerance <- src/qlo/experiments/b2_estimators.py: phase_rx STOP threshold
+- **B3 independent seed replication (Stage 7 reproduction)**
+  - observed_error <- results/b3_hardening/run_meta.json: stage7_reproduction.max_abs_diff_median_log10M
+  - tolerance <- not applicable: exact reproduction required
+  - status <- results/b3_hardening/run_meta.json: stage7_reproduction.exact
+- **B3 Stage 7 slopes inside seed intervals**
+  - observed_error <- results/b3_hardening/stage7_interval_check.csv: count(inside_seed_pct_interval)
+  - tolerance <- not applicable: predeclared criterion
+- **B4 density-matrix validation**
+  - observed_error <- results/b4_noise/validation.csv: max(abs_err)
+  - tolerance <- results/b4_noise/config.json: validate_tol
+- **B4 p = 0 regression vs B1**
+  - observed_error <- results/b4_noise/regression_p0_vs_b1.csv: max over absdiff_* columns
+  - tolerance <- results/b4_noise/config.json: regression_tol
+- **B4 identity under noise**
+  - observed_error <- results/b4_noise/ratio_identity_validation.csv: max(max_rel_err), sum(n_checked), sum(n_excluded)
+  - tolerance <- results/b4_noise/config.json: identity_rel_tol
+- **CI cross-platform tests**
+  - observed_error <- docs/phase8/REPRODUCTION_STATUS.md: "| pytest
+  - windows-latest, Python 3.13.16
+  - 279 passed, 1 skipped (no `PYTHONUTF8`) |"
+  - tolerance <- not applicable: all tests must pass
+
+## Table A3. Regime of validity (`regime_of_validity.csv`)
+
+- **Exact shot-ratio identity**
+  - mathematical_scope <- docs/theory/A2_PROPOSITIONS.md: "For every θ with Δ ≠ 0 and S − Q > 0:"
+- **Conditional sign law**
+  - mathematical_scope <- docs/theory/A2_PROPOSITIONS.md: "(1 + |r|)/2 + O(M S)"
+- **Slope rule b_SWAP − b_LE = b_S**
+  - mathematical_scope <- docs/theory/A2_PROPOSITIONS.md: "## 2. Proposition 2 (slope rule in the concentrated regime)"
+- **Exponent doubling**
+  - mathematical_scope <- docs/theory/A2_PROPOSITIONS.md: "If b_r = 0, the ratio equals 2."
+- **RX-product 4ⁿ vs 16ⁿ**
+  - mathematical_scope <- docs/stages/STAGE7.md: "same-landscape gradient shot complexity (≈ 4ⁿ vs ≈ 16ⁿ, with measured exponents)"
+- **B1 entangling generalization**
+  - mathematical_scope <- docs/b1/B1_ENTANGLING_SWEEPS.md: "## 25. What B1 supports"
+- **Hadamard U-statistic scaling**
+  - mathematical_scope <- docs/b2/B2_ADDITIONAL_ESTIMATORS.md: "Hadamard therefore combines **Loschmidt's exponent with SWAP's failure type**"
+- **Destructive SWAP equivalence**
+  - mathematical_scope <- docs/theory/A2_PROPOSITIONS.md: "The ancilla and destructive (Bell-basis) SWAP tests have identical outcome statistics (B2 §5)."
+- **Global depolarizing result**
+  - mathematical_scope <- docs/theory/A2_PROPOSITIONS.md: "ρ' = q ρ + (1 − q) I/d,   q = (1 − p)^L."
+- **Local depolarizing result**
+  - mathematical_scope <- docs/theory/A2_PROPOSITIONS.md: "## 7. Proposition 6 (local depolarizing on the product circuit) — prediction for B4"
+
+## Table A4. Reproduction and compute cost (`reproduction_table.csv`)
+
+- **Stage 3**
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - python_version <- no value in docs/stages/STAGE3.md
+  - workers <- no value in docs/stages/STAGE3.md
+  - wall_time <- no value in docs/stages/STAGE3.md
+  - cpu_time <- no value in docs/stages/STAGE3.md
+  - peak_memory <- no value in docs/stages/STAGE3.md
+  - cache_requirement <- not applicable: no cache
+  - expected_headline_check <- not applicable: see stage report
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **Stage 4**
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - python_version <- no value in docs/stages/STAGE4.md
+  - workers <- no value in docs/stages/STAGE4.md
+  - wall_time <- no value in docs/stages/STAGE4.md
+  - cpu_time <- no value in docs/stages/STAGE4.md
+  - peak_memory <- no value in docs/stages/STAGE4.md
+  - cache_requirement <- not applicable: no cache
+  - expected_headline_check <- not applicable: see stage report
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **Stage 5**
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - python_version <- no value in docs/stages/STAGE5.md
+  - workers <- no value in docs/stages/STAGE5.md
+  - wall_time <- no value in docs/stages/STAGE5.md
+  - cpu_time <- no value in docs/stages/STAGE5.md
+  - peak_memory <- no value in docs/stages/STAGE5.md
+  - cache_requirement <- not applicable: no cache
+  - expected_headline_check <- not applicable: see stage report
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **Stage 6**
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - python_version <- no value in docs/stages/STAGE6.md
+  - workers <- docs/stages/STAGE6.md: "`python -m qlo.experiments.stage6 --workers 5`"
+  - wall_time <- docs/stages/STAGE6.md: "(365 s wall, 2.2 GB peak"
+  - cpu_time <- no value in docs/stages/STAGE6.md
+  - peak_memory <- docs/stages/STAGE6.md: "(365 s wall, 2.2 GB peak"
+  - cache_requirement <- not applicable: no cache
+  - expected_headline_check <- not applicable: see the Stage 6 report
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **Stage 7**
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - python_version <- no value in docs/stages/STAGE7.md
+  - workers <- docs/stages/STAGE7.md: "`python -m qlo.experiments.stage7 --workers 5`"
+  - wall_time <- docs/stages/STAGE7.md: "~15–20 min on 5 cores, ≤ 2.4 GB peak"
+  - cpu_time <- no value in docs/stages/STAGE7.md
+  - peak_memory <- docs/stages/STAGE7.md: "~15–20 min on 5 cores, ≤ 2.4 GB peak"
+  - cache_requirement <- not applicable: no cache
+  - expected_headline_check <- results/stage7/scaling_fits.json: fits.{loschmidt,swap}_snr1.slope
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **B1**
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - python_version <- no value in results/b1_entangling/numerics_log.md
+  - workers <- results/b1_entangling/numerics_log.md: "The first sweep attempt (6 workers"
+  - wall_time <- results/b1_entangling/numerics_log.md: "compute 5.03 CPU-h; wall 418s"
+  - cpu_time <- results/b1_entangling/numerics_log.md: "compute 5.03 CPU-h; wall 418s"
+  - peak_memory <- docs/b1/B1_CONFIG.md: "≤0.65 GB resident each"
+  - expected_headline_check <- results/b1_entangling/numerics_log.md: "analyse: identity check over 6740000 theta rows: max abs err 2.96e+02, max rel err 1.75e-11, excluded 0"
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **B2**
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - python_version <- no value in results/b2_estimators/numerics_log.md
+  - workers <- not applicable: single process
+  - wall_time <- results/b2_estimators/numerics_log.md: "hadamard_u 0.6066 (34s)"
+  - cpu_time <- no value in results/b2_estimators/numerics_log.md
+  - peak_memory <- results/b2_estimators/numerics_log.md: "exact joint pmf at T=2048 exceeded memory"
+  - cache_requirement <- not applicable: no cache
+  - expected_headline_check <- results/b2_estimators/numerics_log.md: "loschmidt 0.6059, swap_ancilla 1.2025, swap_destructive 1.2025, hadamard_u 0.6066"
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **B3**
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - python_version <- no value in docs/b3/B3_STATISTICAL_HARDENING.md
+  - workers <- docs/b3/B3_STATISTICAL_HARDENING.md: "The full computation took 3.2 h wall on 8 workers"
+  - wall_time <- docs/b3/B3_STATISTICAL_HARDENING.md: "The full computation took 3.2 h wall on 8 workers"
+  - cpu_time <- no value in docs/b3/B3_STATISTICAL_HARDENING.md
+  - peak_memory <- no value in docs/b3/B3_STATISTICAL_HARDENING.md
+  - expected_headline_check <- results/b3_hardening/run_meta.json: stage7_reproduction
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **B4**
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "Dhruv's macOS machine (Apple M4)"
+  - python_version <- no value in results/b4_noise/numerics_log.md
+  - workers <- not applicable: single process
+  - wall_time <- results/b4_noise/numerics_log.md: "done (28s)"
+  - cpu_time <- no value in results/b4_noise/numerics_log.md
+  - peak_memory <- no value in results/b4_noise/numerics_log.md
+  - expected_headline_check <- results/b4_noise/numerics_log.md: "analyse: identity under noise over 41200000 theta rows: max rel err 1.75e-11, excluded 0"
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **CI test suite**
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "| pytest
+  - windows-latest, Python 3.13.16
+  - 279 passed, 1 skipped (no `PYTHONUTF8`) |"
+  - python_version <- docs/phase8/REPRODUCTION_STATUS.md: "ubuntu-latest, Python 3.13.17"
+  - workers <- not applicable: pytest default
+  - wall_time <- no value in docs/phase8/REPRODUCTION_STATUS.md
+  - cpu_time <- no value in docs/phase8/REPRODUCTION_STATUS.md
+  - peak_memory <- no value in docs/phase8/REPRODUCTION_STATUS.md
+  - cache_requirement <- not applicable: none
+  - output_directory <- not applicable: none
+  - expected_headline_check <- docs/phase8/REPRODUCTION_STATUS.md: "279 passed, 1 skipped (no `PYTHONUTF8`)"
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **CI smoke runs**
+  - platform_actually_run <- docs/phase8/REPRODUCTION_STATUS.md: "| smoke
+  - ubuntu-latest / 3.12, ubuntu-latest / 3.13, windows-latest / 3.13
+  - all four `--fast` runs finished; no committed file changed |"
+  - python_version <- docs/phase8/REPRODUCTION_STATUS.md: "ubuntu-latest / 3.12, ubuntu-latest / 3.13, windows-latest / 3.13"
+  - workers <- not applicable: driver defaults
+  - wall_time <- no value in docs/phase8/REPRODUCTION_STATUS.md
+  - cpu_time <- no value in docs/phase8/REPRODUCTION_STATUS.md
+  - peak_memory <- no value in docs/phase8/REPRODUCTION_STATUS.md
+  - expected_headline_check <- docs/phase8/REPRODUCTION_STATUS.md: "all four `--fast` runs finished; no committed file changed"
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **Paper figures**
+  - platform_actually_run <- no value in paper/figures/manifest.json
+  - python_version <- no value in paper/figures/manifest.json
+  - workers <- not applicable: single process
+  - wall_time <- no value in paper/figures/manifest.json
+  - cpu_time <- no value in paper/figures/manifest.json
+  - peak_memory <- no value in paper/figures/manifest.json
+  - cache_requirement <- not applicable: reads committed results only
+  - expected_headline_check <- paper/figures/FIGURE_SOURCES.md: "# Figure sources"
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+- **Bibliography check**
+  - platform_actually_run <- no value in paper/BIBLIOGRAPHY_AUDIT.md
+  - python_version <- no value in paper/BIBLIOGRAPHY_AUDIT.md
+  - workers <- not applicable: single process
+  - wall_time <- no value in paper/BIBLIOGRAPHY_AUDIT.md
+  - cpu_time <- no value in paper/BIBLIOGRAPHY_AUDIT.md
+  - peak_memory <- no value in paper/BIBLIOGRAPHY_AUDIT.md
+  - cache_requirement <- not applicable: offline (committed metadata snapshot)
+  - expected_headline_check <- paper/BIBLIOGRAPHY_AUDIT.md: "| entries in `references.bib` |"
+  - physical_hardware <- all results are classical simulation (docs/phase8/REPRODUCTION_STATUS.md §D)
+
+## Table A5. Estimator resources and access requirements (`estimator_resources.csv`)
+
+- **Loschmidt**
+  - measured_quantity <- results/b2_estimators/resource_accounting.csv: measures
+  - qubits <- results/b2_estimators/resource_accounting.csv: qubits_per_shot
+  - copies <- results/b2_estimators/resource_accounting.csv: state_copies_per_shot
+  - controlled_unitary_requirement <- results/b2_estimators/resource_accounting.csv: needs / measures
+  - target_inverse_requirement <- results/b2_estimators/resource_accounting.csv: needs / measures
+  - executions_convention <- results/b2_estimators/resource_accounting.csv: executions_per_gradient
+  - failure_behavior <- results/b2_estimators/fixed_budget_failure_modes.csv: n = 14, total_executions = 2048
+  - rx_exponent <- results/b2_estimators/slope_summary.csv: primary_2_20, median_log10_total_executions
+- **ancilla SWAP**
+  - measured_quantity <- results/b2_estimators/resource_accounting.csv: measures
+  - qubits <- results/b2_estimators/resource_accounting.csv: qubits_per_shot
+  - copies <- results/b2_estimators/resource_accounting.csv: state_copies_per_shot
+  - controlled_unitary_requirement <- results/b2_estimators/resource_accounting.csv: needs / measures
+  - target_inverse_requirement <- results/b2_estimators/resource_accounting.csv: needs / measures
+  - executions_convention <- results/b2_estimators/resource_accounting.csv: executions_per_gradient
+  - failure_behavior <- results/b2_estimators/fixed_budget_failure_modes.csv: n = 14, total_executions = 2048
+  - rx_exponent <- results/b2_estimators/slope_summary.csv: primary_2_20, median_log10_total_executions
+- **destructive SWAP**
+  - measured_quantity <- results/b2_estimators/resource_accounting.csv: measures
+  - qubits <- results/b2_estimators/resource_accounting.csv: qubits_per_shot
+  - copies <- results/b2_estimators/resource_accounting.csv: state_copies_per_shot
+  - controlled_unitary_requirement <- results/b2_estimators/resource_accounting.csv: needs / measures
+  - target_inverse_requirement <- results/b2_estimators/resource_accounting.csv: needs / measures
+  - executions_convention <- results/b2_estimators/resource_accounting.csv: executions_per_gradient
+  - failure_behavior <- results/b2_estimators/fixed_budget_failure_modes.csv: n = 14, total_executions = 2048
+  - rx_exponent <- results/b2_estimators/slope_summary.csv: primary_2_20, median_log10_total_executions
+- **Hadamard U-statistic**
+  - measured_quantity <- results/b2_estimators/resource_accounting.csv: measures
+  - qubits <- results/b2_estimators/resource_accounting.csv: qubits_per_shot
+  - copies <- results/b2_estimators/resource_accounting.csv: state_copies_per_shot
+  - controlled_unitary_requirement <- results/b2_estimators/resource_accounting.csv: needs / measures
+  - target_inverse_requirement <- results/b2_estimators/resource_accounting.csv: needs / measures
+  - executions_convention <- results/b2_estimators/resource_accounting.csv: executions_per_gradient
+  - failure_behavior <- results/b2_estimators/fixed_budget_failure_modes.csv: n = 14, total_executions = 2048
+  - rx_exponent <- results/b2_estimators/slope_summary.csv: primary_2_20, median_log10_total_executions
