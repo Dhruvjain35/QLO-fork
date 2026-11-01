@@ -16,9 +16,12 @@ experiments as independently reproduced.** Neither has happened yet.
 
 ## A. Original result generation
 
-The committed results were produced by **actually executing** the drivers on Dhruv's macOS machine (Apple M4). These
-are **classical simulations**: Python with NumPy, SciPy and PennyLane (`default.qubit` and `default.mixed`) computing
-exact or sampled measurement statistics. They are not physical quantum-processor runs.
+The original scientific results were **actually executed** as classical simulations on Dhruv's macOS machine.
+- **Hardware model.** The B1 run log (`results/b1_entangling/numerics_log.md`) specifically identifies that machine
+  as an Apple M4. The historical logs and reports for the other experiments record macOS, but do not identify the
+  hardware model.
+- **Software.** Python with NumPy, SciPy and PennyLane (`default.qubit` and `default.mixed`), computing exact or
+  sampled measurement statistics. These are not physical quantum-processor runs.
 
 The run logs are committed next to the results:
 
