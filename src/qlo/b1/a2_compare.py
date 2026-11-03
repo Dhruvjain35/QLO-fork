@@ -34,7 +34,7 @@ def b1_on_range(med: pd.DataFrame, family: str, regime: str, position: str, n_ra
 
 
 def phase_a2(cfg: CF.B1Config, out, root, log) -> pd.DataFrame:
-    a2 = json.loads((root / "principal" / "a2_numerics" / "general_scaling_results.json").read_text())
+    a2 = json.loads((root / "principal" / "a2_numerics" / "general_scaling_results.json").read_text(encoding="utf-8"))
     med = pd.read_csv(out / "sample_summary.csv")
     rows = []
     for key, (fam, reg, pos, desc) in CELLS.items():

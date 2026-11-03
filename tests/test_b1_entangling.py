@@ -252,7 +252,7 @@ def test_predicted_ratio_formula():
 # 15. B3 interval utilities ------------------------------------------------------------------------------------------------
 def test_b3_interval_utilities_used_with_b3_settings():
     cfg = CF.B1Config()
-    b3 = json.loads((B3 / "config.json").read_text())
+    b3 = json.loads((B3 / "config.json").read_text(encoding="utf-8"))
     assert (cfg.n_boot_seed, cfg.boot_seed) == (b3["n_boot_seed"], b3["boot_seed"])
     rng = np.random.default_rng(8)
     rows = [{"family": "f", "regime": "d2", "position": "EARLY", "fit_range": "primary", "seed": s, "n_min": 4, "n_max": 16,
@@ -323,7 +323,8 @@ def test_historical_files_untouched_since_b1_base():
     """Stage 2-7 reports, their results, B3 results and the Stage 5-7 / B3 code are byte-identical to the B1 base.
 
     The stage reports moved to docs/stages/ (pure renames), so they are compared blob to blob. principal/ is not
-    checked: it is the principal track's living document and changes legitimately."""
+    checked: it is the principal track's living document and changes legitimately. STAGE7.md may differ from the base
+    only by the Phase 8 I1 wording corrections recorded in docs/phase8/i1_stage7_patch.json."""
     dirs = ["results/stage2", "results/stage3", "results/stage4", "results/stage5", "results/stage6", "results/stage7",
             "results/b3_hardening", "src/qlo/stage5", "src/qlo/stage6", "src/qlo/stage7", "src/qlo/hardening"]
     try:
@@ -334,12 +335,19 @@ def test_historical_files_untouched_since_b1_base():
     if not base_ok or r.returncode not in (0, 1):
         pytest.skip("base commit not available in this clone")
     assert r.returncode == 0
-    for k in range(2, 8):
+    for k in range(2, 7):
         old = subprocess.run(["git", "rev-parse", f"{BASE_COMMIT}:STAGE{k}.md"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
         new = subprocess.run(["git", "hash-object", f"docs/stages/STAGE{k}.md"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
         assert old and old == new, f"STAGE{k}.md changed"
+    patch = json.loads((ROOT / "docs" / "phase8" / "i1_stage7_patch.json").read_text(encoding="utf-8"))
+    text = subprocess.run(["git", "show", f"{BASE_COMMIT}:STAGE7.md"], cwd=ROOT, capture_output=True).stdout.decode("utf-8")
+    for rep in patch["replacements"]:
+        assert text.count(rep["old"]) == 1
+        text = text.replace(rep["old"], rep["new"])
+    current = (ROOT / "docs" / "stages" / "STAGE7.md").read_bytes().decode("utf-8").replace("\r\n", "\n")
+    assert current == text, "STAGE7.md differs from the base by more than the Phase 8 I1 corrections"
 
 
 def test_config_is_frozen_in_b1_config_md():
-    frozen = CF.config_json_from_markdown((ROOT / "docs" / "b1" / "B1_CONFIG.md").read_text())
+    frozen = CF.config_json_from_markdown((ROOT / "docs" / "b1" / "B1_CONFIG.md").read_text(encoding="utf-8"))
     assert json.loads(frozen) == json.loads(CF.B1Config().to_json())

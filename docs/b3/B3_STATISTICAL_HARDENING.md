@@ -317,8 +317,8 @@ The predeclared primary criterion is the SEED 95% percentile interval, because t
 
 ```
 .venv/bin/python -m pytest -v -W error::DeprecationWarning
-.venv/bin/python -m qlo.experiments.b3_hardening --workers 8      # per-theta caches -> --work-dir (default: external SSD)
-.venv/bin/python -m qlo.experiments.b3_hardening --fast --work-dir /tmp/b3fast --out-dir /tmp/b3fast_out   # smoke
+.venv/bin/python -m qlo.experiments.b3_hardening --workers 8      # per-theta caches -> --work-dir, $QLO_WORK_DIR or .qlo_cache/
+.venv/bin/python -m qlo.experiments.b3_hardening --fast           # smoke -> .qlo_cache/b3_hardening_fast/ (Phase 8 I2)
 ```
 
 The full computation took 3.2 h wall on 8 workers on a heavily shared machine (other jobs held the load average at

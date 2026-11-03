@@ -309,13 +309,13 @@ def run_stage3(cfg: ControlledBPConfig, out_dir: Path = RESULTS_DIR, figures: bo
     }
     crosscheck = run_pennylane_crosscheck(cfg, summary) if pennylane else pd.DataFrame()
 
-    (out_dir / "config.json").write_text(json.dumps(asdict(cfg), indent=2))
+    (out_dir / "config.json").write_text(json.dumps(asdict(cfg), indent=2), encoding="utf-8")
     summary.to_csv(out_dir / "controlled_bp_summary.csv", index=False)
     symmetry.to_csv(out_dir / "symmetry_check.csv", index=False)
     stability.to_csv(out_dir / "numerical_stability.csv", index=False)
     crosscheck.to_csv(out_dir / "pennylane_crosscheck.csv", index=False)
     for name, obj in (("global_fit.json", global_fit), ("local_fit.json", local_fit), ("model_comparison.json", model_cmp)):
-        (out_dir / name).write_text(json.dumps(obj, indent=2, default=float))
+        (out_dir / name).write_text(json.dumps(obj, indent=2, default=float), encoding="utf-8")
     figs = make_figures(cfg, summary, out_dir / "figures") if figures else []
     return {"summary": summary, "symmetry": symmetry, "stability": stability, "crosscheck": crosscheck,
             "global_fit": global_fit, "local_fit": local_fit, "model_comparison": model_cmp, "figures": figs, "out_dir": out_dir}
