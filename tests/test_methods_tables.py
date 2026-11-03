@@ -34,7 +34,7 @@ def test_generated_files_match_committed_files_and_are_deterministic(built, tmp_
     MT.build(tmp_path)
     for f in [f"{n}.csv" for n in NAMES] + ["APPENDIX_TABLES.md", "PROVENANCE.md"]:
         assert (out / f).read_bytes() == (tmp_path / f).read_bytes(), f        # deterministic
-        assert (out / f).read_bytes() == (APP / f).read_bytes(), f"{f} is stale; rerun python -m qlo.paper.methods_tables"
+        assert (out / f).read_bytes() == (APP / f).read_bytes().replace(b"\r\n", b"\n"), f"{f} is stale; rerun python -m qlo.paper.methods_tables"
 
 
 def test_markdown_renders_the_csv_rows():
@@ -52,7 +52,7 @@ def test_every_row_has_provenance_and_every_quote_exists():
         for r in _rows(name):
             assert r["provenance"].strip(), (name, list(r.values())[0])
             for path, quote in QUOTE.findall(r["provenance"]):
-                assert quote in (ROOT / path).read_text(encoding="utf-8"), (name, path, quote)
+                assert quote.replace("\r\n", "\n") in (ROOT / path).read_text(encoding="utf-8"), (name, path, quote)
 
 
 def test_configuration_and_validation_sources_exist():

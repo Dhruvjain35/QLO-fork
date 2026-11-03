@@ -510,9 +510,9 @@ def build(out: Path = OUT) -> dict[str, list[dict]]:
     tables = {name: fn() for name, fn in TABLES.items()}
     out.mkdir(parents=True, exist_ok=True)
     for name, rows in tables.items():
-        (out / f"{name}.csv").write_text(_csv(rows), encoding="utf-8")
-    (out / "APPENDIX_TABLES.md").write_text(markdown(tables), encoding="utf-8")
-    (out / "PROVENANCE.md").write_text(provenance_md(tables), encoding="utf-8")
+        (out / f"{name}.csv").write_text(_csv(rows), encoding="utf-8", newline="\n")
+    (out / "APPENDIX_TABLES.md").write_text(markdown(tables), encoding="utf-8", newline="\n")
+    (out / "PROVENANCE.md").write_text(provenance_md(tables), encoding="utf-8", newline="\n")
     return tables
 
 
