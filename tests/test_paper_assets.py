@@ -121,7 +121,7 @@ def test_builder_writes_every_pdf_with_sources_and_manifest(built):
     for f in man["figures"]:
         assert f["sources"], f["name"]
         for s in f["sources"]:
-            assert _sha(ROOT / s["path"]) == s["sha256"]
+            assert S.text_sha256(ROOT / s["path"]) == s["sha256"]
 
 
 def test_pdfs_are_deterministic_and_timestamp_free(built, tmp_path):
@@ -145,10 +145,17 @@ def test_committed_figure_folder_is_complete():
     assert [f["name"] for f in man["figures"]] == EXPECTED
     for f in man["figures"]:
         for s in f["sources"]:                                               # committed figures were built from today's results
-            assert _sha(ROOT / s["path"]) == s["sha256"], s["path"]
+            assert S.text_sha256(ROOT / s["path"]) == s["sha256"], s["path"]
         for x in f["files"]:
             assert (figs / x["filename"]).exists()
     assert (figs / "FIGURE_SOURCES.md").exists()
+
+
+def test_source_hash_ignores_windows_line_endings(tmp_path):
+    lf, crlf = tmp_path / "lf.csv", tmp_path / "crlf.csv"
+    lf.write_bytes(b"n,slope\n2,0.6059\n")
+    crlf.write_bytes(b"n,slope\r\n2,0.6059\r\n")
+    assert S.text_sha256(lf) == S.text_sha256(crlf) == S.sha256(lf)
 
 
 # bibliography -----------------------------------------------------------------------------------------------------------

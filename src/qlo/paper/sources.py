@@ -52,11 +52,16 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def text_sha256(path: Path) -> str:
+    """sha256 of a committed text source with CRLF read as LF, so a Windows checkout (core.autocrlf) hashes the same."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
 def _record(rel: str) -> Path:
     p = ROOT / rel
     if not p.exists():
         raise FileNotFoundError(f"paper figures need the committed file {rel}")
-    USED[rel] = sha256(p)
+    USED[rel] = text_sha256(p)
     return p
 
 
