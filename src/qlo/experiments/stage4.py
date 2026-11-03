@@ -347,7 +347,7 @@ def main(argv=None) -> None:
     out = a.out_dir; out.mkdir(parents=True, exist_ok=True)
     (out / "config.json").write_text(json.dumps({**asdict(cfg), "tuning_start_seeds": [TUNING_START_SEEDS[0], TUNING_START_SEEDS[-1]],
                                                   "evaluation_start_seeds": [EVALUATION_START_SEEDS[0], EVALUATION_START_SEEDS[-1]],
-                                                  "representative_start_seeds": list(REPRESENTATIVE_START_SEEDS)}, indent=2))
+                                                  "representative_start_seeds": list(REPRESENTATIVE_START_SEEDS)}, indent=2), encoding="utf-8")
     pd.set_option("display.width", 250); pd.set_option("display.max_columns", 60); pd.set_option("display.float_format", "{:.4g}".format)
     if a.stage in ("crosscheck", "all"):
         cc = run_crosscheck(cfg); cc.to_csv(out / "crosscheck_pennylane_vs_binomial.csv", index=False)
@@ -359,24 +359,24 @@ def main(argv=None) -> None:
     if a.stage in ("tune", "all"):
         tuning = run_tuning(cfg); tuning.to_csv(out / "tuning_results.csv", index=False)
         selected = select_hyperparameters(tuning, cfg)
-        (out / "selected_hyperparameters.json").write_text(json.dumps(selected, indent=2, default=float))
+        (out / "selected_hyperparameters.json").write_text(json.dumps(selected, indent=2, default=float), encoding="utf-8")
         print("== selected hyperparameters ==\n", json.dumps({k: v for k, v in selected.items() if k != "selection_rule"}, indent=1, default=float))
     if a.stage in ("evaluate", "all"):
-        selected = json.loads((out / "selected_hyperparameters.json").read_text())
+        selected = json.loads((out / "selected_hyperparameters.json").read_text(encoding="utf-8"))
         runs, traj = run_evaluation(cfg, selected)
         runs.to_csv(out / "evaluation_runs.csv.gz", index=False); traj.to_csv(out / "representative_trajectories.csv.gz", index=False)
     if a.stage in ("evaluate", "analyze", "all"):
-        selected = json.loads((out / "selected_hyperparameters.json").read_text())
+        selected = json.loads((out / "selected_hyperparameters.json").read_text(encoding="utf-8"))
         runs = pd.read_csv(out / "evaluation_runs.csv.gz")
         summary, paired = analyze_evaluation(runs, selected)
         summary.to_csv(out / "evaluation_summary.csv", index=False)
-        (out / "paired_comparisons.json").write_text(json.dumps(paired, indent=2, default=float))
+        (out / "paired_comparisons.json").write_text(json.dumps(paired, indent=2, default=float), encoding="utf-8")
         cols = ["n", "method", "role", "eta", "shots", "sigma_step", "n_runs", "median_log10_gain_best", "iqr_low_gain_best", "iqr_high_gain_best", "median_log10_gain_final", "p_hit_F0.01", "p_hit_F0.1", "p_hit_F0.5", "p_10xF0", "p_100xF0", "median_iter_to_F0.1"]
         print("== evaluation summary (primary + controls) ==\n", summary[summary.role != "shot_budget_sweep"][cols].to_string(index=False))
         print("== shot-budget sweep (shot_sgd, all M) ==\n", summary[(summary.method == "shot_sgd")][["n", "shots", "median_log10_gain_best", "median_log10_gain_final", "p_hit_F0.1", "median_shots_to_F0.1", "median_shots_to_F0.01"]].to_string(index=False))
         print("== paired comparisons ==\n", json.dumps(paired, indent=1, default=float))
     if a.stage in ("figures", "all"):
-        selected = json.loads((out / "selected_hyperparameters.json").read_text())
+        selected = json.loads((out / "selected_hyperparameters.json").read_text(encoding="utf-8"))
         for f in make_all_figures(out, cfg, selected):
             print(f"figure: {f} ({f.stat().st_size} bytes)")
 

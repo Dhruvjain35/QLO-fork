@@ -1,6 +1,6 @@
 # Project status
 
-Last updated: 26 October 2026.
+Last updated: 31 October 2026.
 
 ## Decided
 
@@ -22,6 +22,17 @@ Last updated: 26 October 2026.
 | B4 depolarizing-noise overlay | Dhruv Jain | [B4](docs/b4/B4_NOISE_OVERLAY.md) | `results/b4_noise` |
 | A2 propositions with proofs (draft for principal review) | Dhruv Jain | [theory](docs/theory/A2_PROPOSITIONS.md) | — |
 | A1–A4 and the framing decision | Satyabrat Sahu | [principal](principal/QLO_Principal_Track.md) | `principal/a2_numerics` |
+
+## Phase 8 (baseline `eaf0728`, 29 October 2026)
+
+| Item | Owner | Record |
+|---|---|---|
+| I1 Stage 7 wording fixes (random-walk scope; cancellation-free sign-law median) | Dhruv Jain | [I1](docs/phase8/I1_STAGE7_CORRECTIONS.md) |
+| I2 portability (repo-local caches, explicit UTF-8, Linux + Windows CI, `--fast` smoke runs) | Dhruv Jain | [reproduction status](docs/phase8/REPRODUCTION_STATUS.md) |
+
+All results so far are classical simulations run on Dhruv's macOS machine. Independent full reproduction (P9 Tiers 2
+and 3) and any hardware run are not done yet. See [REPRODUCTION_STATUS](docs/phase8/REPRODUCTION_STATUS.md). Venue
+dates are in [VENUE_TRACKER](docs/phase8/VENUE_TRACKER.md); nothing has been submitted.
 
 ## Open
 

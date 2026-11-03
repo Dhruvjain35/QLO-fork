@@ -252,11 +252,11 @@ def main(argv=None) -> None:
     a = p.parse_args(argv)
     cfg = Stage5Config(n_samples=5000, deadzone_samples=5000, deadzone_full_samples=500, mc_replicates=4000, pl_reps=100) if a.fast else Stage5Config()
     out = a.out_dir; out.mkdir(parents=True, exist_ok=True); fig = out / "figures"; fig.mkdir(exist_ok=True)
-    (out / "config.json").write_text(json.dumps(asdict(cfg), indent=2))
+    (out / "config.json").write_text(json.dumps(asdict(cfg), indent=2), encoding="utf-8")
     pd.set_option("display.width", 250); pd.set_option("display.max_columns", 60); pd.set_option("display.float_format", "{:.4g}".format)
 
     tv = theory_validation(cfg)
-    (out / "theory_validation.json").write_text(json.dumps(tv, indent=2, default=float))
+    (out / "theory_validation.json").write_text(json.dumps(tv, indent=2, default=float), encoding="utf-8")
     print("== theory validation ==\n", json.dumps({k: v for k, v in tv.items() if k != "approximation_accuracy_by_A"}, indent=1, default=float))
     print(pd.DataFrame(tv["approximation_accuracy_by_A"]).to_string(index=False))
 
@@ -274,7 +274,7 @@ def main(argv=None) -> None:
     loc = pd.DataFrame(lrows); loc.to_csv(out / "local_control_summary.csv", index=False)
     lfits = {tag: scaling_fit(loc.n, loc[f"{tag}_log10M_median"], f"local_{tag}") for tag in ("nonzero0.5", "nonzero0.9", "snr1", "snr2")}
     (out / "scaling_fits.json").write_text(json.dumps({"global_median": fits, "global_other_statistics": fits_q, "local_median": lfits,
-                                                       "note": "median log10 M = a + b n over n in n_values; reference slopes log10 4 = 0.602 (log-typical A = 4^-(n-1)) and log10 2 = 0.301 (arithmetic-mean A = 2^-(n-1))"}, indent=2, default=float))
+                                                       "note": "median log10 M = a + b n over n in n_values; reference slopes log10 4 = 0.602 (log-typical A = 4^-(n-1)) and log10 2 = 0.301 (arithmetic-mean A = 2^-(n-1))"}, indent=2, default=float), encoding="utf-8")
     print("== scaling fits (global median) ==")
     for k, f in fits.items(): print(f"  {k:12s} slope={f['slope']:.4f} (log10 4={f['theory_slope_log10_4']:.4f}, log10 2={f['theory_slope_log10_2']:.4f}) R2={f['r2']:.5f} closer_to={f['closer_to']}")
     print("== local control ==\n", loc[["n", "nonzero0.5_log10M_median", "nonzero0.9_log10M_median", "snr1_log10M_median", "snr2_log10M_median", "p_zero_median_M16", "p_zero_median_M1024"]].to_string(index=False))

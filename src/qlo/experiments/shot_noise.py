@@ -198,7 +198,7 @@ def run_stage2(cfg: ShotNoiseConfig, out_dir: Path = RESULTS_DIR, figures: bool 
     raw, summary, scaling, theta, g_exact = run_single_point(cfg)
     cov_summary = run_covariance_pilot(cfg, theta, g_exact, out_dir)
 
-    (out_dir / "config.json").write_text(json.dumps(asdict(cfg), indent=2))
+    (out_dir / "config.json").write_text(json.dumps(asdict(cfg), indent=2), encoding="utf-8")
     raw.to_csv(out_dir / "shot_noise_raw.csv", index=False)
     summary.to_csv(out_dir / "shot_noise_summary.csv", index=False)
     scaling.to_csv(out_dir / "shot_noise_scaling.csv", index=False)

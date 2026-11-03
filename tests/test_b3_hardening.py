@@ -99,7 +99,7 @@ def test_seed_fit_reproduces_stage7_implementation():
 # 6: the RX-product baseline point estimates are reproduced (closed-form targets at the full Stage 7 size)
 def test_rx_baseline_snr_reproduced():
     summ = pd.read_csv(STAGE7 / "scaling_summary.csv")
-    fits = json.loads((STAGE7 / "scaling_fits.json").read_text())["fits"]
+    fits = json.loads((STAGE7 / "scaling_fits.json").read_text(encoding="utf-8"))["fits"]
     for sc in ("loschmidt", "swap"):
         for tag, rho in (("snr1", 1.0), ("snr2", 2.0)):
             meds = []

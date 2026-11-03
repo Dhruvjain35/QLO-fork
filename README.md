@@ -42,6 +42,7 @@ principal/            principal track: framing decision, novelty audit (A1), gen
 docs/stages/          Stage 1-7 reports (STAGE1_STATUS.md ... STAGE7.md)
 docs/b1 ... b5/       task reports and frozen design documents (B1_CONFIG.md, B2_CONFIG.md, B4_CONFIG.md)
 docs/theory/          the A2 results as propositions with proofs
+docs/phase8/          Phase 8 records: Stage 7 corrections (I1), reproduction status, venue tracker
 src/qlo/
   circuits/ costs/ gradients/ analysis/ benchmarks/   Stage 1-3 foundation (ansatz, costs, verified gradients)
   stage4/ ... stage7/                                  per-stage estimators and analysis
@@ -49,6 +50,7 @@ src/qlo/
   b1/                                                  B1 entangling-circuit simulator, audit, fits
   b2/                                                  B2 destructive SWAP and Hadamard-test estimators
   b4/                                                  B4 depolarizing-noise overlays and density-matrix checks
+  paths.py                                             machine-neutral cache / smoke-output folders
   experiments/                                         one driver per stage / task (python -m qlo.experiments.<name>)
 tools/                B5 evidence tooling and the reproducible literature search
 tests/                pytest suite (all stages and tasks)
@@ -70,21 +72,28 @@ one B5 test is skipped.
 
 ## Reproducing results
 
-Every driver writes to `results/<name>/`. The B1 and B2 drivers refuse to run unless their configuration equals the
-JSON frozen in `docs/b1/B1_CONFIG.md` / `docs/b2/B2_CONFIG.md`.
+Every driver writes to `results/<name>/`. The B1, B2 and B4 drivers refuse to run unless their configuration equals the
+JSON frozen in `docs/b1/B1_CONFIG.md` / `docs/b2/B2_CONFIG.md` / `docs/b4/B4_CONFIG.md`.
+
+Per-θ caches (B1, B3, and the B1 caches B4 reads) go to `--work-dir` / `--b1-work` if given, else
+`$QLO_WORK_DIR/<experiment>/` if that variable is set, else `.qlo_cache/<experiment>/` in the repository (git-ignored).
+No folder flag is needed on any OS. Each of `b1_entangling`, `b2_estimators`, `b3_hardening` and `b4_noise` has a
+`--fast` smoke mode with a reduced, unfrozen configuration that writes only under `.qlo_cache/<experiment>_fast/`.
 
 | Command | Output | Cost |
 |---|---|---|
 | `python -m qlo.experiments.stage4` … `stage7` | `results/stage4` … `stage7` | see each stage report |
 | `python -m qlo.experiments.b3_hardening --workers 8` | `results/b3_hardening` | ~3 h |
-| `python -m qlo.experiments.b1_entangling --workers 6` | `results/b1_entangling` | ~5 CPU-h; caches go to an external disk (`--work-dir`) |
+| `python -m qlo.experiments.b1_entangling --workers 6` | `results/b1_entangling` | ~5 CPU-h; per-θ caches go to the work dir above |
 | `python -m qlo.experiments.b2_estimators` | `results/b2_estimators` | ~10 min |
 | `python -m qlo.experiments.b4_noise` | `results/b4_noise` | ~30 s (reads the B1 per-θ caches) |
 | `python tools/b5_evidence.py --check` | verifies `results/b5_prior_work/evidence.csv` against the ledger | seconds |
 
 ## Status
 
-See [STATUS.md](STATUS.md) for what is complete and what is still open.
+See [STATUS.md](STATUS.md) for what is complete and what is still open, and
+[docs/phase8/REPRODUCTION_STATUS.md](docs/phase8/REPRODUCTION_STATUS.md) for what has and has not been reproduced. All
+results are classical simulations; nothing has been run on quantum hardware.
 
 ## Contributors
 

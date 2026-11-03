@@ -12,3 +12,6 @@ results/**/*.npz
 
 # B5: local copies of third-party papers (copyrighted; never committed)
 research_sources/
+
+# per-theta caches and --fast smoke output (qlo.paths)
+.qlo_cache/
