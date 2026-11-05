@@ -1,0 +1,201 @@
+{
+  "entrypoint": "python -m qlo.paper.figures",
+  "git_commit": "4899e77be146af8e888dae278031bf0cc7ee8b8f+dirty",
+  "generated_utc": "2026-11-01T05:51:12Z",
+  "figures": [
+    {
+      "name": "fig1_same_landscape",
+      "function": "fig1",
+      "files": [
+        {
+          "filename": "fig1_same_landscape.pdf",
+          "sha256": "e72707dcdc04d5058e40bc0608b5f29a54b961828198a647ea1b7b8a6b5f469b"
+        },
+        {
+          "filename": "png/fig1_same_landscape.png",
+          "sha256": "8b4cbdaee5f8a16f1defc2176e663c9643c2340da5e0116e9572835f8f197a29"
+        }
+      ],
+      "panels": [
+        "a",
+        "b",
+        "c"
+      ],
+      "sources": [
+        {
+          "path": "results/b3_hardening/stage7_interval_check.csv",
+          "sha256": "76fd9d639caa56f9e4846e3009101f8af6e44823cf4cc9853d6a513abef80c3d"
+        },
+        {
+          "path": "results/stage7/scaling_fits.json",
+          "sha256": "224569242362eebebb6fc63b571ee15aac8fa1d51d3cd516de9bbdc42cbf6bb1"
+        },
+        {
+          "path": "results/stage7/scaling_summary.csv",
+          "sha256": "9286e20fe5d4dc08fb1e595e5ba336828b22bd0ad31875fff41a4cddb410cf38"
+        }
+      ]
+    },
+    {
+      "name": "fig2_conditional_sign_law",
+      "function": "fig2",
+      "files": [
+        {
+          "filename": "fig2_conditional_sign_law.pdf",
+          "sha256": "0bfe633327906fab713518b1d70b6a1f0c6997c43925b02cda18b7b83aad3f90"
+        },
+        {
+          "filename": "png/fig2_conditional_sign_law.png",
+          "sha256": "e9288d92d638c4ad79594de5ae883f89b9f27176c25052bac6a768fa69044ee1"
+        }
+      ],
+      "panels": [
+        "a",
+        "b",
+        "c"
+      ],
+      "sources": [
+        {
+          "path": "results/b1_entangling/conditional_sign_summary.csv",
+          "sha256": "fe5be1446c635429908131d933300dba76799ba09be52f675ceba537dd1318a9"
+        },
+        {
+          "path": "results/b3_hardening/sign_law_summary.csv",
+          "sha256": "85d2b4ab9a012f6cfcac1e51dbeafe0b0b3fa952839d9bed797563e66c7ba447"
+        },
+        {
+          "path": "results/stage7/config.json",
+          "sha256": "c23fedd3ed202445bb991bbd43fa5b1fa3da6206661ef6bd1b857db1e23577a2"
+        }
+      ]
+    },
+    {
+      "name": "fig3_b1_scaling_rule",
+      "function": "fig3",
+      "files": [
+        {
+          "filename": "fig3_b1_scaling_rule.pdf",
+          "sha256": "1f4ebbee367b4041ca609a58900ea3dcae842a2581a979dda778a3e191ec7d41"
+        },
+        {
+          "filename": "png/fig3_b1_scaling_rule.png",
+          "sha256": "0555fa65e89fda00e7e88026d32ce27c300dc93b261c4096c1f09400ed2bbe7f"
+        }
+      ],
+      "panels": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "sources": [
+        {
+          "path": "results/b1_entangling/main_table.csv",
+          "sha256": "15fe630ac25ec6b48f84a4049f80f9eb0704bb1957ff139f60c47c94430a487a"
+        }
+      ]
+    },
+    {
+      "name": "fig4_four_estimators",
+      "function": "fig4",
+      "files": [
+        {
+          "filename": "fig4_four_estimators.pdf",
+          "sha256": "57d06d46f413d3f4f8ac03a9be5e106e08ab98329a018c5d39519448ff193951"
+        },
+        {
+          "filename": "png/fig4_four_estimators.png",
+          "sha256": "1f75a5c569d73f06cb7c22a0165209ecf5881531fdcd2e3a72b851f341a56fb3"
+        }
+      ],
+      "panels": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f"
+      ],
+      "sources": [
+        {
+          "path": "results/b2_estimators/fixed_budget_failure_modes.csv",
+          "sha256": "a21cfc42d12b68031d23350b38ac8efe5f1c99cbc2225303cb32b93d97af042e"
+        },
+        {
+          "path": "results/b2_estimators/required_shots_rx.csv",
+          "sha256": "ca47eddf75e5c1f47e0b51fb5fff4e7425a191a150a179d1fdb42db18941b89c"
+        },
+        {
+          "path": "results/b2_estimators/slope_summary.csv",
+          "sha256": "4283a21426f427aa682d5acfd788363a5aa762ca57c3bef14b8bfccf15d902bd"
+        }
+      ]
+    },
+    {
+      "name": "fig5_noise",
+      "function": "fig5",
+      "files": [
+        {
+          "filename": "fig5_noise.pdf",
+          "sha256": "7dc17e2a6784ac7d74cdba3d178020b3c06a64e794a6400f8932b93e222d102b"
+        },
+        {
+          "filename": "png/fig5_noise.png",
+          "sha256": "c71a33d0d9f113b22a92c1a029375a5b63b3217b04dd479c797191b10e5a6949"
+        }
+      ],
+      "panels": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "sources": [
+        {
+          "path": "results/b4_noise/config.json",
+          "sha256": "18088ccec128da2f66bb93b2d9fd62d8cbe552eaa58db77c6746827a82dd502a"
+        },
+        {
+          "path": "results/b4_noise/crossover.csv",
+          "sha256": "fd7f457e6104cb6a30b3e834073527d364d79138c798c15711e395ec7bffc2fb"
+        },
+        {
+          "path": "results/b4_noise/predictions_vs_measured.csv",
+          "sha256": "5f6f2dff78040433639f765ed2ec8e4cde4ba8622f8be24e3d551e85c6136b1f"
+        },
+        {
+          "path": "results/b4_noise/window_slopes.csv",
+          "sha256": "cbc1219587434f04acaaabb4ce66ffb6a08d09690d0f4f8ab0eba5f8209c4975"
+        }
+      ]
+    },
+    {
+      "name": "fig6_empirical_estimator_comparison",
+      "function": "fig6",
+      "files": [
+        {
+          "filename": "fig6_empirical_estimator_comparison.pdf",
+          "sha256": "a197e66d199716617247584050d15a659cad7f408473ed349e55e6d9ec4da736"
+        },
+        {
+          "filename": "png/fig6_empirical_estimator_comparison.png",
+          "sha256": "b4ab26aa171b521cc9330fca30ec8a7d7690609300a465234a3758a21f069440"
+        }
+      ],
+      "panels": [
+        "a",
+        "b"
+      ],
+      "sources": [
+        {
+          "path": "results/b2_estimators/fixed_budget_failure_modes.csv",
+          "sha256": "a21cfc42d12b68031d23350b38ac8efe5f1c99cbc2225303cb32b93d97af042e"
+        },
+        {
+          "path": "results/b2_estimators/slope_summary.csv",
+          "sha256": "4283a21426f427aa682d5acfd788363a5aa762ca57c3bef14b8bfccf15d902bd"
+        }
+      ]
+    }
+  ]
+}
