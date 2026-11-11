@@ -91,7 +91,7 @@ def test_no_physical_hardware_and_platform_wording():
         t = (APP / f).read_text(encoding="utf-8")
         assert "Real quantum hardware: not used" in t
     m = (ROOT / "paper" / "methods" / "METHODS_SOURCE.md").read_text(encoding="utf-8")
-    assert "Real quantum hardware:** not used" in m and "Independent full reproduction** (principal P9, Tiers 2 and 3): not yet done" in m
+    assert "Real quantum hardware:** not used" in m and "Second-machine reproduction** (principal P9): done by a co-author" in m and "Not reproduced outside the team" in m
 
 
 def test_hardware_model_only_where_its_source_names_it():

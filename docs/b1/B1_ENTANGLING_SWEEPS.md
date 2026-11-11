@@ -567,7 +567,7 @@ On Case D, investigated as required:
   structurally different entangling families, at depths 2, 4 and n, and at early, middle and late parameters, with
   10-seed CIs.
 - The relative gradient does not concentrate (b_r ≈ 0) at any tested position, so the shot exponent of SWAP is
-  close to twice that of Loschmidt (ratio 1.97–2.02) in every cell.
+  close to twice that of Loschmidt (ratio 1.969–2.019) in every cell.
 - The bases are circuit-dependent. Deep circuits give about 2 per qubit (Loschmidt) and about 4 per qubit (SWAP);
   shallow ones give about 2.4 and 5.7. The RX product's 4 and 16 do not generalise.
 - The generalised conditional sign law, (1+|r|)/2 for M·S ≪ 1, holds with error proportional to M·S.

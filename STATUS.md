@@ -30,8 +30,9 @@ Last updated: 31 October 2026.
 | I1 Stage 7 wording fixes (random-walk scope; cancellation-free sign-law median) | Dhruv Jain | [I1](docs/phase8/I1_STAGE7_CORRECTIONS.md) |
 | I2 portability (repo-local caches, explicit UTF-8, Linux + Windows CI, `--fast` smoke runs) | Dhruv Jain | [reproduction status](docs/phase8/REPRODUCTION_STATUS.md) |
 
-All results so far are classical simulations run on Dhruv's macOS machine. Independent full reproduction (P9 Tiers 2
-and 3) and any hardware run are not done yet. See [REPRODUCTION_STATUS](docs/phase8/REPRODUCTION_STATUS.md). Venue
+All results so far are classical simulations, first run on Dhruv's macOS machine and reproduced in full on Satyabrat's
+Windows 11 machine (P9, 9 November 2026; [run log](docs/phase8/P9_WINDOWS_REPRODUCTION.md)). Nobody outside the team has
+rerun them, and nothing has run on quantum hardware. See [REPRODUCTION_STATUS](docs/phase8/REPRODUCTION_STATUS.md). Venue
 dates are in [VENUE_TRACKER](docs/phase8/VENUE_TRACKER.md); nothing has been submitted.
 
 ## Open

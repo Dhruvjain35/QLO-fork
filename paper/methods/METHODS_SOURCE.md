@@ -11,7 +11,8 @@ manuscript. It is not manuscript text.
 **Where the numbers come from.**
 - **Original scientific numerics:** classical simulations actually executed on Dhruv's macOS machine.
 - **Cross-platform CI:** code, tests and smoke runs on GitHub-hosted Linux and Windows runners.
-- **Independent full reproduction** (principal P9, Tiers 2 and 3): not yet done.
+- **Second-machine reproduction** (principal P9): done by a co-author on Windows 11, 9 November 2026; every frozen
+  experiment matched (`docs/phase8/P9_WINDOWS_REPRODUCTION.md`). Not reproduced outside the team.
 - **Real quantum hardware:** not used. PennyLane `default.qubit` and `default.mixed` are classical simulators.
 
 Source: [`docs/phase8/REPRODUCTION_STATUS.md`](../../docs/phase8/REPRODUCTION_STATUS.md).
@@ -207,5 +208,5 @@ Sources: `docs/b4/B4_NOISE_OVERLAY.md` §2–3; `docs/theory/A2_PROPOSITIONS.md`
   `results/`.
 - **Paper assets.** The figures and these tables are regenerated from committed results by
   `python -m qlo.paper.figures` and `python -m qlo.paper.methods_tables`.
-- **Status.** Independent full reproduction on a second machine (P9) and any hardware validation are not yet done
-  (`docs/phase8/REPRODUCTION_STATUS.md`).
+- **Status.** Every frozen experiment was reproduced on a second machine (P9, Windows 11, by a co-author). No
+  reproduction outside the team and no hardware validation yet (`docs/phase8/REPRODUCTION_STATUS.md`).
