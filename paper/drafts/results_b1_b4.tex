@@ -1,0 +1,141 @@
+% Results section draft: B1 to B4 subsections (Phase 8, Shravan's plan section 8 item 2).
+% Drafted by Dhruv for Section 4 of the QST manuscript. Satyabrat owns the structure of Section 4 and the Stage 6/7
+% subsections; Shravan owns framing. This file reports data only: no interpretation, prior-work comparison or
+% novelty wording. Every number is listed with its committed source in results_b1_b4_numbers.csv and checked by
+% tests/test_results_draft.py. Figure labels match paper/figures (fig1 to fig6). Notation follows the reports:
+% S = F_+ + F_-, r = (F_- - F_+)/S, b_X = slope of the median log10 of X against n (decades per qubit).
+
+\subsection{The shot-ratio identity and the slope rule on entangling circuits}
+\label{sec:results-b1}
+
+\emph{Claim tested: the identity $M_{\mathrm{SWAP}}/M_{\mathrm{LE}} = (2-Q)/(S-Q)$ holds per parameter setting on
+every circuit, and the exponent gap $b_{\mathrm{SWAP}} - b_{\mathrm{LE}}$ equals $b_S$ whenever $b_r \approx 0$.}
+
+We tested both statements on 17 cells (figure~\ref{fig:b1}): the RX-product benchmark ($n = 2$--$20$) and two
+entangling families, a hardware-efficient ring ansatz and an RX--RY brickwork with CZ gates, each at depth 2, 4 and
+$n$, with the differentiated parameter in the early, middle or late layer ($n = 4$--$16$, or $4$--$14$ at depth $n$).
+Each cell uses 10 seeds of 4,000 parameter settings per $n$; intervals are bootstrap 95\% CIs of the 10-seed mean.
+
+\paragraph{Identity.} The identity held in all 6,740,000 per-setting rows, with maximum relative error
+$8.3\times10^{-15}$ on the entangling circuits and $1.75\times10^{-11}$ on the RX product. No row was excluded.
+
+\paragraph{Fidelity and relative-gradient slopes.} $b_S$ depends on family and depth but not on the parameter
+position (positions agree to $\le 0.001$): 0.376, 0.319 and 0.303 for the ring ansatz at depth 2, 4 and $n$, and
+0.382, 0.340 and 0.305 for the brickwork, against 0.601 for the RX product. The relative gradient does not
+concentrate: $|b_r| \le 0.0029$ and $|b_r|/b_S \le 0.0096$ in all 16 entangling cells. Six $b_r$ intervals exclude
+zero; the largest is the brickwork depth-$n$ middle cell, $-0.0029$ $[-0.0036, -0.0023]$, a slight growth of $|r|$
+with $n$.
+
+\paragraph{Gap rule.} Over the full range the measured gap is slightly below $b_S$ in every cell: the residual
+$\varepsilon_{\mathrm{gap}} = (b_{\mathrm{SWAP}} - b_{\mathrm{LE}}) - b_S$ lies between $-0.0048$ and $-0.0015$
+decades per qubit ($-1.28\%$ to $-0.48\%$ of $b_S$, figure~\ref{fig:b1}(b)), and its CI contains zero in none of the
+16 entangling cells. For $n \ge 8$ it lies between $-0.0039$ and $+0.0005$, and the CI contains zero in 8 of 16 cells.
+A post-hoc decomposition splits the residual exactly into an $O(S)$ term, which vanishes once the median $S$ is
+below about $10^{-2}$, and a term from taking a difference of medians rather than a median of differences; the second
+term persists at about $-0.003$ in the depth-2 and depth-4 cells over $n = 8$--$16$.
+
+\paragraph{Exponent ratio.} The observed ratio $b_{\mathrm{SWAP}}/b_{\mathrm{LE}}$ is 1.969--2.010 over the full
+range and 1.977--2.019 for $n \ge 8$, against 1.996--2.020 predicted from each cell's own $b_S$ and $b_r$
+(figure~\ref{fig:b1}(d)). The per-qubit bases are circuit-dependent: about 2.4, 2.1 and 2.0 for Loschmidt and 5.7,
+4.4 and 4.0 for SWAP at depth 2, 4 and $n$ (ring ansatz), not the 4 and 16 of the RX product.
+
+\paragraph{Limits.} Two ansatz families, one target state, noiseless circuits and $n \le 16$. The fits use 6 or 7
+values of $n$.
+
+\subsection{Seed-to-seed uncertainty of the RX-product exponents}
+\label{sec:results-b3}
+
+\emph{Claim tested: the Stage~7 exponents are stable across independent parameter populations.}
+
+We regenerated the RX-product benchmark with 20 independent seeds of 25,000 parameter settings ($n = 2$--$20$) and
+report the seed mean with its 95\% percentile interval over seeds (figure~\ref{fig:landscape}(c)). For SNR $\ge 1$ the
+Loschmidt slope is 0.6053 $[0.6034, 0.6070]$ (seed SD 0.0010) and the SWAP slope is 1.2014 $[1.1985, 1.2050]$
+(seed SD 0.0019); every seed has $R^2 \ge 0.9998$. The Stage~7 values, 0.6059 and 1.2025, lie inside these
+intervals, as do all ten fitted Stage~7 targets. Extending the fits to $n = 2$--$24$ gives slopes of
+0.6002--0.6051 (Loschmidt) and 1.1985--1.2022 (SWAP) across the fitted targets.
+
+The paired gap $b_{\mathrm{SWAP}} - b_{\mathrm{LE}}$ is 0.5961 (seed-mean CI $[0.5956, 0.5966]$) over $n = 2$--$20$,
+below $\log_{10}4 = 0.6021$. For $n = 8$--$20$ it is 0.6008: the seed percentile interval $[0.5976, 0.6049]$
+contains $\log_{10}4$, while the CI of the 20-seed mean, $[0.5998, 0.6017]$, lies just below it.
+
+\subsection{Conditional sign accuracy of the Loschmidt gradient}
+\label{sec:results-sign}
+
+\emph{Claim tested: a nonzero Loschmidt gradient estimate has the correct sign with probability $(1+|r|)/2$ when
+$MS \ll 1$.}
+
+On the entangling circuits (16 cells at $n = 12$, five quantiles of $S$, $M = 1$ to 65,536; 720 exact evaluations,
+nothing fitted) the deviation from $(1+|r|)/2$ is positive in every row and grows with $MS$
+(figure~\ref{fig:sign}(a,b)). Its maximum is $9\times10^{-5}$ for $MS \le 10^{-3}$, $4.8\times10^{-4}$ for
+$MS \le 10^{-2}$, $4.5\times10^{-3}$ for $MS \le 0.1$ and 0.045 for $MS \le 1$; above $MS = 1$ it reaches 0.33.
+
+On the RX product the predicted population median is $(1+1/\sqrt2)/2 = 0.8536$. With cancellation-free
+probabilities, the observed median at $n = 20$ is 0.8527--0.8530 for $M$ up to 16,384 (figure~\ref{fig:sign}(c)).
+At $n = 20$, $M = 1024$ the seed mean is 0.8547 with seed percentile interval $[0.8494, 0.8592]$; the reference
+median, 0.85267, equals the median of $(1+|r|)/2$ over the same 20,000 settings to five digits. Where $MS$ is not
+small the observation departs from the prediction, as expected for a small-$MS$ statement: at $n = 12$, $M = 4096$ the
+observed median is 0.868.
+
+\subsection{Four estimators: shot exponent and fixed-budget failure}
+\label{sec:results-b2}
+
+\emph{Claim tested: the shot exponent of an estimator, and the way it fails at a fixed budget, can be measured
+separately.}
+% Whether this is a headline claim (Main 3) depends on P2/P4; the data below stand either way.
+
+We compared four unbiased estimators of the same fidelity gradient on the RX-product benchmark: Loschmidt, ancilla
+SWAP, destructive SWAP (two copies, no ancilla) and a Hadamard-test U-statistic. Cost is counted in total circuit
+executions per gradient component ($2M$ for the first three, $4M$ for Hadamard).
+
+\paragraph{Exponents.} For SNR $\ge 1$ over $n = 2$--$20$ (figure~\ref{fig:estimators}(a,b); 10 replicate seeds,
+95\% percentile intervals) the slopes are 0.6059 for Loschmidt (replicates 0.6058 $[0.6048, 0.6064]$), 1.2025 for both
+SWAP readouts (1.2022 $[1.2003, 1.2045]$) and 0.6066 for Hadamard (0.6063 $[0.6051, 0.6075]$). The two SWAP readouts
+agree to $2\times10^{-13}$ in their medians. Hadamard needs 9.0 times the executions of Loschmidt at $n = 2$ and
+9.4--9.55 times for $n \ge 4$ (figure~\ref{fig:estimators}(c)). An entangling spot check (ring ansatz, depth $n$,
+$n = 6$--$12$) gives the same grouping: 0.302 for Loschmidt and Hadamard, 0.604 for SWAP.
+
+\paragraph{Fixed budgets.} At $n = 14$ and $T = 32$ to 32,768 total executions (figure~\ref{fig:estimators}(d--f)),
+Loschmidt returns an exactly zero estimate with median probability at least 0.9996, and when it is nonzero its sign is
+correct with median probability 0.856--0.866. Both SWAP readouts rarely return zero (0.140 falling to 0.0044) but
+their nonzero estimates have the correct sign with probability 0.500. Hadamard also rarely returns zero (0.158 falling
+to 0.0004) and its nonzero estimates are likewise correct with probability 0.500--0.501. Figure~\ref{fig:failure}
+places each estimator by its exponent and its failure statistic at $T = 2048$.
+
+\paragraph{Limits.} One landscape and one $n$ for the fixed-budget panels. Executions are counted per gradient
+component; qubit count, depth, ancillas and state copies differ between readouts, so equal executions do not mean
+equal hardware cost. Noiseless simulation only.
+
+\subsection{Depolarizing noise}
+\label{sec:results-b4}
+
+\emph{Claims tested: the identity and the slope rule hold for noisy trial states; whether the exponent doubles under
+noise.}
+% Whether "the noise model decides doubling" is a headline claim (Main 4) depends on P2.
+
+Global depolarizing noise after each of $L$ layers maps $F \to qF + (1-q)/2^n$ with $q = (1-p)^L$; local single-qubit
+depolarizing noise keeps the RX product a product state. Both overlays were checked against density-matrix simulation
+(maximum error $6.7\times10^{-16}$ global, $5.1\times10^{-14}$ local) and reuse the B1 populations
+(figure~\ref{fig:noise}).
+
+\paragraph{Identity and slope rule.} The identity held on all 41.2 million noisy rows (maximum relative error
+$1.75\times10^{-11}$, none excluded). The gap residual $\varepsilon_{\mathrm{gap}}$ stayed between $-0.012$ and
+$+0.006$ decades per qubit in every cell at every $p$.
+
+\paragraph{Global noise on the RX product.} The SWAP exponent is unchanged (1.201 over $n = 2$--$20$ at every $p$),
+while the Loschmidt exponent rises: over $n \ge 8$, $b_{\mathrm{LE}}$ is 0.717, 0.803, 0.868 and 0.895 for
+$p = 10^{-4}$, $10^{-3}$, $10^{-2}$ and $10^{-1}$ (figure~\ref{fig:noise}(a)). Three-point local slopes over
+$n = 16$--$20$ reach $b_{\mathrm{LE}} = 0.90$ and an exponent ratio of 1.334 at $p = 10^{-1}$, against the
+asymptotes $\log_{10}8 = 0.903$ and $4/3$. The crossover $n^*$, where the noise floor equals the median signal
+scale, is 15.4, 12.1, 8.7 and 5.2 for $p = 10^{-4}$ to $10^{-1}$ (figure~\ref{fig:noise}(d)).
+
+\paragraph{Local noise on the RX product.} $b_r$ stays at zero ($-0.0001$) and $b_S$ falls to 0.5834, 0.5451 and
+0.4451 for $p = 10^{-3}$, $10^{-2}$ and $10^{-1}$, against 0.5831, 0.5447 and 0.4449 from the closed form
+(figure~\ref{fig:noise}(c)). The exponent ratio stays at 2.00, 2.00 and 1.99.
+
+\paragraph{Global noise on the entangling cells.} At $p = 10^{-1}$ the ratio over $n \ge 8$ falls to 1.74--1.93
+across the 16 cells, with $b_r$ between 0.012 and 0.053. In the depth-$n$ cells the measured $b_r$ follows the
+prediction (ring ansatz, early parameter: 0.051 against 0.048). The fixed-depth cells are mostly pre-asymptotic: the
+crossover falls inside $n \le 16$ only at $p = 10^{-1}$.
+
+\paragraph{Limits.} Simulated depolarizing channels with an ideal SWAP target copy. Local noise on entangling
+circuits, other channels and hardware are not covered.

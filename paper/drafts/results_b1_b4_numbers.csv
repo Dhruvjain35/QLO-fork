@@ -1,0 +1,138 @@
+token,kind,source,locator,what
+"4,000",text,paper/FIGURE_CAPTIONS_DRAFT.md,"10 seeds of 4,000 θ per n",B1 settings per n per seed
+"6,740,000",text,docs/b1/B1_ENTANGLING_SWEEPS.md,"holds in all 6,740,000 per-θ rows",B1 identity rows
+8.3,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| entangling | 8.3e-15 |,B1 identity max rel err (entangling)
+1.75,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| RX product | 1.75e-11 |,B1 identity max rel err (RX)
+1.75,text,docs/b4/B4_NOISE_OVERLAY.md,max relative error 1.75 × 10⁻¹¹,B4 identity max rel err
+0.001,text,docs/b1/B1_ENTANGLING_SWEEPS.md,to ≤0.001 decades/qubit,b_S position agreement
+0.376,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| HEA | 0.376 | 0.319 | 0.303 |,b_S ring ansatz d2
+0.319,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| HEA | 0.376 | 0.319 | 0.303 |,b_S ring ansatz d4
+0.303,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| HEA | 0.376 | 0.319 | 0.303 |,b_S ring ansatz dn
+0.382,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| RX–RY + CZ | 0.382 | 0.340 | 0.305 |,b_S brickwork d2
+0.340,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| RX–RY + CZ | 0.382 | 0.340 | 0.305 |,b_S brickwork d4
+0.305,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| RX–RY + CZ | 0.382 | 0.340 | 0.305 |,b_S brickwork dn
+0.601,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| RX product | — | — | 0.601 (n = 2..20) |,b_S RX product
+0.0029,text,docs/b1/B1_ENTANGLING_SWEEPS.md,|b_r| ≤ 0.0029 decades/qubit and |b_r|/b_S ≤ 0.0096,max |b_r| entangling
+0.0096,text,docs/b1/B1_ENTANGLING_SWEEPS.md,|b_r| ≤ 0.0029 decades/qubit and |b_r|/b_S ≤ 0.0096,max |b_r|/b_S
+0.0029,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"| rxry_czbrick | dn | MIDDLE | -0.0029 [-0.0036, -0.0023]",largest b_r with CI
+0.0036,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"| rxry_czbrick | dn | MIDDLE | -0.0029 [-0.0036, -0.0023]",largest b_r CI lo
+0.0023,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"| rxry_czbrick | dn | MIDDLE | -0.0029 [-0.0036, -0.0023]",largest b_r CI hi
+0.0048,text,docs/b1/B1_ENTANGLING_SWEEPS.md,−0.0048 to −0.0015 decades/qubit,eps_gap range primary
+0.0015,text,docs/b1/B1_ENTANGLING_SWEEPS.md,−0.0048 to −0.0015 decades/qubit,eps_gap range primary
+1.28,text,paper/FIGURE_CAPTIONS_DRAFT.md,It ranges from −1.28% to −0.48%.,eps_gap as % of b_S
+0.48,text,paper/FIGURE_CAPTIONS_DRAFT.md,It ranges from −1.28% to −0.48%.,eps_gap as % of b_S
+0.0039,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| secondary (n ≥ 8) | −0.0039 to +0.0005 |,eps_gap range n>=8
+0.0005,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| secondary (n ≥ 8) | −0.0039 to +0.0005 |,eps_gap range n>=8
+0.003,text,docs/b1/B1_ENTANGLING_SWEEPS.md,In shallow circuits it is about −0.003 decades/qubit,median non-additivity term
+1.969,csv,results/b1_entangling/slope_summary.csv,metric == 'ratio_obs' and fit_range == 'primary' and family != 'rx_product'|mean|min|3,observed ratio primary min
+2.010,csv,results/b1_entangling/slope_summary.csv,metric == 'ratio_obs' and fit_range == 'primary' and family != 'rx_product'|mean|max|3,observed ratio primary max
+1.977,csv,results/b1_entangling/slope_summary.csv,metric == 'ratio_obs' and fit_range == 'secondary_n_ge_8'|mean|min|3,observed ratio n>=8 min
+2.019,csv,results/b1_entangling/slope_summary.csv,metric == 'ratio_obs' and fit_range == 'secondary_n_ge_8'|mean|max|3,observed ratio n>=8 max
+1.996,text,docs/b1/B1_ENTANGLING_SWEEPS.md,(2b_S+2b_r)/(b_S+2b_r) is 1.996–2.020,predicted ratio range
+2.020,text,docs/b1/B1_ENTANGLING_SWEEPS.md,(2b_S+2b_r)/(b_S+2b_r) is 1.996–2.020,predicted ratio range
+2.4,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"These are about 2.4, 2.1 and 2.0 per qubit (HEA)",LE bases ring ansatz
+2.1,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"These are about 2.4, 2.1 and 2.0 per qubit (HEA)",LE bases ring ansatz
+2.0,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"These are about 2.4, 2.1 and 2.0 per qubit (HEA)",LE bases ring ansatz
+5.7,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"These are about 5.7, 4.4 and 4.0 per qubit for HEA",SWAP bases ring ansatz
+4.4,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"These are about 5.7, 4.4 and 4.0 per qubit for HEA",SWAP bases ring ansatz
+4.0,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"These are about 5.7, 4.4 and 4.0 per qubit for HEA",SWAP bases ring ansatz
+"25,000",text,docs/b1/B1_ENTANGLING_SWEEPS.md,"25,000 θ per (seed, n), the B3 per-seed size",B3 settings per seed
+0.6053,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 0.6053 | 0.0010 | [0.6034, 0.6070]",B3 LE slope seed mean
+0.6034,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 0.6053 | 0.0010 | [0.6034, 0.6070]",B3 LE seed pct lo
+0.6070,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 0.6053 | 0.0010 | [0.6034, 0.6070]",B3 LE seed pct hi
+0.0010,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 0.6053 | 0.0010 | [0.6034, 0.6070]",B3 LE seed SD
+1.2014,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 1.2014 | 0.0019 | [1.1985, 1.2050]",B3 SWAP slope seed mean
+1.1985,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 1.2014 | 0.0019 | [1.1985, 1.2050]",B3 SWAP seed pct lo
+1.2050,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 1.2014 | 0.0019 | [1.1985, 1.2050]",B3 SWAP seed pct hi
+0.0019,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 1.2014 | 0.0019 | [1.1985, 1.2050]",B3 SWAP seed SD
+0.9998,text,docs/b3/B3_STATISTICAL_HARDENING.md,Per-seed R² ≥ 0.9998 in every seed,B3 per-seed R2
+0.6059,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,| Loschmidt | 2–20 | 0.6059 | 0.99994 |,Stage 7 LE slope
+1.2025,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,| ancilla SWAP | 2–20 | 1.2025 | 0.99999 |,Stage 7 SWAP slope
+0.6002,text,docs/b3/B3_STATISTICAL_HARDENING.md,Extended n = 2..24: 0.6002–0.6051,B3 LE n<=24 range
+0.6051,text,docs/b3/B3_STATISTICAL_HARDENING.md,Extended n = 2..24: 0.6002–0.6051,B3 LE n<=24 range
+0.6051,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,"0.6063 [0.6051, 0.6075]",B2 Hadamard replicate pct lo
+1.1985,text,docs/b3/B3_STATISTICAL_HARDENING.md,Extended n = 2..24: 1.1985–1.2022,B3 SWAP n<=24 range
+1.2022,text,docs/b3/B3_STATISTICAL_HARDENING.md,Extended n = 2..24: 1.1985–1.2022,B3 SWAP n<=24 range
+1.2022,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,"1.2022 [1.2003, 1.2045]",B2 SWAP replicate mean
+0.5961,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 0.5961 [0.5956, 0.5966]",B3 gap n=2..20
+0.5956,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 0.5961 [0.5956, 0.5966]",B3 gap seed-mean CI lo
+0.5966,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 0.5961 [0.5956, 0.5966]",B3 gap seed-mean CI hi
+0.6021,text,docs/b3/B3_STATISTICAL_HARDENING.md,log10 4 = 0.6021,log10 4
+0.6008,text,docs/b3/B3_STATISTICAL_HARDENING.md,"0.6008 [0.5998, 0.6017]",B3 gap n=8..20
+0.5998,text,docs/b3/B3_STATISTICAL_HARDENING.md,"0.6008 [0.5998, 0.6017]",B3 gap n=8..20 seed-mean CI lo
+0.6017,text,docs/b3/B3_STATISTICAL_HARDENING.md,"0.6008 [0.5998, 0.6017]",B3 gap n=8..20 seed-mean CI hi
+0.5976,csv,results/b3_hardening/seed_summary.csv,fit_range == 'n_ge_8' and metric == 'gap_swap_minus_le_snr1'|pct_lo|value|4,B3 gap n=8..20 seed pct lo
+0.6049,csv,results/b3_hardening/seed_summary.csv,fit_range == 'n_ge_8' and metric == 'gap_swap_minus_le_snr1'|pct_hi|value|4,B3 gap n=8..20 seed pct hi
+"65,536",text,paper/FIGURE_CAPTIONS_DRAFT.md,"M = 1 to 65,536",sign-law spot check M range
+4.8,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| ≤ 1e-2 | 4.8e-4 |,sign-law error MS<=1e-2
+4.5,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| ≤ 0.1 | 4.5e-3 |,sign-law error MS<=0.1
+0.1,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| ≤ 0.1 | 4.5e-3 |,MS threshold
+0.045,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| ≤ 1 | 0.045 |,sign-law error MS<=1
+0.33,text,docs/b1/B1_ENTANGLING_SWEEPS.md,up to 0.33,sign-law error MS>1
+0.8536,text,paper/FIGURE_CAPTIONS_DRAFT.md,(1 + 1/√2)/2 = 0.8536,predicted population median
+0.8527,csv,results/b3_hardening/sign_law_summary.csv,n == 20 and shots <= 16384|reference_observed_median_accurate|min|4,n=20 median min (M<=16384)
+0.8530,csv,results/b3_hardening/sign_law_summary.csv,n == 20 and shots <= 16384|reference_observed_median_accurate|max|4,n=20 median max (M<=16384)
+"16,384",text,paper/FIGURE_CAPTIONS_DRAFT.md,"M = 64, 1,024, 16,384",Stage 7 shot counts
+0.8547,text,docs/b3/B3_STATISTICAL_HARDENING.md,"SEED mean 0.8547, percentile [0.8494, 0.8592]",n=20 M=1024 seed mean
+0.8494,text,docs/b3/B3_STATISTICAL_HARDENING.md,"SEED mean 0.8547, percentile [0.8494, 0.8592]",n=20 M=1024 seed pct lo
+0.8592,text,docs/b3/B3_STATISTICAL_HARDENING.md,"SEED mean 0.8547, percentile [0.8494, 0.8592]",n=20 M=1024 seed pct hi
+0.85267,text,docs/b3/B3_STATISTICAL_HARDENING.md,"20,000-θ sample (0.85267)",reference median = median of prediction
+"20,000",text,docs/b3/B3_STATISTICAL_HARDENING.md,"20,000-θ sample (0.85267)",reference sample size
+0.868,text,docs/b3/B3_STATISTICAL_HARDENING.md,gives an observed median of 0.868,n=12 M=4096 median
+0.868,csv,results/b4_noise/slope_summary.csv,model == 'global' and family == 'rx_product' and metric == 'b_LE' and fit_range == 'secondary_n_ge_8' and p == 0.01|mean|value|3,B4 b_LE n>=8 p=1e-2
+0.6058,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,"0.6058 [0.6048, 0.6064]",B2 LE replicate mean
+0.6048,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,"0.6058 [0.6048, 0.6064]",B2 LE replicate pct lo
+0.6064,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,"0.6058 [0.6048, 0.6064]",B2 LE replicate pct hi
+1.2003,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,"1.2022 [1.2003, 1.2045]",B2 SWAP replicate pct lo
+1.2045,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,"1.2022 [1.2003, 1.2045]",B2 SWAP replicate pct hi
+0.6066,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,"| Hadamard U | 2–20 | 0.6066 | 0.99992 | 0.6063 [0.6051, 0.6075]",B2 Hadamard slope
+0.6063,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,"0.6063 [0.6051, 0.6075]",B2 Hadamard replicate mean
+0.6075,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,"0.6063 [0.6051, 0.6075]",B2 Hadamard replicate pct hi
+9.0,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,is 9.0 at n = 2 and 9.4–9.55 for n ≥ 4,Hadamard/LE execution ratio
+9.4,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,is 9.0 at n = 2 and 9.4–9.55 for n ≥ 4,Hadamard/LE execution ratio
+9.55,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,is 9.0 at n = 2 and 9.4–9.55 for n ≥ 4,Hadamard/LE execution ratio
+0.302,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,| Loschmidt | 0.302 |,spot check LE and Hadamard slope
+0.604,text,docs/b2/B2_ADDITIONAL_ESTIMATORS.md,| SWAP (both) | 0.604 |,spot check SWAP slope
+"32,768",text,paper/FIGURE_CAPTIONS_DRAFT.md,"T = 32–32,768",fixed budget range
+0.9996,csv,results/b2_estimators/fixed_budget_failure_modes.csv,n == 14 and estimator == 'loschmidt'|median_P_zero|min|4,LE P(zero) n=14 min
+0.856,csv,results/b2_estimators/fixed_budget_failure_modes.csv,n == 14 and estimator == 'loschmidt'|median_P_correct_given_nonzero|min|3,LE P(correct|nz) n=14 min
+0.866,csv,results/b2_estimators/fixed_budget_failure_modes.csv,n == 14 and estimator == 'loschmidt'|median_P_correct_given_nonzero|max|3,LE P(correct|nz) n=14 max
+0.140,csv,results/b2_estimators/fixed_budget_failure_modes.csv,n == 14 and estimator == 'swap_ancilla'|median_P_zero|max|3,SWAP P(zero) n=14 max
+0.0044,csv,results/b2_estimators/fixed_budget_failure_modes.csv,n == 14 and estimator == 'swap_ancilla'|median_P_zero|min|4,SWAP P(zero) n=14 min
+0.500,csv,results/b2_estimators/fixed_budget_failure_modes.csv,n == 14 and estimator == 'swap_ancilla'|median_P_correct_given_nonzero|max|3,SWAP P(correct|nz) n=14
+0.500,csv,results/b2_estimators/fixed_budget_failure_modes.csv,n == 14 and estimator == 'hadamard_u'|median_P_correct_given_nonzero|min|3,Hadamard P(correct|nz) n=14 min
+0.158,csv,results/b2_estimators/fixed_budget_failure_modes.csv,n == 14 and estimator == 'hadamard_u'|median_P_zero|max|3,Hadamard P(zero) n=14 max
+0.0004,csv,results/b2_estimators/fixed_budget_failure_modes.csv,n == 14 and estimator == 'hadamard_u'|median_P_zero|min|4,Hadamard P(zero) n=14 min
+0.501,csv,results/b2_estimators/fixed_budget_failure_modes.csv,n == 14 and estimator == 'hadamard_u'|median_P_correct_given_nonzero|max|3,Hadamard P(correct|nz) n=14 max
+6.7,text,docs/b4/B4_NOISE_OVERLAY.md,max error 6.7 × 10⁻¹⁶,global overlay vs density matrix
+5.1,text,docs/b4/B4_NOISE_OVERLAY.md,max error 5.1 × 10⁻¹⁴,local formula vs density matrix
+41.2,text,docs/b4/B4_NOISE_OVERLAY.md,41.2 million noisy θ rows,B4 identity rows
+0.012,text,docs/b4/B4_NOISE_OVERLAY.md,ε_gap stays between −0.012 and +0.006,B4 eps_gap range
+0.006,text,docs/b4/B4_NOISE_OVERLAY.md,ε_gap stays between −0.012 and +0.006,B4 eps_gap range
+1.201,csv,results/b4_noise/slope_summary.csv,model == 'global' and family == 'rx_product' and metric == 'b_SWAP' and fit_range == 'primary'|mean|min|3,B4 SWAP slope all p (min)
+1.201,csv,results/b4_noise/slope_summary.csv,model == 'global' and family == 'rx_product' and metric == 'b_SWAP' and fit_range == 'primary'|mean|max|3,B4 SWAP slope all p (max)
+0.717,csv,results/b4_noise/slope_summary.csv,model == 'global' and family == 'rx_product' and metric == 'b_LE' and fit_range == 'secondary_n_ge_8' and p == 0.0001|mean|value|3,B4 b_LE n>=8 p=1e-4
+0.803,csv,results/b4_noise/slope_summary.csv,model == 'global' and family == 'rx_product' and metric == 'b_LE' and fit_range == 'secondary_n_ge_8' and p == 0.001|mean|value|3,B4 b_LE n>=8 p=1e-3 (report table prints 0.804)
+0.895,csv,results/b4_noise/slope_summary.csv,model == 'global' and family == 'rx_product' and metric == 'b_LE' and fit_range == 'secondary_n_ge_8' and p == 0.1|mean|value|3,B4 b_LE n>=8 p=1e-1
+0.90,csv,results/b4_noise/window_slopes.csv,model == 'global' and family == 'rx_product' and p == 0.1 and n_lo == 16|b_LE|value|2,B4 local LE slope n=16-20 p=1e-1
+1.334,csv,results/b4_noise/window_slopes.csv,model == 'global' and family == 'rx_product' and p == 0.1 and n_lo == 16|ratio|value|3,B4 local ratio n=16-20 p=1e-1
+0.903,text,docs/b4/B4_NOISE_OVERLAY.md,log₁₀ 8 = 0.903,log10 8
+15.4,text,docs/b4/B4_NOISE_OVERLAY.md,"15.4, 12.1, 8.7 and 5.2",crossover n*
+12.1,text,docs/b4/B4_NOISE_OVERLAY.md,"15.4, 12.1, 8.7 and 5.2",crossover n*
+8.7,text,docs/b4/B4_NOISE_OVERLAY.md,"15.4, 12.1, 8.7 and 5.2",crossover n*
+5.2,text,docs/b4/B4_NOISE_OVERLAY.md,"15.4, 12.1, 8.7 and 5.2",crossover n*
+0.0001,text,docs/b4/B4_NOISE_OVERLAY.md,| 0.5834 | 0.5831 | −0.0001 | 2.00 |,local noise b_r
+0.5834,text,docs/b4/B4_NOISE_OVERLAY.md,| 0.5834 | 0.5831 | −0.0001 | 2.00 |,local b_S p=1e-3
+0.5831,text,docs/b4/B4_NOISE_OVERLAY.md,| 0.5834 | 0.5831 | −0.0001 | 2.00 |,Prop 6 b_S p=1e-3
+2.00,text,docs/b4/B4_NOISE_OVERLAY.md,| 0.5834 | 0.5831 | −0.0001 | 2.00 |,local ratio p=1e-3
+0.5451,text,docs/b4/B4_NOISE_OVERLAY.md,| 0.5451 | 0.5447 | −0.0001 | 2.00 |,local b_S p=1e-2
+0.5447,text,docs/b4/B4_NOISE_OVERLAY.md,| 0.5451 | 0.5447 | −0.0001 | 2.00 |,Prop 6 b_S p=1e-2
+0.4451,text,docs/b4/B4_NOISE_OVERLAY.md,| 0.4451 | 0.4449 | −0.0001 | 1.99 |,local b_S p=1e-1
+0.4449,text,docs/b4/B4_NOISE_OVERLAY.md,| 0.4451 | 0.4449 | −0.0001 | 1.99 |,Prop 6 b_S p=1e-1
+1.99,text,docs/b4/B4_NOISE_OVERLAY.md,| 0.4451 | 0.4449 | −0.0001 | 1.99 |,local ratio p=1e-1
+1.74,text,docs/b4/B4_NOISE_OVERLAY.md,| 10⁻¹ | 0.012 to 0.053 | 1.74–1.93 |,entangling ratio p=1e-1
+1.93,text,docs/b4/B4_NOISE_OVERLAY.md,| 10⁻¹ | 0.012 to 0.053 | 1.74–1.93 |,entangling ratio p=1e-1
+0.012,text,docs/b4/B4_NOISE_OVERLAY.md,| 10⁻¹ | 0.012 to 0.053 | 1.74–1.93 |,entangling b_r p=1e-1
+0.053,text,docs/b4/B4_NOISE_OVERLAY.md,| 10⁻¹ | 0.012 to 0.053 | 1.74–1.93 |,entangling b_r p=1e-1
+0.051,text,docs/b4/B4_NOISE_OVERLAY.md,0.051 against a predicted 0.048,depth-n b_r vs Prop 5(c)
+0.048,text,docs/b4/B4_NOISE_OVERLAY.md,0.051 against a predicted 0.048,depth-n b_r vs Prop 5(c)
