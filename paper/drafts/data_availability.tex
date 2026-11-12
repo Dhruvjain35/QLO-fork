@@ -1,0 +1,14 @@
+% Data availability statement (Phase 8 guidance: section 4 table and section 8 item 4).
+% Wording follows IOP's standard statement for data held in a public repository. The Zenodo DOI comes from I7 and is
+% not minted yet: replace the marked placeholder before submission (tests/test_data_availability.py accepts either the
+% placeholder or a Zenodo DOI, and checks that every file behind a figure or table is tracked in the repository).
+% Needs \usepackage[hyphens]{url} (or hyperref with it) so the long repository URL can break.
+
+\section*{Data availability statement}
+
+The data that support the findings of this study are openly available at the following URL/DOI:
+\url{https://github.com/Satyabrat2005/QLO---Quantum-Langevin-Optimisation}, archived at
+\textbf{[Zenodo DOI from I7]}. The repository holds the code for every experiment, the result files behind every
+figure and table, and the scripts that rebuild them from those files. For each figure panel,
+\url{paper/figures/FIGURE_SOURCES.md} names the result file, columns, filters and aggregation it is drawn from, and
+\url{python -m qlo.paper.figures} regenerates the figures. All results come from classical simulation.
