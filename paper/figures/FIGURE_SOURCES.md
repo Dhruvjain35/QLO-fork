@@ -57,8 +57,8 @@ and columns listed. CI = the uncertainty drawn in the panel.
 
 - **Source:** results/b3_hardening/sign_law_summary.csv; results/stage7/config.json
 - **Columns:** n, shots, reference_observed_median_accurate, SEED_pct_lo, SEED_pct_hi, prediction_fixed; paired_shots
-- **Filters:** n in {12, 16, 20, 24}; all M = 16..65536 (B3 grid); the annotated range uses n = 20 at the Stage 7 M values (paired_shots)
-- **Aggregation:** median over the regenerated Stage 7 theta population, computed without cancellation (B3 D2)
+- **Filters:** n in {12, 16, 20, 24}; all M = 16..65536 (B3 grid); the caption's range uses n = 20 at the Stage 7 M values (paired_shots)
+- **Aggregation:** median over the regenerated Stage 7 theta population, computed without cancellation (B3 D2); the caption's n = 20 range is stage7_sign_range
 - **CI:** B3 SEED 95% percentile interval over 20 seeds
 - **Function:** `qlo.paper.figures.fig2`
 - **Output:** `paper/figures/fig2_conditional_sign_law.pdf`

@@ -1,7 +1,7 @@
 {
   "entrypoint": "python -m qlo.paper.figures",
-  "git_commit": "4899e77be146af8e888dae278031bf0cc7ee8b8f+dirty",
-  "generated_utc": "2026-11-01T05:51:12Z",
+  "git_commit": "b300e69c0928c83752f50a04c34cdd10184c59c3",
+  "generated_utc": "2026-11-12T02:08:09Z",
   "figures": [
     {
       "name": "fig1_same_landscape",
@@ -9,11 +9,11 @@
       "files": [
         {
           "filename": "fig1_same_landscape.pdf",
-          "sha256": "e72707dcdc04d5058e40bc0608b5f29a54b961828198a647ea1b7b8a6b5f469b"
+          "sha256": "109f1e061678aed9dce0061c9f71b2e7be7672fe226ccd7c5d1ad4b914d9ef17"
         },
         {
           "filename": "png/fig1_same_landscape.png",
-          "sha256": "8b4cbdaee5f8a16f1defc2176e663c9643c2340da5e0116e9572835f8f197a29"
+          "sha256": "e0fb7bfb2ff9b613ebafeedcd9de4b6dd88aee199f18b4093f7faa1d75b9dffd"
         }
       ],
       "panels": [
@@ -42,11 +42,11 @@
       "files": [
         {
           "filename": "fig2_conditional_sign_law.pdf",
-          "sha256": "0bfe633327906fab713518b1d70b6a1f0c6997c43925b02cda18b7b83aad3f90"
+          "sha256": "de4198fd796ab9311cacb878bbdde0854d67e6a1f6df2bb2e0628b622d122893"
         },
         {
           "filename": "png/fig2_conditional_sign_law.png",
-          "sha256": "e9288d92d638c4ad79594de5ae883f89b9f27176c25052bac6a768fa69044ee1"
+          "sha256": "54dbee2d5e75aa4988870d72e495de26d2ffadb795e04313d49bd99c49011fe6"
         }
       ],
       "panels": [
@@ -75,11 +75,11 @@
       "files": [
         {
           "filename": "fig3_b1_scaling_rule.pdf",
-          "sha256": "1f4ebbee367b4041ca609a58900ea3dcae842a2581a979dda778a3e191ec7d41"
+          "sha256": "2952b96d27358526400448f2b561f8537d005a6c8d95faa8aaaf1e380ccead32"
         },
         {
           "filename": "png/fig3_b1_scaling_rule.png",
-          "sha256": "0555fa65e89fda00e7e88026d32ce27c300dc93b261c4096c1f09400ed2bbe7f"
+          "sha256": "c5fad702ce22f24d95c743c0a09e2a733f6aa9cf8d8bca22a2b0f07d801cc298"
         }
       ],
       "panels": [
@@ -101,11 +101,11 @@
       "files": [
         {
           "filename": "fig4_four_estimators.pdf",
-          "sha256": "57d06d46f413d3f4f8ac03a9be5e106e08ab98329a018c5d39519448ff193951"
+          "sha256": "e09e20dd2390ffc84ed38b0bc3c9f8e0dc13922949e0fdbb06732a3acef7d486"
         },
         {
           "filename": "png/fig4_four_estimators.png",
-          "sha256": "1f75a5c569d73f06cb7c22a0165209ecf5881531fdcd2e3a72b851f341a56fb3"
+          "sha256": "0395f6f432b26e4486cda45cd35a8c738fe01fd4a0ac9ebb8e7116285d9afe25"
         }
       ],
       "panels": [
@@ -137,11 +137,11 @@
       "files": [
         {
           "filename": "fig5_noise.pdf",
-          "sha256": "7dc17e2a6784ac7d74cdba3d178020b3c06a64e794a6400f8932b93e222d102b"
+          "sha256": "4a182ad237399063aecdb3e5b981d10ae0fe44fcc53ebd7e5d376a58e08eca0c"
         },
         {
           "filename": "png/fig5_noise.png",
-          "sha256": "c71a33d0d9f113b22a92c1a029375a5b63b3217b04dd479c797191b10e5a6949"
+          "sha256": "9d2c6c93197f10a13e733ad68dd1430d4ecd3ae79d928d59b43677bcfcc9dd3d"
         }
       ],
       "panels": [
@@ -175,11 +175,11 @@
       "files": [
         {
           "filename": "fig6_empirical_estimator_comparison.pdf",
-          "sha256": "a197e66d199716617247584050d15a659cad7f408473ed349e55e6d9ec4da736"
+          "sha256": "6d47d630f7a441cbe84bc2f31378c01b1c9794faac34191955ee1833b47e9f6d"
         },
         {
           "filename": "png/fig6_empirical_estimator_comparison.png",
-          "sha256": "b4ab26aa171b521cc9330fca30ec8a7d7690609300a465234a3758a21f069440"
+          "sha256": "cd4d1ba964aa33274143b7ec0b97f3f771ad7c3a12a526ad45bce44586ecc119"
         }
       ],
       "panels": [
