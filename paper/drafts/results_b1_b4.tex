@@ -1,5 +1,6 @@
 % Results section draft: B1 to B4 subsections (Phase 8, Shravan's plan section 8 item 2).
-% Drafted by Dhruv for Section 4 of the QST manuscript. Satyabrat owns the structure of Section 4 and the Stage 6/7
+% Draft for Section 4 of the QST manuscript, written with AI assistance. Under Shravan's AI rule Dhruv checks every
+% number against its source before any of it goes into Overleaf. Satyabrat owns the structure of Section 4 and the Stage 6/7
 % subsections; Shravan owns framing. This file reports data only: no interpretation, prior-work comparison or
 % novelty wording. Every number is listed with its committed source in results_b1_b4_numbers.csv and checked by
 % tests/test_results_draft.py. Figure labels match paper/figures (fig1 to fig6). Notation follows the reports:
@@ -39,8 +40,8 @@ range and 1.977--2.019 for $n \ge 8$, against 1.996--2.020 predicted from each c
 (figure~\ref{fig:b1}(d)). The per-qubit bases are circuit-dependent: about 2.4, 2.1 and 2.0 for Loschmidt and 5.7,
 4.4 and 4.0 for SWAP at depth 2, 4 and $n$ (ring ansatz), not the 4 and 16 of the RX product.
 
-\paragraph{Limits.} Two ansatz families, one target state, noiseless circuits and $n \le 16$. The fits use 6 or 7
-values of $n$.
+\paragraph{Limits.} These results cover two ansatz families, one target state and noiseless circuits with
+$n \le 16$. Each fit uses 6 or 7 values of $n$.
 
 \subsection{Seed-to-seed uncertainty of the RX-product exponents}
 \label{sec:results-b3}
@@ -101,9 +102,9 @@ their nonzero estimates have the correct sign with probability 0.500. Hadamard a
 to 0.0004) and its nonzero estimates are likewise correct with probability 0.500--0.501. Figure~\ref{fig:failure}
 places each estimator by its exponent and its failure statistic at $T = 2048$.
 
-\paragraph{Limits.} One landscape and one $n$ for the fixed-budget panels. Executions are counted per gradient
+\paragraph{Limits.} The fixed-budget panels use one landscape and one $n$. Executions are counted per gradient
 component; qubit count, depth, ancillas and state copies differ between readouts, so equal executions do not mean
-equal hardware cost. Noiseless simulation only.
+equal hardware cost. All of it is noiseless simulation.
 
 \subsection{Depolarizing noise}
 \label{sec:results-b4}
@@ -137,5 +138,5 @@ across the 16 cells, with $b_r$ between 0.012 and 0.053. In the depth-$n$ cells 
 prediction (ring ansatz, early parameter: 0.051 against 0.048). The fixed-depth cells are mostly pre-asymptotic: the
 crossover falls inside $n \le 16$ only at $p = 10^{-1}$.
 
-\paragraph{Limits.} Simulated depolarizing channels with an ideal SWAP target copy. Local noise on entangling
-circuits, other channels and hardware are not covered.
+\paragraph{Limits.} We simulated depolarizing channels only, with an ideal SWAP target copy. We did not test local
+noise on entangling circuits, other channels or hardware.
