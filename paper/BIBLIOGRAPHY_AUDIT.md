@@ -67,7 +67,7 @@ None.
 
 ## B5 vs Crossref discrepancies (B5 kept)
 
-- `aghaeisaem2026`: article number: B5 '015049' vs Crossref 'None' (B5 kept)
+None.
 
 ## B5 follow-up citations as printed vs verified record
 

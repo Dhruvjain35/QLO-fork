@@ -98,7 +98,7 @@ def build() -> tuple[list[dict], list[dict]]:
                 f["journal"], f["volume"], f["pages"] = p["journal"], str(p["volume"]), p.get("article_number")
             if cr:                                                               # cross-check, never overwrite
                 for fld, a, b in (("title", p["title"], cr["title"]), ("journal", p.get("journal"), cr["container_title"]),
-                                  ("volume", p.get("volume"), cr["volume"]), ("article number", p.get("article_number"), cr["article_number"]),
+                                  ("volume", p.get("volume"), cr["volume"]), ("article number", p.get("article_number"), _pages(cr["page"], cr["article_number"])),  # IOP: in Crossref "page"
                                   ("year", str(p["year"]), str(cr["issued"][0])), ("author count", str(len(names)), str(len(cr["authors"])))):
                     if _norm(a) != _norm(b):
                         issues.append({"key": key, "kind": "B5 vs Crossref", "detail": f"{fld}: B5 '{a}' vs Crossref '{_clean(b)}' (B5 kept)"})
