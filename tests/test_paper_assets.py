@@ -133,6 +133,29 @@ def test_pdfs_are_deterministic_and_timestamp_free(built, tmp_path):
     assert b"/CreationDate" not in (out / f"{EXPECTED[0]}.pdf").read_bytes()
 
 
+def test_figures_meet_the_journal_size_rules():
+    from qlo.paper import style as ST
+    ST.apply()
+    for name, fn in FG.FIGURES.items():
+        fig = fn()
+        try:
+            assert ST.check(fig) == [], name
+            assert fig.get_size_inches()[0] * 2.54 == pytest.approx(15.0), name       # every paper figure is full width
+        finally:
+            FG.plt.close(fig)
+
+
+def test_size_check_rejects_small_text_and_a_wrong_width():
+    from qlo.paper import style as ST
+    fig = FG.plt.figure(figsize=(7.0, 2.0))
+    fig.text(0.5, 0.5, "label", fontsize=6.5)
+    try:
+        problems = ST.check(fig)
+    finally:
+        FG.plt.close(fig)
+    assert len(problems) == 2 and "17.78 cm" in problems[0] and "6.5 pt" in problems[1]
+
+
 def test_pdfs_contain_no_raster_images(built):
     out, _ = built
     for name in EXPECTED:                    # object dictionaries are uncompressed in Matplotlib PDFs
@@ -189,3 +212,24 @@ def test_bib_uses_b5_reviewed_versions_and_flags_unresolved():
     assert esa["volume"] == "351" and esa["pages"] == "4:1--4:12" and entries["fang2025"]["type"] == "inproceedings"
     assert "## Unresolved metadata\n\nNone." in audit and "## Resolved citations" in audit and "wangfang2025" not in entries
     assert re.search(r"\| entries in `references.bib` \| 24 \|", audit)
+
+
+# manuscript figure environments -------------------------------------------------------------------------------------------
+NUMBER = re.compile(r"(?<![\w.])\d{1,3}(?:,\d{3})+(?:\.\d+)?|(?<![\w.,])\d+\.\d+")       # decimals and comma-grouped counts
+
+
+def test_manuscript_captions_include_every_figure_at_natural_size():
+    tex = (ROOT / "paper" / "drafts" / "figures.tex").read_text(encoding="utf-8")
+    live = "\n".join(l for l in tex.splitlines() if not l.lstrip().startswith("%"))
+    included = re.findall(r"\\includegraphics(\[[^]]*\])?\{figures/([^}]+)\.pdf\}", live)
+    assert [name for _, name in included] == EXPECTED
+    assert all(opt == "" for opt, _ in included), "figures are drawn at their printed size; do not rescale them"
+    assert live.count("\\caption{") == live.count("\\label{fig:") == len(EXPECTED)
+
+
+def test_manuscript_caption_numbers_come_from_the_reviewed_draft():
+    tex = (ROOT / "paper" / "drafts" / "figures.tex").read_text(encoding="utf-8")
+    live = "\n".join(l for l in tex.splitlines() if not l.lstrip().startswith("%"))
+    draft = (ROOT / "paper" / "FIGURE_CAPTIONS_DRAFT.md").read_text(encoding="utf-8")
+    missing = set(NUMBER.findall(live)) - set(NUMBER.findall(draft))
+    assert not missing, f"caption numbers not in FIGURE_CAPTIONS_DRAFT.md: {sorted(missing)}"

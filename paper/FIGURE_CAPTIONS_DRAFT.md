@@ -4,7 +4,10 @@ These are draft captions for the figures built by `python -m qlo.paper.figures`.
 limits. They make no novelty statement. The claim list and framing are decided by the principal track (P2, P5), so
 the wording here may change. Every number below is taken from the committed result files named in
 [`figures/FIGURE_SOURCES.md`](figures/FIGURE_SOURCES.md). All results come from classical simulation; none is from
-quantum hardware ([`docs/phase8/REPRODUCTION_STATUS.md`](../docs/phase8/REPRODUCTION_STATUS.md) once PR #8 is merged).
+quantum hardware ([`docs/phase8/REPRODUCTION_STATUS.md`](../docs/phase8/REPRODUCTION_STATUS.md)).
+
+The manuscript captions are now in [`drafts/figures.tex`](drafts/figures.tex). This file stays as the reviewed source
+for their numbers: a test checks that every number in the LaTeX captions also appears here.
 
 ---
 

@@ -61,25 +61,24 @@ def _face(color: str, regime: str):
 # =================================================================================================================
 def fig1():
     st, fits, iv = S.table("stage7_scaling"), S.doc("stage7_fits")["fits"], S.table("b3_stage7_intervals")
-    fig = plt.figure(figsize=(ST.DOUBLE, 2.5))
-    gs = fig.add_gridspec(1, 3, width_ratios=[1.3, 1, 1], wspace=0.45, left=0.01, right=0.985, bottom=0.17, top=0.9)
-    a = fig.add_subplot(gs[0])
+    fig = plt.figure(figsize=(ST.DOUBLE, 10.0 * ST.CM), layout="constrained")
+    gs = fig.add_gridspec(2, 2, height_ratios=[0.5, 1])
+    a = fig.add_subplot(gs[0, :])                       # placeholder until the Figure 1(a) schematic (Shravan) replaces it
     a.axis("off")
-    ST.panel_label(a, "a", x=0.0)
-    a.text(0.02, 0.95, "One landscape, one exact gradient, two readouts", fontsize=8, fontweight="bold", transform=a.transAxes)
-    a.text(0.02, 0.86, r"$F(\theta)=\prod_j \cos^2(\theta_j/2)$,  target $|0^n\rangle$", transform=a.transAxes, fontsize=7.5)
-    a.text(0.02, 0.71, r"$F_\pm = F(\theta \pm \frac{\pi}{2} e_k)$,  $g=\partial_k(1-F)=(F_- - F_+)/2$", transform=a.transAxes, fontsize=7.5)
-    for y, est, lines in ((0.33, "loschmidt", [r"each shot $\sim$ Bernoulli$(F_\pm)$", r"$\hat g_{\rm LE} = (K_- - K_+)/(2M)$",
+    ST.panel_label(a, "a", x=0.0, y=0.96)
+    a.text(0.05, 0.97, r"$F(\theta)=\prod_j \cos^2(\theta_j/2)$,  target $|0^n\rangle$;   "
+           r"$F_\pm = F(\theta \pm \frac{\pi}{2} e_k)$,  $g=\partial_k(1-F)=(F_- - F_+)/2$", transform=a.transAxes, va="top", fontsize=9)
+    for x, est, lines in ((0.05, "loschmidt", [r"each shot $\sim$ Bernoulli$(F_\pm)$", r"$\hat g_{\rm LE} = (K_- - K_+)/(2M)$",
                                               r"per-shot variance of $\hat F$: $F(1-F)$"]),
-                          (-0.03, "swap", [r"each shot $\sim$ Bernoulli$((1+F_\pm)/2)$", r"$\hat g_{\rm SW} = (K_- - K_+)/M$",
+                          (0.53, "swap", [r"each shot $\sim$ Bernoulli$((1+F_\pm)/2)$", r"$\hat g_{\rm SW} = (K_- - K_+)/M$",
                                           r"per-shot variance of $\hat F$: $1-F^2$"])):
         label, c = ST.EST[est][0], ST.EST[est][1]
-        a.text(0.04, y + 0.13, "\n".join([label + " readout"] + lines), transform=a.transAxes, fontsize=6.8, va="center", linespacing=1.35,
+        a.text(x, 0.3, "\n".join([label + " readout"] + lines), transform=a.transAxes, va="center", linespacing=1.35,
                bbox={"boxstyle": "round,pad=0.4", "fc": "white", "ec": c, "lw": 0.9})
     panel("1", "a", source="docs/stages/STAGE7.md §4-6 (definitions, no data)", columns="—", filters="—", aggregation="—",
           ci="—", function="fig1")
 
-    b = fig.add_subplot(gs[1])
+    b = fig.add_subplot(gs[1, 0])
     for sc in ("loschmidt", "swap"):
         g = st[st.scheme == sc].sort_values("n")
         label, c, m, ls, _ = ST.EST[sc]
@@ -89,7 +88,7 @@ def fig1():
         x = np.array([g.n.min(), g.n.max()], dtype=float)
         b.plot(x, f["intercept"] + f["slope"] * x, ls, color=c, lw=0.8)
         xt = 11.0
-        b.text(xt + 0.4, f["intercept"] + f["slope"] * xt - 0.6, f"slope {f['slope']:.3f}", color=c, fontsize=6.5, ha="left", va="top",
+        b.text(xt + 0.4, f["intercept"] + f["slope"] * xt - 0.6, f"slope {f['slope']:.3f}", color=c, ha="left", va="top",
                bbox={"fc": "white", "ec": "none", "pad": 0.5})
     b.set_xlabel(r"qubits $n$")
     b.set_ylabel(r"median $\log_{10} M$ for SNR $\geq 1$")
@@ -101,7 +100,7 @@ def fig1():
           filters="scheme in {loschmidt, swap}; n = 2..20 (100,000 theta per n, k = 0)", aggregation="committed medians and quartiles; committed OLS fit",
           ci="band = interquartile range over theta (not an uncertainty of the median)", function="fig1")
 
-    c = fig.add_subplot(gs[2])
+    c = fig.add_subplot(gs[1, 1])
     targets = [("snr1", r"SNR$\geq$1"), ("snr2", r"SNR$\geq$2"), ("dir0.75", r"$P_c\!\geq\!0.75$"), ("dir0.9", r"$P_c\!\geq\!0.9$")]
     p = iv[(iv.fit_range == "primary_2_20") & iv.metric.str.startswith("slope_")].set_index("metric")   # drops the two text summary rows
     p = p[["stage7_estimate", "seed_pct_lo", "seed_pct_hi", "theta_lo", "theta_hi"]].apply(lambda col: col.astype(float))
@@ -117,12 +116,12 @@ def fig1():
         c.errorbar(x, y, yerr=[y - lo, hi - y], fmt=m, color=col, mfc=col, lw=1.0, label=label + (r" ($b_{\rm ref}=\log_{10}4$)" if sc == "loschmidt" else r" ($b_{\rm ref}=\log_{10}16$)"))
         c.errorbar(x + 0.07, y, yerr=[y - tlo, thi - y], fmt="none", color=col, lw=0.5, alpha=0.8)
     c.axhline(0, color="0.4", lw=0.5, ls=":")
-    c.set_xticks(range(len(targets)), [t for _, t in targets], fontsize=6.5)
+    c.set_xticks(range(len(targets)), [t for _, t in targets])
     c.set_xlim(-0.5, len(targets) - 0.5)
     c.set_ylabel(r"$10^3\,(b - b_{\rm ref})$  [decades / qubit]")
-    c.set_ylim(-11.5, 12.5)
+    c.set_ylim(-11.5, 15.5)
     c.tick_params(axis="x", top=False)
-    c.legend(loc="upper right", fontsize=5.8)
+    c.legend(loc="upper center")
     ST.panel_label(c, "c")
     panel("1", "c", source="results/b3_hardening/stage7_interval_check.csv",
           columns="fit_range, metric, stage7_estimate, seed_pct_lo, seed_pct_hi, theta_lo, theta_hi",
@@ -148,7 +147,7 @@ def fig2():
         raise ValueError("B1 conditional_sign_summary.error is not observed - predicted")
     if not (d.error > 0).all():
         raise ValueError("Figure 2b plots error on a log axis and needs error > 0 in every row")
-    fig, ax = plt.subplots(1, 3, figsize=(ST.DOUBLE, 2.45), gridspec_kw={"wspace": 0.42, "left": 0.07, "right": 0.985, "bottom": 0.18, "top": 0.92})
+    fig, ax = plt.subplots(1, 3, figsize=(ST.DOUBLE, 6.2 * ST.CM), layout="constrained", gridspec_kw={"wspace": 0.04})
     a, b, c = ax
     sc = a.scatter(d.predicted, d.p_correct_given_nonzero, c=np.log10(d.M_times_S), s=4, lw=0, cmap="cividis", rasterized=False)
     a.plot([0.5, 1], [0.5, 1], color="k", lw=0.6)
@@ -156,8 +155,7 @@ def fig2():
     a.set_ylabel(r"$P(\mathrm{correct\ sign} \mid \hat g_{\rm LE} \neq 0)$")
     cb = fig.colorbar(sc, ax=a, fraction=0.05, pad=0.02)
     cb.solids.set_rasterized(False)          # Matplotlib rasterizes colorbars with >= 50 levels (Colorbar.n_rasterize); keep it vector
-    cb.set_label(r"$\log_{10}(M S)$", fontsize=7)
-    cb.ax.tick_params(labelsize=6)
+    cb.set_label(r"$\log_{10}(M S)$")
     ST.panel_label(a, "a")
     panel("2", "a", source="results/b1_entangling/conditional_sign_summary.csv",
           columns="predicted, p_correct_given_nonzero, M_times_S", filters="all 720 rows: the 16 B1 entangling cells (2 families x depth regimes x positions) at n = 12, theta at 5 S quantiles, M = 1..65536",
@@ -165,8 +163,8 @@ def fig2():
 
     b.loglog(d.M_times_S, d.error, ".", color="k", ms=2.2, alpha=0.6)
     b.axvspan(d.M_times_S.min() / 2, MS_SMALL, color="0.85", lw=0)
-    b.text(d.M_times_S.min(), d.error.max() * 1.6, r"$M S \leq 10^{-2}$", fontsize=6.5, va="top")
-    b.set_xlabel(r"$M S$  (shots $\times$ $(F_+ + F_-)$)")
+    b.text(d.M_times_S.min(), d.error.max() * 1.6, r"$M S \leq 10^{-2}$", va="top")
+    b.set_xlabel(r"$M S$")
     b.set_ylabel("observed $-$ predicted")
     ST.panel_label(b, "b")
     panel("2", "b", source="results/b1_entangling/conditional_sign_summary.csv", columns="M_times_S, error",
@@ -186,14 +184,13 @@ def fig2():
     c.set_xscale("log")
     c.set_xlabel(r"shots per shifted circuit $M$")
     c.set_ylabel(r"median $P(\mathrm{correct} \mid \hat g_{\rm LE} \neq 0)$")
-    lo, hi = stage7_sign_range(sl, stage7_M)
-    c.text(0.03, 0.97, fr"$n=20$, Stage 7 $M$: {lo:.4f}–{hi:.4f}", transform=c.transAxes, fontsize=6.3, va="top")
-    c.legend(loc="upper left", fontsize=5.8, bbox_to_anchor=(0.0, 0.92))
+    stage7_sign_range(sl, stage7_M)                     # fails if B3 lacks a Stage 7 M; the caption quotes this range
+    c.legend(loc="upper left", handlelength=1.6)
     ST.panel_label(c, "c")
     panel("2", "c", source="results/b3_hardening/sign_law_summary.csv; results/stage7/config.json",
           columns="n, shots, reference_observed_median_accurate, SEED_pct_lo, SEED_pct_hi, prediction_fixed; paired_shots",
-          filters="n in {12, 16, 20, 24}; all M = 16..65536 (B3 grid); the annotated range uses n = 20 at the Stage 7 M values (paired_shots)",
-          aggregation="median over the regenerated Stage 7 theta population, computed without cancellation (B3 D2)",
+          filters="n in {12, 16, 20, 24}; all M = 16..65536 (B3 grid); the caption's range uses n = 20 at the Stage 7 M values (paired_shots)",
+          aggregation="median over the regenerated Stage 7 theta population, computed without cancellation (B3 D2); the caption's n = 20 range is stage7_sign_range",
           ci="B3 SEED 95% percentile interval over 20 seeds", function="fig2")
     return fig
 
@@ -202,8 +199,8 @@ def fig2():
 def fig3():
     m = S.table("b1_main")
     m = m[m.fit_range == "primary"].reset_index(drop=True)
-    fig, ax = plt.subplots(1, 4, figsize=(ST.DOUBLE, 2.35), gridspec_kw={"wspace": 0.55, "left": 0.065, "right": 0.99, "bottom": 0.25, "top": 0.92})
-    a, b, c, d = ax
+    fig, ax = plt.subplots(2, 2, figsize=(ST.DOUBLE, 12.5 * ST.CM), layout="constrained", gridspec_kw={"wspace": 0.06, "hspace": 0.04})
+    a, b, c, d = ax.ravel()
 
     def eb(axis, x, y, r, xc=None, yc=None, **kw):
         mk, col = _fam_style(r.family)
@@ -220,8 +217,8 @@ def fig3():
     for fam in ("rx_product", "hea_ring", "rxry_czbrick"):
         mk, col = _fam_style(fam)
         a.plot([], [], mk, color=col, mfc=col, label=FAMILY_LABEL[fam], ms=3.4)
-    a.legend(loc="upper left", fontsize=5.6, handlelength=1.0)
-    ST.panel_label(a, "a", x=-0.3)
+    a.legend(loc="upper left", handlelength=1.0)
+    ST.panel_label(a, "a")
 
     lab = []
     for i, r in m.iterrows():
@@ -231,10 +228,10 @@ def fig3():
                    mfc=_face(col, r.regime), mec=col, ms=3.0, lw=0.6)
         lab.append("RX" if r.family == "rx_product" else f"{'HEA' if r.family == 'hea_ring' else 'CZ'} {r.regime} {r.position[0]}")
     b.axhline(0, color="k", lw=0.6)
-    b.set_xticks(range(len(m)), lab, rotation=90, fontsize=4.8)
+    b.set_xticks(range(len(m)), lab, rotation=90)
     b.set_ylabel(r"$100\,\varepsilon_{\rm gap}/b_S$  [%]")
     b.tick_params(axis="x", top=False)
-    ST.panel_label(b, "b", x=-0.3)
+    ST.panel_label(b, "b")
 
     pos_x = {"k=0": 0, "EARLY": 1, "MIDDLE": 2, "LATE": 3}
     jit = {("rx_product", "product"): 0.0, ("hea_ring", "d2"): -0.27, ("hea_ring", "d4"): -0.18, ("hea_ring", "dn"): -0.09,
@@ -245,10 +242,10 @@ def fig3():
         c.errorbar([pos_x[r.position] + jit[(r.family, r.regime)]], [y], yerr=[[y - 1e3 * r.b_r_ci_lo], [1e3 * r.b_r_ci_hi - y]], fmt=mk,
                    color=col, mfc=_face(col, r.regime), mec=col, ms=3.4, lw=0.6)
     c.axhline(0, color="k", lw=0.6)
-    c.set_xticks(range(4), ["RX $k{=}0$", "early", "middle", "late"], fontsize=6.5)
+    c.set_xticks(range(4), ["RX $k{=}0$", "early", "middle", "late"])
     c.set_ylabel(r"$10^3\,b_r$  [decades / qubit]")
     c.tick_params(axis="x", top=False)
-    ST.panel_label(c, "c", x=-0.3)
+    ST.panel_label(c, "c")
 
     for _, r in m.iterrows():
         eb(d, r.ratio_pred, r.ratio_obs, r, "ratio_pred", "ratio_obs")
@@ -258,7 +255,7 @@ def fig3():
     d.set_ylim(lo, hi)
     d.set_xlabel(r"predicted ratio (from $b_S$, $b_r$)")
     d.set_ylabel(r"observed $b_{\rm SWAP}/b_{\rm LE}$")
-    ST.panel_label(d, "d", x=-0.3)
+    ST.panel_label(d, "d")
     common = dict(source="results/b1_entangling/main_table.csv", filters="fit_range = primary (each cell's full n grid); 17 rows: RX product + 2 families x 3 depth regimes x positions",
                   ci="bootstrap 95% CI of the 10-seed mean (columns *_ci_lo / *_ci_hi, as committed by B1)", function="fig3")
     panel("3", "a", columns="b_S, gap_obs (+ _ci_lo/_ci_hi)", aggregation="10-seed mean slopes as committed", **common)
@@ -275,7 +272,7 @@ EST4 = ("loschmidt", "swap_ancilla", "swap_destructive", "hadamard_u")
 def fig4():
     req, sl, fx = S.table("b2_required"), S.table("b2_slopes"), S.table("b2_fixed")
     r0 = req[(req.seed == 0) & (req.rho == 1.0)]
-    fig, ax = plt.subplots(2, 3, figsize=(ST.DOUBLE, 4.3), gridspec_kw={"wspace": 0.42, "hspace": 0.55, "left": 0.07, "right": 0.99, "bottom": 0.1, "top": 0.95})
+    fig, ax = plt.subplots(2, 3, figsize=(ST.DOUBLE, 12.0 * ST.CM), layout="constrained", gridspec_kw={"wspace": 0.04, "hspace": 0.06})
     a, b, c, d, e, f = ax.ravel()
     for est in EST4:
         g = r0[r0.estimator == est].sort_values("n")
@@ -286,7 +283,7 @@ def fig4():
     a.set_xlabel(r"qubits $n$")
     a.set_ylabel("median log$_{10}$ total executions")
     a.set_xticks(range(2, 21, 4))
-    a.legend(loc="upper left", fontsize=5.6)
+    fig.legend(*a.get_legend_handles_labels(), loc="outside upper center", ncol=4)
     ST.panel_label(a, "a")
     panel("4", "a", source="results/b2_estimators/required_shots_rx.csv",
           columns="seed, rho, estimator, n, median_log10_total_executions, q25_log10_total, q75_log10_total",
@@ -303,16 +300,16 @@ def fig4():
             b.errorbar([i + off], [y], yerr=[[y - lo], [hi - y]], fmt=kw["marker"], color=kw["color"], mfc=kw["color"] if filled else "white",
                        mec=kw["color"], ms=3.4, lw=0.7)
             if filled:
-                b.text(i + off, hi + 0.6, f"{r.stage7_population_slope:.4f}", fontsize=5.3, ha="center", va="bottom", rotation=90)
+                b.text(i + off, hi + 0.6, f"{r.stage7_population_slope:.4f}", ha="center", va="bottom", rotation=90)
     b.axhline(0, color="0.4", lw=0.5, ls=":")
-    b.set_xticks(range(4), ["LE", "anc.\nSWAP", "destr.\nSWAP", "Had."], fontsize=6.5)
+    b.set_xticks(range(4), ["LE", "anc.\nSWAP", "destr.\nSWAP", "Had."])
     b.tick_params(axis="x", top=False)
     b.set_xlim(-0.6, 3.6)
-    b.set_ylim(-9, 14)
+    b.set_ylim(-9, 20)
     b.set_ylabel(r"$10^3\,(b - b_{\rm ref})$  [decades / qubit]")
-    b.plot([], [], "ko", ms=3, label="n = 2-20")
+    b.plot([], [], "ko", ms=3, label="$n=2$–$20$")
     b.plot([], [], "ko", mfc="white", ms=3, label=r"$n \geq 8$")
-    b.legend(loc="lower right", fontsize=5.8)
+    b.legend(loc="upper center", ncol=2, handlelength=0.8, columnspacing=0.8)
     ST.panel_label(b, "b")
     panel("4", "b", source="results/b2_estimators/slope_summary.csv",
           columns="estimator, fit_range, quantity, stage7_population_slope, replicate_pct_lo, replicate_pct_hi",
@@ -327,7 +324,8 @@ def fig4():
     c.set_xticks(range(2, 21, 4))
     c.set_xlabel(r"qubits $n$")
     c.set_ylabel("ratio of median total executions")
-    c.legend(loc="center right", fontsize=5.8)
+    c.text(20, 8.4, "Hadamard / Loschmidt", ha="right", va="top", color=ST.EST["hadamard_u"][1])
+    c.text(20, 2.0, "destructive / ancilla SWAP", ha="right", va="bottom", color=ST.EST["swap_destructive"][1])
     ST.panel_label(c, "c")
     panel("4", "c", source="results/b2_estimators/required_shots_rx.csv", columns="estimator, n, median_log10_total_executions",
           filters="seed = 0, rho = 1", aggregation="10**(difference of committed median log10 total executions) at each n",
@@ -363,23 +361,24 @@ def fig5():
     ps = sorted(S.doc("b4_config")["global_p"])
     cmap = plt.get_cmap("cividis")
     pcol = {p: cmap(0.9 * i / (len(ps) - 1)) for i, p in enumerate(ps)}
-    fig, ax = plt.subplots(2, 2, figsize=(ST.DOUBLE, 4.4), gridspec_kw={"wspace": 0.3, "hspace": 0.5, "left": 0.08, "right": 0.88, "bottom": 0.1, "top": 0.95})
+    pmark = dict(zip(ps, "ovsD^"))
+    fig, ax = plt.subplots(2, 2, figsize=(ST.DOUBLE, 12.5 * ST.CM), layout="constrained", gridspec_kw={"wspace": 0.06, "hspace": 0.04})
     a, b, c, d = ax.ravel()
     rx = w[(w.family == "rx_product") & (w.model == "global")]
     for p in ps:
         g = rx[rx.p == p].sort_values("n_mid")
-        lab = "p = 0" if p == 0 else f"p = {p:g}"
-        a.plot(g.n_mid, g.b_LE, "o-", color=pcol[p], ms=2.8, lw=0.9, label=lab)
-        a.plot(g.n_mid, g.b_SWAP, "s--", color=pcol[p], mfc="white", ms=2.8, lw=0.8)
+        lab = "$p=0$" if p == 0 else f"$10^{{{int(np.log10(p))}}}$"
+        a.plot(g.n_mid, g.b_LE, pmark[p] + "-", color=pcol[p], ms=3.0, lw=0.9, label=lab)
+        a.plot(g.n_mid, g.b_SWAP, pmark[p] + "--", color=pcol[p], mfc="white", ms=3.0, lw=0.8)
     for v, t in ((LOG4, r"$\log_{10}4$"), (LOG8, r"$\log_{10}8$"), (LOG16, r"$\log_{10}16$")):
         a.axhline(v, color="0.5", lw=0.5, ls=":")
-        a.text(1.01, v, t, transform=a.get_yaxis_transform(), fontsize=6.5, va="center")
+        a.text(1.01, v, t, transform=a.get_yaxis_transform(), va="center")
     a.set_xlabel(r"window centre $n$ (3-point windows)")
     a.set_ylabel("local slope [decades / qubit]")
-    a.plot([], [], "o-", color="0.3", ms=2.8, label=r"Loschmidt $b_{\rm LE}$")
-    a.plot([], [], "s--", color="0.3", mfc="white", ms=2.8, label=r"SWAP $b_{\rm SWAP}$")
-    a.set_ylim(0.55, 1.3)
-    a.legend(loc="center", fontsize=5.6, ncol=4, bbox_to_anchor=(0.5, 0.74), columnspacing=0.8)
+    a.plot([], [], "-", color="0.3", lw=0.9, label=r"$b_{\rm LE}$")
+    a.plot([], [], "--", color="0.3", lw=0.8, label=r"$b_{\rm SWAP}$")
+    a.set_ylim(0.55, 1.72)
+    a.legend(loc="upper center", ncol=3, handlelength=1.4, columnspacing=0.8)
     ST.panel_label(a, "a")
     panel("5", "a", source="results/b4_noise/window_slopes.csv; results/b4_noise/config.json", columns="model, p, family, n_mid, b_LE, b_SWAP; global_p",
           filters="model = global, family = rx_product", aggregation="committed local slopes over 3 consecutive n of the 10-seed mean medians",
@@ -387,22 +386,23 @@ def fig5():
 
     xs = {p: i for i, p in enumerate(ps)}
     ent = pr[(pr.model == "global") & (pr.family != "rx_product") & (pr.fit_range == "secondary_n_ge_8")]
-    b.plot([xs[p] + 0.15 for p in ent.p], ent.measured_ratio_obs, ".", color="0.6", ms=2.5, label="B1 entangling cells, global")
-    for fr, mfc, lab in (("secondary_n_ge_8", "k", r"RX, global ($n\geq 8$)"), ("primary", "white", "RX, global (n = 2-20)")):
+    b.plot([xs[p] + 0.15 for p in ent.p], ent.measured_ratio_obs, ".", color="0.6", ms=2.5, label="entangling, global")
+    for fr, mfc, lab in (("secondary_n_ge_8", "k", r"RX global, $n\geq 8$"), ("primary", "white", r"RX global, $n=2$–$20$")):
         g = pr[(pr.model == "global") & (pr.family == "rx_product") & (pr.fit_range == fr)].sort_values("p")
         b.plot([xs[p] for p in g.p], g.measured_ratio_obs, "o-", color="k", mfc=mfc, ms=3.2, lw=0.8, label=lab)
     g = pr[(pr.model == "global") & (pr.family == "rx_product") & (pr.fit_range == "secondary_n_ge_8")].sort_values("p")
-    b.plot([xs[p] - 0.15 for p in g.p], g.asym_ratio, "_", color=ST.OKABE["blue"], ms=8, mew=1.2, label="Prop. 5 asymptote (RX)")
+    b.plot([xs[p] - 0.15 for p in g.p], g.asym_ratio, "_", color=ST.OKABE["blue"], ms=8, mew=1.2, label="Prop. 5 (RX)")
     lo = pr[(pr.model == "local") & (pr.family == "rx_product") & (pr.fit_range == "secondary_n_ge_8")].sort_values("p")
-    b.plot([xs[p] for p in lo.p], lo.measured_ratio_obs, "s--", color=ST.OKABE["vermillion"], ms=3.2, lw=0.8, label=r"RX, local ($n\geq 8$)")
+    b.plot([xs[p] for p in lo.p], lo.measured_ratio_obs, "s--", color=ST.OKABE["vermillion"], ms=3.2, lw=0.8, label=r"RX local, $n\geq 8$")
     b.axhline(2.0, color="0.5", lw=0.5, ls=":")
     b.axhline(4.0 / 3.0, color="0.5", lw=0.5, ls=":")
-    b.text(1.01, 2.0, "2", transform=b.get_yaxis_transform(), fontsize=6.5, va="center")
-    b.text(1.01, 4.0 / 3.0, "4/3", transform=b.get_yaxis_transform(), fontsize=6.5, va="center")
+    b.text(1.01, 2.0, "2", transform=b.get_yaxis_transform(), va="center")
+    b.text(1.01, 4.0 / 3.0, "4/3", transform=b.get_yaxis_transform(), va="center")
     b.set_xticks(range(len(ps)), ["0" if p == 0 else f"$10^{{{int(np.log10(p))}}}$" for p in ps])
     b.set_xlabel("depolarizing strength $p$")
     b.set_ylabel(r"exponent ratio $b_{\rm SWAP}/b_{\rm LE}$")
-    b.legend(loc="lower left", fontsize=5.4)
+    b.set_ylim(0.7, 2.08)
+    b.legend(loc="lower left", handlelength=1.6)
     ST.panel_label(b, "b")
     panel("5", "b", source="results/b4_noise/predictions_vs_measured.csv",
           columns="model, p, family, fit_range, measured_ratio_obs, asym_ratio",
@@ -412,13 +412,13 @@ def fig5():
     loc = pr[(pr.model == "local") & (pr.family == "rx_product")]
     pp = np.logspace(np.log10(loc.p.min()) - 0.3, np.log10(loc.p.max()) + 0.3, 200)
     c.plot(pp, _prop6_bS(pp), color="k", lw=0.8, label="Proposition 6")
-    for fr, mfc, lab in (("secondary_n_ge_8", ST.OKABE["vermillion"], r"measured ($n\geq 8$)"), ("primary", "white", "measured (n = 2-20)")):
+    for fr, mfc, lab in (("secondary_n_ge_8", ST.OKABE["vermillion"], r"measured ($n\geq 8$)"), ("primary", "white", r"measured ($n=2$–$20$)")):
         g = loc[loc.fit_range == fr].sort_values("p")
         c.plot(g.p, g.measured_b_S, "s", color=ST.OKABE["vermillion"], mfc=mfc, ms=3.4, label=lab)
     c.set_xscale("log")
     c.set_xlabel("local depolarizing strength $p$")
     c.set_ylabel(r"$b_S'$  [decades / qubit]")
-    c.legend(loc="lower left", fontsize=5.8)
+    c.legend(loc="lower left")
     ST.panel_label(c, "c")
     panel("5", "c", source="results/b4_noise/predictions_vs_measured.csv; docs/theory/A2_PROPOSITIONS.md (Proposition 6 closed form)",
           columns="model, p, family, fit_range, measured_b_S", filters="model = local, family = rx_product",
@@ -432,7 +432,7 @@ def fig5():
     d.set_xscale("log")
     d.set_xlabel("global depolarizing strength $p$")
     d.set_ylabel(r"crossover $n^*$")
-    d.legend(loc="upper right", fontsize=5.8)
+    d.legend(loc="upper right")
     ST.panel_label(d, "d")
     panel("5", "d", source="results/b4_noise/crossover.csv", columns="family, p, n_star, note",
           filters="rows with a crossover inside the tested n range (note = 'inside range'); NaN rows ('signal dominates throughout') are not plotted",
@@ -445,9 +445,7 @@ def fig6():
     sl, fx = S.table("b2_slopes"), S.table("b2_fixed")
     s = sl[(sl.quantity == "median_log10_total_executions") & (sl.fit_range == "primary_2_20")].set_index("estimator")
     g14 = fx[fx.n == FIXED_N]
-    fig, ax = plt.subplots(1, 2, figsize=(ST.DOUBLE, 2.6), gridspec_kw={"wspace": 0.3, "left": 0.08, "right": 0.99, "bottom": 0.17, "top": 0.8})
-    fig.text(0.5, 0.975, f"EMPIRICAL ESTIMATOR COMPARISON  (RX product, n = {FIXED_N}; not a theorem or a complete taxonomy)",
-             ha="center", va="top", fontsize=7.5)
+    fig, ax = plt.subplots(1, 2, figsize=(ST.DOUBLE, 6.5 * ST.CM), layout="constrained", gridspec_kw={"wspace": 0.06})
     for axis, col, ylab, letter in ((ax[0], "median_P_zero", r"median $P(\hat g = 0)$", "a"),
                                     (ax[1], "median_P_correct_given_nonzero", r"median $P(\mathrm{correct} \mid \hat g \neq 0)$", "b")):
         for est in EST4:
@@ -459,7 +457,7 @@ def fig6():
             axis.errorbar([x], [y], xerr=[[x - s.loc[est, "replicate_pct_lo"]], [s.loc[est, "replicate_pct_hi"] - x]],
                           fmt=kw["marker"], color=kw["color"], mfc=kw["markerfacecolor"], mec=kw["color"], ms=kw["markersize"], lw=0.6,
                           label=kw["label"])
-        axis.set_xlabel("shot-cost exponent [decades / qubit, total executions]")
+        axis.set_xlabel("shot-cost exponent [decades / qubit]")
         axis.set_ylabel(ylab)
         axis.set_xlim(0.45, 1.35)
         axis.set_ylim(-0.04, 1.04)
@@ -470,7 +468,7 @@ def fig6():
               aggregation=f"marker: value at T = {FIXED_T_MARK} total executions; shaded bar: range over T = 32..32768",
               ci="horizontal bar: 95% percentile interval of the slope over 10 replicate seeds", function="fig6")
     ax[1].axhline(0.5, color="0.4", lw=0.5, ls=":")
-    ax[0].legend(loc="center left", fontsize=6)
+    ax[0].legend(loc="center left")
     return fig
 
 
@@ -512,6 +510,9 @@ def build(out: Path, png: bool = True) -> dict:
         S.USED.clear()
         n0 = len(PANELS)
         fig = fn()
+        bad = ST.check(fig)
+        if bad:
+            raise ValueError(f"{name} breaks the journal figure rules: " + "; ".join(bad[:5]))
         pdf = out / f"{name}.pdf"
         fig.savefig(pdf, metadata=PDF_META)
         files = [pdf]

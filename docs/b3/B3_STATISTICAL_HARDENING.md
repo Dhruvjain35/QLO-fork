@@ -134,8 +134,12 @@ checks fall inside their Wilson interval, versus about 57 expected. The four mis
 - The paired gap's seed SD is about 0.0011. If the LE and SWAP slopes were independent it would be
   √(0.0010² + 0.0019²) ≈ 0.0021; the reduction comes from LE and SWAP sharing θ within a seed.
 - Over n = 2..20 the gap sits 0.005–0.009 below log10 4 = 0.6021, and every interval excludes 0.6021. Over n = 8..20
-  every interval contains 0.6021. The full-range shortfall therefore comes from the small-n points (n = 2, 4), where
-  the asymptotic scaling does not yet hold. This is a fit-range effect and not a new claim.
+  the gap is 0.6008–0.6009, 0.0012–0.0013 below 0.6021: the seed 95% percentile intervals and the THETA CIs contain
+  0.6021, but the seed-mean CIs in the table above do not (upper ends 0.6017–0.6018). Most of the full-range shortfall
+  therefore comes from the small-n points (n = 2, 4), where the asymptotic scaling does not yet hold. This is a
+  fit-range effect and not a new claim.
+  *(Corrected in Phase 8: this bullet first said every n = 8..20 interval contains 0.6021, which is not true of the
+  seed-mean CI; `seed_summary.csv`, `bootstrap_summary.csv`. No result changed.)*
 
 ## 10. Conditional sign-law robustness
 

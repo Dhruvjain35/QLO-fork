@@ -1,18 +1,19 @@
 # Reproduction status
 
-Last updated: 31 October 2026 (Phase 8 I2).
+Last updated: 11 November 2026 (Phase 8 P9 follow-ups).
 
-This page separates four different kinds of evidence. They are easy to blur, and only the first two exist today.
+This page separates four different kinds of evidence. They are easy to blur, and only the first three exist today.
 
 | | Kind of evidence | Status |
 |---|---|---|
 | A | Original result generation (classical simulation, Dhruv's macOS machine) | **Done.** Every committed result. |
 | B | Automated cross-platform testing (GitHub Actions) | **Done** for the test suite and smoke runs on Linux 3.12, Linux 3.13 and Windows 3.13 (first run on PR #8). |
-| C | Independent full-experiment reproduction on another machine | **Not done.** Principal track P9, Tiers 2 and 3. |
+| C | Full-experiment reproduction on a second machine | **Done** by a co-author on Windows 11 (P9, 9 November 2026). Not reproduced by anyone outside the team. |
 | D | Quantum hardware | **Not done.** Every result so far is a simulation. |
 
-**Do not describe any result in this repository as validated on quantum hardware, and do not describe the full
-experiments as independently reproduced.** Neither has happened yet.
+**Do not describe any result in this repository as validated on quantum hardware.** That has not happened. The full
+experiments may be described as reproduced on two machines in simulation; do not describe them as reproduced by an
+outside group, because both runs were made by members of the team.
 
 ## A. Original result generation
 
@@ -64,19 +65,44 @@ First run of this matrix: run 41246198763, PR #8 at `7d7826d`, 31 October 2026. 
 | pytest | windows-latest, Python 3.13.16 | 279 passed, 1 skipped (no `PYTHONUTF8`) |
 | smoke | ubuntu-latest / 3.12, ubuntu-latest / 3.13, windows-latest / 3.13 | all four `--fast` runs finished; no committed file changed |
 
-## C. Independent full-experiment reproduction
+## C. Full-experiment reproduction on a second machine
 
-**Not yet done.** No full experiment (Stage 6, Stage 7, B1, B2, B3 or B4 at its frozen configuration) has been rerun
-on a second machine.
-- Satyabrat's Windows 11 machine (Python 3.13.5, PennyLane 0.45.1) has so far run only **Tier 1**, the test suite: on
-  29 October 2026 it gave 264 passed, 3 failed and 1 skipped. The 3 failures were the cp1252 text-encoding issue that
-  I2 fixes.
-- **Tier 2** (Stage 6 and Stage 7 headline results) and **Tier 3** (B1, B2, B3, B4 at their frozen configurations) are
-  principal-track item **P9** in the Phase 8 allocation (§6.2), not yet run.
+**Done.** Satyabrat reran every frozen experiment (Stage 6, Stage 7, B1, B2, B3 and B4 at their frozen configurations
+and seeds) on his own machine on 9 November 2026, and every number on the check sheet matched the committed results.
+The full run log is [`P9_WINDOWS_REPRODUCTION.md`](P9_WINDOWS_REPRODUCTION.md).
 
-After I2, Tier 3 no longer needs folder flags. Caches go to `.qlo_cache/<experiment>/`, or to
-`%QLO_WORK_DIR%\<experiment>` if that variable is set. `--work-dir` / `--b1-work` still override both. To keep the
-committed results untouched, `b2_estimators` and `b4_noise` now also accept `--out-dir`.
+| | Original runs (A) | Second machine (P9) |
+|---|---|---|
+| Machine | Dhruv's macOS machine | Windows 11, Intel Core i9-13980HX, 32 threads, 15.6 GB RAM |
+| Python, PennyLane | as recorded in each run log | Python 3.13.5, PennyLane 0.45.1 (NumPy 2.5.4, pandas 3.1.1) |
+| Code | the commit recorded with each result | `main` at `067c120` (zip, compared file by file) |
+| Tests | n/a | 311 passed, 5 skipped, 0 failed, no `PYTHONUTF8` |
+
+Wall times on the second machine: Stage 6 about 11 min, Stage 7 about 30 min, B1 1 h 19 min (5 workers), B4 33 s, B2
+about 4 min, B3 3 h 8 min.
+
+What the run log reports beyond the check sheet:
+- **Stage 7 sign median.** The Stage 7 script still computes the conditional sign median with the original
+  subtraction formula and prints 0.8533 to 0.8537 at n = 20. That printout and the
+  `loschmidt_median_p_correct_given_nonzero` column of `results/stage7/paired_estimator_comparison.csv` are
+  **superseded** by the cancellation-free median in `results/b3_hardening/sign_law_summary.csv`, 0.8527 to 0.8530 for
+  M up to 16,384 (B3 D2, Phase 8 I1). The script now prints this note under the table. The old formula even differs
+  between the two machines at M = 64 (0.85366 against 0.85372); the cancellation-free values agree to 3e-16.
+- **B1 ratio range.** The 34 observed SWAP/Loschmidt exponent ratios run from 1.9692 to 2.0186 on both machines. The
+  README and the B1 report now say 1.969–2.019 instead of the rounded 1.97–2.02.
+- **Other differences** are all near-ties or float rounding (sample choice at a quantile, strict comparisons near 1,
+  a zero-width interval flag); the run log lists each one with its cause. None changes a conclusion.
+
+What this does and does not establish:
+- The committed results of Stage 6, Stage 7 and B1 to B4 rest on two machines with different operating systems and
+  library versions.
+- Both runs use the same frozen configurations and seeds. This shows the code reproduces its results; it is not new
+  statistical evidence. B3 remains the source of the seed-to-seed intervals.
+- Both runs were made by members of the team. Nobody outside the team has rerun the experiments.
+
+Caches go to `.qlo_cache/<experiment>/`, or to `%QLO_WORK_DIR%\<experiment>` if that variable is set (it must point to
+a folder that exists or can be created). `--work-dir` / `--b1-work` override both. To keep the committed results
+untouched, every driver accepts `--out-dir`.
 
 ## D. Quantum hardware
 

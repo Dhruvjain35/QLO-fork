@@ -6,7 +6,8 @@ NOT RECORDED were not logged; they are never estimated.
 
 **Where the numbers come from.** Original scientific numerics: classical simulations actually executed on Dhruv's
 macOS machine (the hardware model is recorded only in the B1 log, as an Apple M4). Cross-platform CI: code, tests and `--fast` smoke runs on GitHub-hosted Linux and Windows
-runners. Independent full reproduction (principal P9, Tiers 2 and 3): not yet done. Real quantum hardware: not used;
+runners. Second-machine reproduction (principal P9): every frozen experiment rerun and matched on a co-author's Windows 11
+machine; not reproduced outside the team. Real quantum hardware: not used;
 PennyLane `default.qubit` / `default.mixed` are classical simulators.
 
 ## Table A1. Experiment configurations
