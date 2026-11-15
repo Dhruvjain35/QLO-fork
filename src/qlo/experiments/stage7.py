@@ -313,6 +313,9 @@ def main(argv=None) -> None:
     print("== paired fixed-M ==\n", pf[["n", "shots", "loschmidt_median_p_zero", "swap_median_p_zero", "loschmidt_median_p_correct", "swap_median_p_correct",
                                         "loschmidt_median_p_correct_given_nonzero", "swap_median_p_correct_given_nonzero", "paired_median_log10_snr_swap_over_le",
                                         "swap_frac_float_tie"]].to_string(index=False))
+    print("  note: loschmidt_median_p_correct_given_nonzero above uses the original subtraction formula, which loses digits deep in\n"
+          "  the dead zone (0.8533-0.8537 at n = 20). It is superseded by the cancellation-free value 0.8527-0.8530 (M <= 16,384) in\n"
+          "  results/b3_hardening/sign_law_summary.csv (B3 D2, Phase 8 I1); docs/stages/STAGE7.md reports the corrected value.")
     print("== paired required shots: median log10(M_swap / M_le) ==\n",
           paired_req[["n"] + [f"{t}_log10_swap_over_le_median" for t, _, _ in AN.TARGETS] + [f"{t}_frac_swap_needs_more" for t, _, _ in AN.TARGETS]].to_string(index=False))
 
