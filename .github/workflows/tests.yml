@@ -53,6 +53,7 @@ jobs:
       - run: python -m qlo.experiments.b2_estimators --fast
       - run: python -m qlo.experiments.b3_hardening --fast
       - run: python -m qlo.experiments.b4_noise --fast
+      - run: python -m qlo.paper.reproduce        # I7: a fresh clone rebuilds every paper asset with one command
       - name: committed files unchanged, smoke output ignored
         shell: bash
         run: |

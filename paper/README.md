@@ -2,6 +2,10 @@
 
 Built only from committed results. No experiment is rerun.
 
+To check everything at once, run `python -m qlo.paper.reproduce`. It rebuilds the figures, the appendix tables,
+Appendix B and the bibliography check into `.qlo_cache/reproduce/`, compares them with the committed files, and
+exits with status 1 on any difference. It never overwrites the committed files. CI runs it on Linux and Windows.
+
 | Path | What | Rebuild |
 |---|---|---|
 | `figures/*.pdf` | The six paper figures (vector PDF, canonical) | `python -m qlo.paper.figures` |
