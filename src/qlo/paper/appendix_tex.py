@@ -60,7 +60,8 @@ _SPECIAL = {"\\": r"\textbackslash{}", "&": r"\&", "%": r"\%", "$": r"\$", "#": 
 _UNICODE = {"–": "--", "−": "$-$", "θ": r"$\theta$", "π": r"$\pi$", "⟩": r"$\rangle$", "ĝ": r"$\hat g$",
             "≤": r"$\le$", "ⁿ": r"$^{n}$", "≠": r"$\neq$", "±": r"$\pm$", "≥": r"$\ge$", "†": r"$^\dagger$",
             "≈": r"$\approx$", "·": r"$\cdot$", "→": r"$\to$", "§": r"\S{}", "Δ": r"$\Delta$", "⊗": r"$\otimes$",
-            "ρ": r"$\rho$", "σ": r"$\sigma$", "ε": r"$\varepsilon$", "ä": r"\"a", "×": r"$\times$"}
+            "ρ": r"$\rho$", "σ": r"$\sigma$", "ε": r"$\varepsilon$", "ä": r"\"a", "×": r"$\times$",
+            "\u2009": r"\,"}
 
 
 _MATH = {"|0^n⟩": r"$|0^n\rangle$", "θ_j": r"$\theta_j$", "⊗_j": r"$\bigotimes_j$"}
@@ -68,12 +69,12 @@ _BIG = re.compile(r"(?<![\d.\-–/_])\d{5,}(?![\d.\-–/_])")      # 5+ digit in
 
 
 def _group(m: re.Match) -> str:
-    return f"{int(m.group()):,}"
+    return f"{int(m.group()):,}".replace(",", "\u2009")                # IOP style: thin space every three digits
 
 
 def tex(s: str) -> str:
-    """Plain-text cell -> ASCII LaTeX. |0^n⟩, θ_j and ⊗_j become math; integers of five or more digits get thousands
-    separators unless they belong to a range (seed ranges such as 11000–11009 stay as written); '/' and '_' get break
+    """Plain-text cell -> ASCII LaTeX. |0^n⟩, θ_j and ⊗_j become math; integers of five or more digits get thin-space
+    thousands separators (IOP style) unless they belong to a range (seed ranges such as 11000–11009 stay as written); '/' and '_' get break
     points so paths wrap."""
     out = []
     for part in re.split("(" + "|".join(re.escape(k) for k in _MATH) + ")", s):

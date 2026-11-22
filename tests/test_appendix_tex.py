@@ -36,5 +36,5 @@ def test_tex_conversion():
     assert AT.tex("|0^n⟩") == r"$|0^n\rangle$"
     assert AT.tex("θ_j iid U[−π, π]") == r"$\theta_j$ iid U[$-$$\pi$, $\pi$]".replace("$$", "")
     assert AT.tex("V(θ) = ⊗_j RX(θ_j)") == r"V($\theta$) = $\bigotimes_j$ RX($\theta_j$)"
-    assert AT.tex("100000 per n; seeds 11000–11009") == "100,000 per n; seeds 11000--11009"
+    assert AT.tex("100000 per n; seeds 11000–11009") == r"100\,000 per n; seeds 11000--11009"
     assert AT.tex("n ≥ 8, 50%") == r"n $\ge$ 8, 50\%"
