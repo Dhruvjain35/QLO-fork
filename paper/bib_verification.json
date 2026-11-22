@@ -1,6 +1,59 @@
 {
- "retrieved_utc": "2026-11-01",
+ "retrieved_utc": "2026-11-22",
  "crossref": {
+  "10.1038/nature23879": {
+   "doi": "10.1038/nature23879",
+   "type": "journal-article",
+   "title": "Hardware-efficient variational quantum eigensolver for small molecules and quantum magnets",
+   "container_title": "Nature",
+   "volume": "549",
+   "article_number": null,
+   "page": "242-246",
+   "issued": [
+    2017,
+    9
+   ],
+   "authors": [
+    {
+     "given": "Abhinav",
+     "family": "Kandala",
+     "name": null
+    },
+    {
+     "given": "Antonio",
+     "family": "Mezzacapo",
+     "name": null
+    },
+    {
+     "given": "Kristan",
+     "family": "Temme",
+     "name": null
+    },
+    {
+     "given": "Maika",
+     "family": "Takita",
+     "name": null
+    },
+    {
+     "given": "Markus",
+     "family": "Brink",
+     "name": null
+    },
+    {
+     "given": "Jerry M.",
+     "family": "Chow",
+     "name": null
+    },
+    {
+     "given": "Jay M.",
+     "family": "Gambetta",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "Springer Science and Business Media LLC",
+   "url": "https://api.crossref.org/works/10.1038/nature23879"
+  },
   "10.1038/s41377-025-01755-8": {
    "doi": "10.1038/s41377-025-01755-8",
    "type": "journal-article",
@@ -590,6 +643,35 @@
    "publisher": "American Physical Society (APS)",
    "url": "https://api.crossref.org/works/10.1103/PhysRevA.111.052441"
   },
+  "10.1103/PhysRevA.87.052330": {
+   "doi": "10.1103/physreva.87.052330",
+   "type": "journal-article",
+   "title": "swap test and Hong-Ou-Mandel effect are equivalent",
+   "container_title": "Physical Review A",
+   "volume": "87",
+   "article_number": "052330",
+   "page": null,
+   "issued": [
+    2013,
+    5,
+    29
+   ],
+   "authors": [
+    {
+     "given": "Juan Carlos",
+     "family": "Garcia-Escartin",
+     "name": null
+    },
+    {
+     "given": "Pedro",
+     "family": "Chamorro-Posada",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "American Physical Society (APS)",
+   "url": "https://api.crossref.org/works/10.1103/PhysRevA.87.052330"
+  },
   "10.1103/PhysRevLett.124.060503": {
    "doi": "10.1103/physrevlett.124.060503",
    "type": "journal-article",
@@ -633,6 +715,45 @@
    "editors": [],
    "publisher": "American Physical Society (APS)",
    "url": "https://api.crossref.org/works/10.1103/PhysRevLett.124.060503"
+  },
+  "10.1103/PhysRevLett.87.167902": {
+   "doi": "10.1103/physrevlett.87.167902",
+   "type": "journal-article",
+   "title": "Quantum Fingerprinting",
+   "container_title": "Physical Review Letters",
+   "volume": "87",
+   "article_number": "167902",
+   "page": null,
+   "issued": [
+    2001,
+    9,
+    26
+   ],
+   "authors": [
+    {
+     "given": "Harry",
+     "family": "Buhrman",
+     "name": null
+    },
+    {
+     "given": "Richard",
+     "family": "Cleve",
+     "name": null
+    },
+    {
+     "given": "John",
+     "family": "Watrous",
+     "name": null
+    },
+    {
+     "given": "Ronald",
+     "family": "de Wolf",
+     "name": null
+    }
+   ],
+   "editors": [],
+   "publisher": "American Physical Society (APS)",
+   "url": "https://api.crossref.org/works/10.1103/PhysRevLett.87.167902"
   },
   "10.1137/1.9781611975482.87": {
    "doi": "10.1137/1.9781611975482.87",
@@ -802,6 +923,21 @@
    "doi": null,
    "url": "https://arxiv.org/abs/2208.11060"
   },
+  "1303.6814": {
+   "id": "1303.6814",
+   "latest_version": "1303.6814v1",
+   "title": "The SWAP test and the Hong-Ou-Mandel effect are equivalent",
+   "authors": [
+    "Juan Carlos Garcia-Escartin",
+    "Pedro Chamorro-Posada"
+   ],
+   "published": "2013-03-27",
+   "updated": "2013-03-27",
+   "primary_category": "quant-ph",
+   "journal_ref": "Phys. Rev. A 87, 052330 (2013)",
+   "doi": "10.1103/PhysRevA.87.052330",
+   "url": "https://arxiv.org/abs/1303.6814"
+  },
   "2507.22054": {
    "id": "2507.22054",
    "latest_version": "2507.22054v2",
@@ -903,6 +1039,21 @@
    "doi": "10.1038/s41377-025-01755-8",
    "url": "https://arxiv.org/abs/2406.06810"
   },
+  "2609.14424": {
+   "id": "2609.14424",
+   "latest_version": "2609.14424v2",
+   "title": "Shot noise can decide capacity comparisons of quantum models",
+   "authors": [
+    "Pavel Sulimov",
+    "Claude Lehmann"
+   ],
+   "published": "2026-09-13",
+   "updated": "2026-11-15",
+   "primary_category": "quant-ph",
+   "journal_ref": null,
+   "doi": null,
+   "url": "https://arxiv.org/abs/2609.14424"
+  },
   "2203.00031": {
    "id": "2203.00031",
    "latest_version": "2203.00031v2",
@@ -934,6 +1085,23 @@
    "journal_ref": null,
    "doi": null,
    "url": "https://arxiv.org/abs/2312.15791"
+  },
+  "quant-ph/0102001": {
+   "id": "quant-ph/0102001",
+   "latest_version": "quant-ph/0102001v1",
+   "title": "Quantum fingerprinting",
+   "authors": [
+    "Harry Buhrman",
+    "Richard Cleve",
+    "John Watrous",
+    "Ronald de Wolf"
+   ],
+   "published": "2001-02-01",
+   "updated": "2001-02-01",
+   "primary_category": "quant-ph",
+   "journal_ref": null,
+   "doi": "10.1103/PhysRevLett.87.167902",
+   "url": "https://arxiv.org/abs/quant-ph/0102001"
   },
   "2510.22418": {
    "id": "2510.22418",
@@ -971,21 +1139,6 @@
    "journal_ref": "Nature Reviews Physics 7, 174-189 (2025)",
    "doi": "10.1038/s42254-025-00813-9",
    "url": "https://arxiv.org/abs/2405.00781"
-  },
-  "2609.14424": {
-   "id": "2609.14424",
-   "latest_version": "2609.14424v1",
-   "title": "Certification cost of quantum models: measurement correlation, not parameter count",
-   "authors": [
-    "Pavel Sulimov",
-    "Claude Lehmann"
-   ],
-   "published": "2026-09-13",
-   "updated": "2026-09-13",
-   "primary_category": "quant-ph",
-   "journal_ref": null,
-   "doi": null,
-   "url": "https://arxiv.org/abs/2609.14424"
   },
   "2007.14384": {
    "id": "2007.14384",
@@ -1108,6 +1261,26 @@
    "journal_ref": "Quantum Sci. Technol. 7 045015 (2022)",
    "doi": "10.1088/2058-9565/ac7d06",
    "url": "https://arxiv.org/abs/2104.05868"
+  },
+  "1704.05018": {
+   "id": "1704.05018",
+   "latest_version": "1704.05018v2",
+   "title": "Hardware-efficient Variational Quantum Eigensolver for Small Molecules and Quantum Magnets",
+   "authors": [
+    "Abhinav Kandala",
+    "Antonio Mezzacapo",
+    "Kristan Temme",
+    "Maika Takita",
+    "Markus Brink",
+    "Jerry M. Chow",
+    "Jay M. Gambetta"
+   ],
+   "published": "2017-04-17",
+   "updated": "2017-10-13",
+   "primary_category": "quant-ph",
+   "journal_ref": "Nature 549, 242 (2017)",
+   "doi": "10.1038/nature23879",
+   "url": "https://arxiv.org/abs/1704.05018"
   },
   "2210.06723": {
    "id": "2210.06723",

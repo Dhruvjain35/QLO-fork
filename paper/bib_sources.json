@@ -233,6 +233,41 @@
         "series": "Leibniz International Proceedings in Informatics (LIPIcs)",
         "source": "official series name as supplied with the resolved citation (2026-11-01); it must contain the DataCite record's own value 'LIPIcs'"
       }
+    },
+    {
+      "key": "kandala2017",
+      "doi": "10.1038/nature23879",
+      "arxiv": "1704.05018",
+      "role": "hardware-efficient ansatz used in B1 (results section)",
+      "cited_by": [
+        "results B1"
+      ]
+    },
+    {
+      "key": "buhrman2001",
+      "doi": "10.1103/PhysRevLett.87.167902",
+      "arxiv": "quant-ph/0102001",
+      "role": "ancilla SWAP test (results B2)",
+      "cited_by": [
+        "results B2"
+      ],
+      "supplement": {
+        "title": "Quantum fingerprinting",
+        "source": "case only: sentence case, as for the other entries"
+      }
+    },
+    {
+      "key": "garciaescartin2013",
+      "doi": "10.1103/PhysRevA.87.052330",
+      "arxiv": "1303.6814",
+      "role": "destructive SWAP test (results B2)",
+      "cited_by": [
+        "results B2"
+      ],
+      "supplement": {
+        "title": "SWAP test and Hong-Ou-Mandel effect are equivalent",
+        "source": "case only: the Crossref record lowercases the small-caps SWAP that APS prints"
+      }
     }
   ]
 }
