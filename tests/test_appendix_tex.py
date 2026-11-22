@@ -34,5 +34,8 @@ def test_output_is_ascii_and_braces_balance():
 
 def test_tex_conversion():
     assert AT.tex("|0^n⟩") == r"$|0^n\rangle$"
-    assert AT.tex("θ_j iid U[−π, π]") == r"$\theta$\_\allowbreak{}j iid U[$-$$\pi$, $\pi$]".replace("$$", "")
+    assert AT.tex("θ_j iid U[−π, π]") == r"$\theta_j$ iid U[$-$$\pi$, $\pi$]".replace("$$", "")
+    assert AT.tex("V(θ) = ⊗_j RX(θ_j)") == r"V($\theta$) = $\bigotimes_j$ RX($\theta_j$)"
+    assert AT.tex("6,740,000 rows; 5,365 s; M = 16–65,536") == r"6\,740\,000 rows; 5365 s; M = 16--65\,536"
+    assert AT.tex("100000 per n; seeds 11000–11009") == r"100\,000 per n; seeds 11000--11009"
     assert AT.tex("n ≥ 8, 50%") == r"n $\ge$ 8, 50\%"
