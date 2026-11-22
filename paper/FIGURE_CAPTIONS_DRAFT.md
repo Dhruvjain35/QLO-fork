@@ -65,7 +65,7 @@ The data are slopes of median log₁₀ quantities against n for 17 cells:
 - an RX-RY CZ brickwork ansatz.
 
 The two entangling ansätze are run at depth 2, depth 4 and depth n, with the differentiated parameter in the early,
-middle or late layer, on n = 4–16 (depth 2 and 4) or n = 4–14 (depth n). Each cell uses 10 seeds of 4,000 θ per n.
+middle or late layer, on n = 4–16 (depth 2 and 4) or n = 4–14 (depth n). Each cell uses 10 seeds of 4000 θ per n.
 Marker shape is the family; marker fill is the depth (hollow: 2, half: 4, filled: n). Error bars are bootstrap 95%
 CIs of the 10-seed mean.
 
@@ -138,7 +138,7 @@ n = 2–20, with the 95% replicate interval). The vertical axis is a finite-shot
 - (a) the median probability of an exactly zero estimate;
 - (b) the median probability of the correct sign given a nonzero estimate.
 
-Markers are the values at T = 2,048 total executions. The shaded bars show the range over T = 32–32,768.
+Markers are the values at T = 2048 total executions. The shaded bars show the range over T = 32–32,768.
 - Loschmidt combines the lower exponent with exact-zero estimates.
 - Both SWAP readouts combine the higher exponent with nonzero estimates whose sign is correct half the time.
 - The Hadamard U-statistic combines the lower exponent with nonzero estimates whose sign is correct half the time.

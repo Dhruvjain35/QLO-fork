@@ -2,6 +2,10 @@
 
 Built only from committed results. No experiment is rerun.
 
+To check everything at once, run `python -m qlo.paper.reproduce`. It rebuilds the figures, the appendix tables,
+Appendix B and the bibliography check into `.qlo_cache/reproduce/`, compares them with the committed files, and
+exits with status 1 on any difference. It never overwrites the committed files. CI runs it on Linux and Windows.
+
 | Path | What | Rebuild |
 |---|---|---|
 | `figures/*.pdf` | The six paper figures (vector PDF, canonical) | `python -m qlo.paper.figures` |
@@ -10,6 +14,8 @@ Built only from committed results. No experiment is rerun.
 | `figures/manifest.json` | sha256 of every figure and of every source file it read, plus git commit and time | same command |
 | `FIGURE_CAPTIONS_DRAFT.md` | Draft captions: what is plotted and its limits; no novelty language | by hand |
 | `drafts/figures.tex` | The six figure environments with their manuscript captions, and the slot for the failure-type grid | by hand |
+| `drafts/appendix_b.tex` | Appendix B: the appendix tables typeset in LaTeX (landscape longtables), every column except provenance | `python -m qlo.paper.appendix_tex` |
+| `drafts/data_availability.tex` | Data availability statement; the Zenodo DOI from I7 replaces the placeholder | by hand |
 | `references.bib` | Bibliography, built from the B5 source manifest and `bib_sources.json` | `python tools/build_bib.py` |
 | `BIBLIOGRAPHY_AUDIT.md` | Entry counts, versions reviewed vs cited, unresolved metadata | same command |
 | `bib_sources.json` | The planned citations: identifiers and reasons only | by hand |
