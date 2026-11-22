@@ -16,13 +16,13 @@
     (projector) readout or by an ancilla SWAP test. Both readouts estimate the same $F_\pm$ and the same exact gradient
     $g$; they differ only in the per-shot statistics, $F(1 - F)$ for Loschmidt and $1 - F^2$ for SWAP.
     % (a) is a placeholder until the Figure 1(a) schematic (Shravan, due 19 Nov) replaces it.
-    (b)~Median $\log_{10}$ of the shots per shifted circuit, $M$, needed for SNR $\ge 1$, over 100,000 $\theta$ per $n$,
+    (b)~Median $\log_{10}$ of the shots per shifted circuit, $M$, needed for SNR $\ge 1$, over 100\,000 $\theta$ per $n$,
     $n = 2$--$20$, the same $\theta$ for both readouts. Shaded bands are the interquartile range over $\theta$. Lines are
     least-squares fits: slope 0.606 (Loschmidt) and 1.203 (SWAP) decades per qubit, close to
     $\log_{10} 4$ and $\log_{10} 16$.
     (c)~For four targets (SNR $\ge 1$, SNR $\ge 2$, sign accuracy $P_c \ge 0.75$ and $P_c \ge 0.9$), the single-population slope
     minus its reference ($\log_{10} 4$ for Loschmidt, $\log_{10} 16$ for SWAP), in units of $10^{-3}$ decades per qubit.
-    Thick bars: 95\% percentile interval over 20 independent seeds of 25,000 $\theta$ (section~\ref{sec:results-b3}). Thin bars:
+    Thick bars: 95\% percentile interval over 20 independent seeds of 25\,000 $\theta$ (section~\ref{sec:results-b3}). Thin bars:
     $\theta$-bootstrap 95\% CI.
     The bases $4^n$ and $16^n$ belong to this RX-product benchmark, where the median shifted-fidelity sum decays as
     $4^{-n}$; they are not universal, and other circuits have other base rates (figure~\ref{fig:b1}). Only one parameter
@@ -36,14 +36,14 @@
   \caption{Conditional sign accuracy of the Loschmidt gradient.
     (a)~The exact probability that a nonzero Loschmidt gradient estimate has the correct sign, against the prediction
     $(1 + |r|)/2$, where $r = (F_- - F_+)/(F_- + F_+)$. The 720 points cover the 16 entangling cells of figure~\ref{fig:b1} at $n = 12$,
-    $\theta$ at five quantiles of $S = F_+ + F_-$, and $M = 1$ to 65,536 shots per shifted circuit. Colour is
+    $\theta$ at five quantiles of $S = F_+ + F_-$, and $M = 1$ to 65\,536 shots per shifted circuit. Colour is
     $\log_{10}(MS)$.
     (b)~Observed minus predicted, against $MS$. It is positive in every row and grows with $MS$. For $MS \le 10^{-2}$
     (shaded) the largest deviation is $4.8 \times 10^{-4}$.
     (c)~The median over $\theta$ of the same probability on the RX-product populations of section~\ref{sec:results-b3},
-    computed without cancellation, for $n = 12$--$24$ and $M = 16$--65,536. Error bars: 95\% percentile interval over 20
+    computed without cancellation, for $n = 12$--$24$ and $M = 16$--65\,536. Error bars: 95\% percentile interval over 20
     seeds. Dashed line: $(1 + 1/\sqrt{2})/2 = 0.8536$, the population median of the prediction. At $n = 20$ and the
-    shot counts of the single-population fits ($M = 64$, 1024 and 16,384) the median is 0.8527--0.8530.
+    shot counts of the single-population fits ($M = 64$, 1024 and 16\,384) the median is 0.8527--0.8530.
     The prediction is a limit for $MS \to 0$. Departures at large $MS$, visible at $n = 12$ for $M \ge 1024$, are
     expected and are not refitted. Panel (a) is exact (no sampling).}
   \label{fig:sign}
@@ -78,17 +78,17 @@
   \caption{Four fidelity-gradient estimators on the RX-product landscape: Loschmidt, ancilla SWAP, destructive
     SWAP (two copies, no ancilla) and a Hadamard-test U-statistic.
     (a)~Median $\log_{10}$ total circuit executions per gradient component for SNR $\ge 1$, on the single population of
-    100,000 $\theta$ per $n$, $n = 2$--$20$. Bands are interquartile ranges. The destructive and ancilla SWAP medians
+    100\,000 $\theta$ per $n$, $n = 2$--$20$. Bands are interquartile ranges. The destructive and ancilla SWAP medians
     agree to $2 \times 10^{-13}$.
     (b)~Each fitted slope minus its reference ($\log_{10} 4$ for Loschmidt and Hadamard, $\log_{10} 16$ for the SWAPs),
     in $10^{-3}$ decades per qubit, for $n = 2$--$20$ (filled) and $n \ge 8$ (open). Error bars are 95\% percentile
-    intervals over 10 replicate seeds of 25,000 $\theta$. Printed values are the $n = 2$--$20$ slopes.
+    intervals over 10 replicate seeds of 25\,000 $\theta$. Printed values are the $n = 2$--$20$ slopes.
     (c)~Ratio of median total executions: Hadamard to Loschmidt is 9.0 at $n = 2$ and 9.4--9.55 for $n \ge 4$;
     destructive to ancilla SWAP is 1.
     (d--f)~At $n = 14$ and a fixed budget of $T$ total executions: (d)~the median probability of an exactly zero
     estimate; (e)~the median probability of the correct sign given a nonzero estimate; (f)~the median probability of
     the correct sign. These are exact enumerations, except Hadamard at $T \ge 8192$, which is Monte Carlo with
-    20,000 repetitions.
+    20\,000 repetitions.
     Executions are counted per gradient component. Qubit number, circuit depth, ancillas and the number of state copies
     differ between readouts, so equal execution counts do not mean equal hardware cost. Noiseless simulation only.}
   \label{fig:estimators}
@@ -126,7 +126,7 @@
     $n = 2$--$20$, with the 95\% replicate interval). The vertical axis is a finite-shot failure statistic for the RX
     product at $n = 14$: (a)~the median probability of an exactly zero estimate; (b)~the median probability of the
     correct sign given a nonzero estimate. Markers are the values at $T = 2048$ total executions; the shaded bars
-    show the range over $T = 32$--32,768. Loschmidt combines the lower exponent with exact-zero estimates. Both SWAP
+    show the range over $T = 32$--32\,768. Loschmidt combines the lower exponent with exact-zero estimates. Both SWAP
     readouts combine the higher exponent with nonzero estimates whose sign is correct half the time. The Hadamard
     U-statistic combines the lower exponent with nonzero estimates whose sign is correct half the time.
     One landscape (RX product), one $n$ and the budget grid of figure~\ref{fig:estimators}; measured values only.}

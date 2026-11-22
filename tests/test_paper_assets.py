@@ -231,5 +231,6 @@ def test_manuscript_caption_numbers_come_from_the_reviewed_draft():
     tex = (ROOT / "paper" / "drafts" / "figures.tex").read_text(encoding="utf-8")
     live = "\n".join(l for l in tex.splitlines() if not l.lstrip().startswith("%"))
     draft = (ROOT / "paper" / "FIGURE_CAPTIONS_DRAFT.md").read_text(encoding="utf-8")
+    live = re.sub(r"(?<=\d)\\,(?=\d{3})", ",", live)                    # IOP thin-space separators count as grouped numbers
     missing = set(NUMBER.findall(live)) - set(NUMBER.findall(draft))
     assert not missing, f"caption numbers not in FIGURE_CAPTIONS_DRAFT.md: {sorted(missing)}"
