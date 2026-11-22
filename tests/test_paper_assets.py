@@ -211,7 +211,7 @@ def test_bib_uses_b5_reviewed_versions_and_flags_unresolved():
     assert esa["author"] == "Fang, Wang and Wang, Qisheng" and esa["doi"] == "10.4230/LIPIcs.ESA.2025.4" and esa["eprint"] == "2506.23650"
     assert esa["volume"] == "351" and esa["pages"] == "4:1--4:12" and entries["fang2025"]["type"] == "inproceedings"
     assert "## Unresolved metadata\n\nNone." in audit and "## Resolved citations" in audit and "wangfang2025" not in entries
-    assert re.search(r"\| entries in `references.bib` \| 24 \|", audit)
+    assert re.search(r"\| entries in `references.bib` \| 27 \|", audit)
 
 
 # manuscript figure environments -------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 % Results section draft: B1 to B4 subsections (Phase 8, Shravan's plan section 8 item 2).
-% Draft for Section 4 of the QST manuscript, written with AI assistance. Under Shravan's AI rule Dhruv checks every
-% number against its source before any of it goes into Overleaf. Satyabrat owns the structure of Section 4 and the Stage 6/7
+% Draft for Section 4 of the QST manuscript, written with AI assistance (Claude). Under Shravan's AI rule Dhruv checks
+% every number against its source; he signed off all of them on 22 November 2026. Satyabrat owns the structure of Section 4 and the Stage 6/7
 % subsections; Shravan owns framing. This file reports data only: no interpretation, prior-work comparison or
 % novelty wording. Every number is listed with its committed source in results_b1_b4_numbers.csv and checked by
 % tests/test_results_draft.py. Figure labels match paper/figures (fig1 to fig6). Notation follows the reports:
@@ -9,21 +9,21 @@
 \subsection{The shot-ratio identity and the slope rule on entangling circuits}
 \label{sec:results-b1}
 
-\emph{Claim tested: the identity $M_{\mathrm{SWAP}}/M_{\mathrm{LE}} = (2-Q)/(S-Q)$ holds per parameter setting on
-every circuit, and the exponent gap $b_{\mathrm{SWAP}} - b_{\mathrm{LE}}$ equals $b_S$ whenever $b_r \approx 0$.}
-
-We tested both statements on 17 cells (figure~\ref{fig:b1}): the RX-product benchmark ($n = 2$--$20$) and two
-entangling families, a hardware-efficient ring ansatz and an RX--RY brickwork with CZ gates, each at depth 2, 4 and
+The shot-ratio identity $M_{\mathrm{SWAP}}/M_{\mathrm{LE}} = (2-Q)/(S-Q)$ should hold for every parameter setting
+on every circuit, and the exponent gap $b_{\mathrm{SWAP}} - b_{\mathrm{LE}}$ should equal $b_S$ whenever
+$b_r \approx 0$. We tested both statements on 17 cells (figure~\ref{fig:b1}): the RX-product benchmark ($n = 2$--$20$) and two
+entangling families, a hardware-efficient ring ansatz~\cite{kandala2017} and an RX--RY brickwork with CZ gates, each at depth 2, 4 and
 $n$, with the differentiated parameter in the early, middle or late layer ($n = 4$--$16$, or $4$--$14$ at depth $n$).
-Each cell uses 10 seeds of 4,000 parameter settings per $n$; intervals are bootstrap 95\% CIs of the 10-seed mean.
+Each cell uses 10 seeds of 4000 parameter settings per $n$; intervals are bootstrap 95\% CIs of the 10-seed mean.
 
 \paragraph{Identity.} The identity held in all 6,740,000 per-setting rows, with maximum relative error
 $8.3\times10^{-15}$ on the entangling circuits and $1.75\times10^{-11}$ on the RX product. No row was excluded.
 
-\paragraph{Fidelity and relative-gradient slopes.} $b_S$ depends on family and depth but not on the parameter
+\paragraph{Fidelity and relative-gradient slopes.} $b_S$, the decay rate of a global fidelity cost~\cite{cerezo2021},
+depends on family and depth but not on the parameter
 position (positions agree to about 0.001): 0.376, 0.319 and 0.303 for the ring ansatz at depth 2, 4 and $n$, and
 0.382, 0.340 and 0.305 for the brickwork, against 0.601 for the RX product. The relative gradient does not
-concentrate: $|b_r| \le 0.0029$ and $|b_r|/b_S \le 0.0096$ in all 16 entangling cells. Six $b_r$ intervals exclude
+concentrate exponentially in $n$~\cite{mcclean2018,larocca2025}: $|b_r| \le 0.0029$ and $|b_r|/b_S \le 0.0096$ in all 16 entangling cells. Six $b_r$ intervals exclude
 zero; the largest is the brickwork depth-$n$ middle cell, $-0.0029$ $[-0.0036, -0.0023]$, a slight growth of $|r|$
 with $n$.
 
@@ -46,13 +46,15 @@ $n \le 16$. Each entangling-cell fit uses 6 or 7 values of $n$.
 \subsection{Seed-to-seed uncertainty of the RX-product exponents}
 \label{sec:results-b3}
 
-\emph{Claim tested: the Stage~7 exponents are stable across independent parameter populations.}
-
-We regenerated the RX-product benchmark with 20 independent seeds of 25,000 parameter settings ($n = 2$--$20$) and
+The RX-product shot exponents, 0.6059 for Loschmidt and 1.2025 for SWAP at SNR $\ge 1$, come from a single population
+of 100,000 parameter settings per $n$. To see how much they depend on that draw, we regenerated the benchmark with 20
+independent seeds of 25,000 parameter settings ($n = 2$--$20$) and
 report the seed mean with its 95\% percentile interval over seeds (figure~\ref{fig:landscape}(c)). For SNR $\ge 1$ the
 Loschmidt slope is 0.6053 $[0.6034, 0.6070]$ (seed SD 0.0010) and the SWAP slope is 1.2014 $[1.1985, 1.2050]$
-(seed SD 0.0019); every seed has $R^2 \ge 0.9998$. The Stage~7 values, 0.6059 and 1.2025, lie inside these
-intervals, as do all ten fitted Stage~7 targets. Extending the fits to $n = 2$--$24$ gives slopes of
+(seed SD 0.0019); every seed has $R^2 \ge 0.9998$. The single-population values lie inside these intervals, as do
+those of all ten fitted targets. They are not at the centre of the spread: nine of the ten lie just
+above the 95\% CI of the 20-seed mean, and the tenth (the SWAP nonzero-probability target) is the same in every seed
+by construction. Extending the fits to $n = 2$--$24$ gives slopes of
 0.6002--0.6051 (Loschmidt) and 1.1985--1.2022 (SWAP) across the fitted targets.
 
 The paired gap $b_{\mathrm{SWAP}} - b_{\mathrm{LE}}$ is 0.5961 (seed-mean CI $[0.5956, 0.5966]$) over $n = 2$--$20$,
@@ -62,9 +64,7 @@ contains $\log_{10}4$, while the CI of the 20-seed mean, $[0.5998, 0.6017]$, lie
 \subsection{Conditional sign accuracy of the Loschmidt gradient}
 \label{sec:results-sign}
 
-\emph{Claim tested: a nonzero Loschmidt gradient estimate has the correct sign with probability $(1+|r|)/2$ when
-$MS \ll 1$.}
-
+For $MS \ll 1$ a nonzero Loschmidt gradient estimate should have the correct sign with probability $(1+|r|)/2$.
 On the entangling circuits (16 cells at $n = 12$, five quantiles of $S$, $M = 1$ to 65,536; 720 exact evaluations,
 nothing fitted) the deviation from $(1+|r|)/2$ is positive in every row and grows with $MS$
 (figure~\ref{fig:sign}(a,b)). Its maximum is $9\times10^{-5}$ for $MS \le 10^{-3}$, $4.8\times10^{-4}$ for
@@ -80,12 +80,11 @@ observed median is 0.868.
 \subsection{Four estimators: shot exponent and fixed-budget failure}
 \label{sec:results-b2}
 
-\emph{Claim tested: the shot exponent of an estimator, and the way it fails at a fixed budget, can be measured
-separately.}
+The shot exponent of an estimator and the way it fails at a fixed budget are two separate measurements, and we
+report both.
 % Whether this is a headline claim (Main 3) depends on P2/P4; the data below stand either way.
-
 We compared four unbiased estimators of the same fidelity gradient on the RX-product benchmark: Loschmidt, ancilla
-SWAP, destructive SWAP (two copies, no ancilla) and a Hadamard-test U-statistic. Cost is counted in total circuit
+SWAP~\cite{buhrman2001}, destructive SWAP (two copies, no ancilla)~\cite{garciaescartin2013} and a Hadamard-test U-statistic. Cost is counted in total circuit
 executions per gradient component ($2M$ for the first three, $4M$ for Hadamard).
 
 \paragraph{Exponents.} For SNR $\ge 1$ over $n = 2$--$20$ (figure~\ref{fig:estimators}(a,b); 10 replicate seeds,
@@ -106,16 +105,15 @@ places each estimator by its exponent and its failure statistic at $T = 2048$.
 component; qubit count, depth, ancillas and state copies differ between readouts, so equal executions do not mean
 equal hardware cost. All of it is noiseless simulation.
 
-\subsection{Depolarizing noise}
+\subsection{Depolarising noise}
 \label{sec:results-b4}
 
-\emph{Claims tested: the identity and the slope rule hold for noisy trial states; whether the exponent doubles under
-noise.}
+Here we ask whether the identity and the slope rule survive noisy trial states, and whether the exponent still
+doubles.
 % Whether "the noise model decides doubling" is a headline claim (Main 4) depends on P2.
-
-Global depolarizing noise after each of $L$ layers maps $F \to qF + (1-q)/2^n$ with $q = (1-p)^L$; local single-qubit
-depolarizing noise keeps the RX product a product state. Both overlays were checked against density-matrix simulation
-(maximum error $6.7\times10^{-16}$ global, $5.1\times10^{-14}$ local) and reuse the B1 populations
+Global depolarising noise after each of $L$ layers maps $F \to qF + (1-q)/2^n$ with $q = (1-p)^L$; local single-qubit
+depolarising noise, a case of the local Pauli noise of ref.~\cite{wang2021}, keeps the RX product a product state. Both overlays were checked against density-matrix simulation
+(maximum error $6.7\times10^{-16}$ global, $5.1\times10^{-14}$ local) and reuse the populations of section~\ref{sec:results-b1}
 (figure~\ref{fig:noise}).
 
 \paragraph{Identity and slope rule.} The identity held on all 41.2 million noisy rows (maximum relative error
@@ -138,5 +136,5 @@ across the 16 cells, with $b_r$ between 0.012 and 0.053. In the depth-$n$ cells 
 prediction (ring ansatz, early parameter: 0.051 against 0.048). The fixed-depth cells are mostly pre-asymptotic: the
 crossover falls inside $n \le 16$ only at $p = 10^{-1}$.
 
-\paragraph{Limits.} We simulated depolarizing channels only, with an ideal SWAP target copy. We did not test local
+\paragraph{Limits.} We simulated depolarising channels only, with an ideal SWAP target copy. We did not test local
 noise on entangling circuits, other channels or hardware.

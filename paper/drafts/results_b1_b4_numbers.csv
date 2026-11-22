@@ -1,5 +1,4 @@
 token,kind,source,locator,what
-"4,000",text,paper/FIGURE_CAPTIONS_DRAFT.md,"10 seeds of 4,000 θ per n",B1 settings per n per seed
 "6,740,000",text,docs/b1/B1_ENTANGLING_SWEEPS.md,"holds in all 6,740,000 per-θ rows",B1 identity rows
 8.3,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| entangling | 8.3e-15 |,B1 identity max rel err (entangling)
 1.75,text,docs/b1/B1_ENTANGLING_SWEEPS.md,| RX product | 1.75e-11 |,B1 identity max rel err (RX)
@@ -36,6 +35,7 @@ token,kind,source,locator,what
 5.7,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"These are about 5.7, 4.4 and 4.0 per qubit for HEA",SWAP bases ring ansatz
 4.4,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"These are about 5.7, 4.4 and 4.0 per qubit for HEA",SWAP bases ring ansatz
 4.0,text,docs/b1/B1_ENTANGLING_SWEEPS.md,"These are about 5.7, 4.4 and 4.0 per qubit for HEA",SWAP bases ring ansatz
+"100,000",text,docs/b3/B3_STATISTICAL_HARDENING.md,"The regenerated Stage 7 population (seed 0): 100,000 θ per n",Stage 7 single population size per n
 "25,000",text,docs/b1/B1_ENTANGLING_SWEEPS.md,"25,000 θ per (seed, n), the B3 per-seed size",B3 settings per seed
 0.6053,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 0.6053 | 0.0010 | [0.6034, 0.6070]",B3 LE slope seed mean
 0.6034,text,docs/b3/B3_STATISTICAL_HARDENING.md,"| SNR ≥ 1 | 0.6053 | 0.0010 | [0.6034, 0.6070]",B3 LE seed pct lo

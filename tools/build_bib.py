@@ -8,7 +8,8 @@ Field sources, in order of precedence:
     Crossref record of the same DOI when the author lists agree.
   * Other papers: paper/bib_verification.json (Crossref for DOIs, arXiv API for arXiv-only papers).
   * A paper/bib_sources.json "supplement" only fills or expands fields: each value must occur verbatim in the arXiv
-    journal_ref, or contain the metadata record's own value (an abbreviation expanded to its full name).
+    journal_ref, contain the metadata record's own value (an abbreviation expanded to its full name), or differ from it
+    in letter case only (an acronym the metadata record lowercased).
 Every disagreement between B5 and Crossref, and every reviewed-version / cited-version difference, is written to the
 audit instead of being overwritten.
 """
@@ -166,7 +167,8 @@ def build() -> tuple[list[dict], list[dict]]:
                 if k == "source":
                     continue
                 rec = f.get(k)
-                assert v in jr or (rec and str(rec) in v), f"{key}: supplement {k}={v!r} is neither in the journal_ref nor an expansion of {rec!r}"
+                assert v in jr or (rec and (str(rec) in v or str(rec).lower() == v.lower())), \
+                    f"{key}: supplement {k}={v!r} is neither in the journal_ref, an expansion of {rec!r}, nor a change of case only"
                 f[k] = [_person(v)] if k == "editor" else v
         if doi and not doi_is_arxiv:
             f["doi"] = doi
