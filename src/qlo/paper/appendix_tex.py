@@ -72,6 +72,14 @@ def _group(m: re.Match) -> str:
     return f"{int(m.group()):,}".replace(",", "\u2009")                # IOP style: thin space every three digits
 
 
+_COMMA = re.compile(r"(?<![\d.,])\d{1,3}(?:,\d{3})+(?![\d,])")         # numbers already grouped with commas in a source
+
+
+def _regroup(m: re.Match) -> str:
+    digits = m.group().replace(",", "")
+    return digits if len(digits) <= 4 else f"{int(digits):,}".replace(",", "\u2009")
+
+
 def tex(s: str) -> str:
     """Plain-text cell -> ASCII LaTeX. |0^n⟩, θ_j and ⊗_j become math; integers of five or more digits get thin-space
     thousands separators (IOP style) unless they belong to a range (seed ranges such as 11000–11009 stay as written); '/' and '_' get break
@@ -81,7 +89,7 @@ def tex(s: str) -> str:
         if part in _MATH:
             out.append(_MATH[part])
             continue
-        part = _BIG.sub(_group, part)
+        part = _COMMA.sub(_regroup, _BIG.sub(_group, part))
         for ch in part:
             if ch in _SPECIAL:
                 out.append(_SPECIAL[ch] + (r"\allowbreak{}" if ch == "_" else ""))
