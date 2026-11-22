@@ -23,6 +23,7 @@ def _ledger() -> list[dict]:
 def _draft_numbers() -> set[str]:
     text = "\n".join(l for l in DRAFT.read_text(encoding="utf-8").splitlines() if not l.lstrip().startswith("%"))
     text = re.sub(r"\\(?:label|ref)\{[^}]*\}", "", text)
+    text = re.sub(r"(?<=\d)\\,(?=\d{3})", ",", text)                     # IOP thin-space separators: 25\,000 -> 25,000
     return set(NUMBER.findall(text))
 
 

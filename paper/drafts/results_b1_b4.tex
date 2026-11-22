@@ -14,9 +14,9 @@ on every circuit, and the exponent gap $b_{\mathrm{SWAP}} - b_{\mathrm{LE}}$ sho
 $b_r \approx 0$. We tested both statements on 17 cells (figure~\ref{fig:b1}): the RX-product benchmark ($n = 2$--$20$) and two
 entangling families, a hardware-efficient ring ansatz~\cite{kandala2017} and an RX--RY brickwork with CZ gates, each at depth 2, 4 and
 $n$, with the differentiated parameter in the early, middle or late layer ($n = 4$--$16$, or $4$--$14$ at depth $n$).
-Each cell uses 10 seeds of 4000 parameter settings per $n$; intervals are bootstrap 95\% CIs of the 10-seed mean.
+Each cell uses 10 seeds of 4000 parameter settings per $n$; intervals are bootstrap 95\% confidence intervals (CIs) of the 10-seed mean.
 
-\paragraph{Identity.} The identity held in all 6,740,000 per-setting rows, with maximum relative error
+\paragraph{Identity.} The identity held in all 6\,740\,000 per-setting rows, with maximum relative error
 $8.3\times10^{-15}$ on the entangling circuits and $1.75\times10^{-11}$ on the RX product. No row was excluded.
 
 \paragraph{Fidelity and relative-gradient slopes.} $b_S$, the decay rate of a global fidelity cost~\cite{cerezo2021},
@@ -47,10 +47,10 @@ $n \le 16$. Each entangling-cell fit uses 6 or 7 values of $n$.
 \label{sec:results-b3}
 
 The RX-product shot exponents, 0.6059 for Loschmidt and 1.2025 for SWAP at SNR $\ge 1$, come from a single population
-of 100,000 parameter settings per $n$. To see how much they depend on that draw, we regenerated the benchmark with 20
-independent seeds of 25,000 parameter settings ($n = 2$--$20$) and
+of 100\,000 parameter settings per $n$. To see how much they depend on that draw, we regenerated the benchmark with 20
+independent seeds of 25\,000 parameter settings ($n = 2$--$20$) and
 report the seed mean with its 95\% percentile interval over seeds (figure~\ref{fig:landscape}(c)). For SNR $\ge 1$ the
-Loschmidt slope is 0.6053 $[0.6034, 0.6070]$ (seed SD 0.0010) and the SWAP slope is 1.2014 $[1.1985, 1.2050]$
+Loschmidt slope is 0.6053 $[0.6034, 0.6070]$ (seed standard deviation, SD, 0.0010) and the SWAP slope is 1.2014 $[1.1985, 1.2050]$
 (seed SD 0.0019); every seed has $R^2 \ge 0.9998$. The single-population values lie inside these intervals, as do
 those of all ten fitted targets. They are not at the centre of the spread: nine of the ten lie just
 above the 95\% CI of the 20-seed mean, and the tenth (the SWAP nonzero-probability target) is the same in every seed
@@ -65,15 +65,15 @@ contains $\log_{10}4$, while the CI of the 20-seed mean, $[0.5998, 0.6017]$, lie
 \label{sec:results-sign}
 
 For $MS \ll 1$ a nonzero Loschmidt gradient estimate should have the correct sign with probability $(1+|r|)/2$.
-On the entangling circuits (16 cells at $n = 12$, five quantiles of $S$, $M = 1$ to 65,536; 720 exact evaluations,
+On the entangling circuits (16 cells at $n = 12$, five quantiles of $S$, $M = 1$ to 65\,536; 720 exact evaluations,
 nothing fitted) the deviation from $(1+|r|)/2$ is positive in every row and grows with $MS$
 (figure~\ref{fig:sign}(a,b)). Its maximum is $9\times10^{-5}$ for $MS \le 10^{-3}$, $4.8\times10^{-4}$ for
 $MS \le 10^{-2}$, $4.5\times10^{-3}$ for $MS \le 0.1$ and 0.045 for $MS \le 1$; above $MS = 1$ it reaches 0.33.
 
 On the RX product the predicted population median is $(1+1/\sqrt2)/2 = 0.8536$. With cancellation-free
-probabilities, the observed median at $n = 20$ is 0.8527--0.8530 for $M$ up to 16,384 (figure~\ref{fig:sign}(c)).
+probabilities, the observed median at $n = 20$ is 0.8527--0.8530 for $M$ up to 16\,384 (figure~\ref{fig:sign}(c)).
 At $n = 20$, $M = 1024$ the seed mean is 0.8547 with seed percentile interval $[0.8494, 0.8592]$; the reference
-median, 0.85267, equals the median of $(1+|r|)/2$ over the same 20,000 settings to five digits. Where $MS$ is not
+median, 0.85267, equals the median of $(1+|r|)/2$ over the same 20\,000 settings to five digits. Where $MS$ is not
 small the observation departs from the prediction, as expected for a small-$MS$ statement: at $n = 12$, $M = 4096$ the
 observed median is 0.868.
 
@@ -94,7 +94,7 @@ agree to $2\times10^{-13}$ in their medians. Hadamard needs 9.0 times the execut
 9.4--9.55 times for $n \ge 4$ (figure~\ref{fig:estimators}(c)). An entangling spot check (ring ansatz, depth $n$,
 $n = 6$--$12$) gives the same grouping: 0.302 for Loschmidt and Hadamard, 0.604 for SWAP.
 
-\paragraph{Fixed budgets.} At $n = 14$ and $T = 32$ to 32,768 total executions (figure~\ref{fig:estimators}(d--f)),
+\paragraph{Fixed budgets.} At $n = 14$ and $T = 32$ to 32\,768 total executions (figure~\ref{fig:estimators}(d--f)),
 Loschmidt returns an exactly zero estimate with median probability at least 0.9996, and when it is nonzero its sign is
 correct with median probability 0.856--0.866. Both SWAP readouts rarely return zero (0.140 falling to 0.0044) but
 their nonzero estimates have the correct sign with probability 0.500. Hadamard also rarely returns zero (0.158 falling
