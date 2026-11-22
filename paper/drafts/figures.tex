@@ -43,8 +43,8 @@
     (c)~The median over $\theta$ of the same probability on the RX-product populations of section~\ref{sec:results-b3},
     computed without cancellation, for $n = 12$--$24$ and $M = 16$--65,536. Error bars: 95\% percentile interval over 20
     seeds. Dashed line: $(1 + 1/\sqrt{2})/2 = 0.8536$, the population median of the prediction. At $n = 20$ and the
-    shot counts of the single-population fits ($M = 64$, 1,024 and 16,384) the median is 0.8527--0.8530.
-    The prediction is a limit for $MS \to 0$. Departures at large $MS$, visible at $n = 12$ for $M \ge 1{,}024$, are
+    shot counts of the single-population fits ($M = 64$, 1024 and 16,384) the median is 0.8527--0.8530.
+    The prediction is a limit for $MS \to 0$. Departures at large $MS$, visible at $n = 12$ for $M \ge 1024$, are
     expected and are not refitted. Panel (a) is exact (no sampling).}
   \label{fig:sign}
 \end{figure}
@@ -56,7 +56,7 @@
     cells: the RX-product regression arm ($n = 2$--$20$); a hardware-efficient ring ansatz (RY, RZ, CNOT ring); and an
     RX-RY CZ brickwork ansatz. The two entangling ansätze are run at depth 2, depth 4 and depth $n$, with the
     differentiated parameter in the early, middle or late layer, on $n = 4$--16 (depth 2 and 4) or $n = 4$--14
-    (depth $n$). Each cell uses 10 seeds of 4,000 $\theta$ per $n$. Marker shape and colour give the family; marker fill
+    (depth $n$). Each cell uses 10 seeds of 4000 $\theta$ per $n$. Marker shape and colour give the family; marker fill
     gives the depth (hollow: 2, half: 4, filled: $n$). Error bars are bootstrap 95\% CIs of the 10-seed mean.
     (a)~The measured gap $b_{\rm SWAP} - b_{\rm LE}$ against $b_S$, the slope of the shifted-fidelity sum; the line is
     equality.
@@ -87,7 +87,7 @@
     destructive to ancilla SWAP is 1.
     (d--f)~At $n = 14$ and a fixed budget of $T$ total executions: (d)~the median probability of an exactly zero
     estimate; (e)~the median probability of the correct sign given a nonzero estimate; (f)~the median probability of
-    the correct sign. These are exact enumerations, except Hadamard at $T \ge 8{,}192$, which is Monte Carlo with
+    the correct sign. These are exact enumerations, except Hadamard at $T \ge 8192$, which is Monte Carlo with
     20,000 repetitions.
     Executions are counted per gradient component. Qubit number, circuit depth, ancillas and the number of state copies
     differ between readouts, so equal execution counts do not mean equal hardware cost. Noiseless simulation only.}
@@ -125,7 +125,7 @@
     figure~\ref{fig:estimators}, the horizontal axis is the fitted shot-cost exponent (median total executions,
     $n = 2$--$20$, with the 95\% replicate interval). The vertical axis is a finite-shot failure statistic for the RX
     product at $n = 14$: (a)~the median probability of an exactly zero estimate; (b)~the median probability of the
-    correct sign given a nonzero estimate. Markers are the values at $T = 2{,}048$ total executions; the shaded bars
+    correct sign given a nonzero estimate. Markers are the values at $T = 2048$ total executions; the shaded bars
     show the range over $T = 32$--32,768. Loschmidt combines the lower exponent with exact-zero estimates. Both SWAP
     readouts combine the higher exponent with nonzero estimates whose sign is correct half the time. The Hadamard
     U-statistic combines the lower exponent with nonzero estimates whose sign is correct half the time.
