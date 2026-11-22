@@ -1,7 +1,7 @@
 {
   "entrypoint": "python -m qlo.paper.figures",
-  "git_commit": "b300e69c0928c83752f50a04c34cdd10184c59c3",
-  "generated_utc": "2026-11-12T02:08:09Z",
+  "git_commit": "6961c7639f6df385fa40a893877bf92e8d2e76c4",
+  "generated_utc": "2026-11-22T17:21:56Z",
   "figures": [
     {
       "name": "fig1_same_landscape",
@@ -75,11 +75,11 @@
       "files": [
         {
           "filename": "fig3_b1_scaling_rule.pdf",
-          "sha256": "2952b96d27358526400448f2b561f8537d005a6c8d95faa8aaaf1e380ccead32"
+          "sha256": "37c466f4674de49562805510bcc6f92b3028cefa288a782b78fcf975b0f3a7a8"
         },
         {
           "filename": "png/fig3_b1_scaling_rule.png",
-          "sha256": "c5fad702ce22f24d95c743c0a09e2a733f6aa9cf8d8bca22a2b0f07d801cc298"
+          "sha256": "276179997670831626d1c3e59db4ad5dc3f68484bd88d7d33f5eaa89bc23ab6a"
         }
       ],
       "panels": [
@@ -137,11 +137,11 @@
       "files": [
         {
           "filename": "fig5_noise.pdf",
-          "sha256": "4a182ad237399063aecdb3e5b981d10ae0fe44fcc53ebd7e5d376a58e08eca0c"
+          "sha256": "43c7369ddedb1181f7bd34e85cb4bb46df4fa7bdbf7a1407ed6430a3bc1269b5"
         },
         {
           "filename": "png/fig5_noise.png",
-          "sha256": "9d2c6c93197f10a13e733ad68dd1430d4ecd3ae79d928d59b43677bcfcc9dd3d"
+          "sha256": "2b099f04eb4d16c1c7303b2886c28589e160b8bf745b932c2eb4422cb69a00a5"
         }
       ],
       "panels": [
